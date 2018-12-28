@@ -1,0 +1,298 @@
+<!-- Copyright (c) 2008, 2011, Oracle and/or its affiliates. All rights reserved.  -->
+<!-- translated by LeeDongGuk (fromm0@gmail.com, http://ldg.pe.kr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>VisualVM &mdash; 한국어 미러사이트</title>
+    <link href="http://asset-2.java.net/stylesheets/base_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <style>
+      #bg {
+        background-color: inherit;
+      }
+      #container {
+        width: inherit;
+      }
+      #sideColumn {
+        background-color: inherit;
+        width: 15em;
+      }
+      #main {
+        width: inherit;
+        float: none;
+        margin: 0;
+      }
+      #main .content {
+        width: inherit;
+        float: none;
+      }
+
+      .content .website table tr th, .content .website table tr td {
+        padding: 1px 2px;
+      }
+    </style>
+    <!--[if IE 7]>
+    <link href="http://asset-1.java.net/stylesheets/ie7_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <!--[if IE 6]>
+    <link href="http://asset-0.java.net/stylesheets/iex60.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <link href="http://asset-0.java.net/stylesheets/print_packaged.css?20130208.5d7f765" media="print" rel="stylesheet" type="text/css" />
+    <script src="http://asset-2.java.net/javascripts/head_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+                publisher:'bcd30425-1749-43d6-a311-18a82f89771a',
+        });
+    </script>
+        <script type="text/javascript">
+//<![CDATA[
+var page={"token":"u+JuugcacCb1e+KBCTnxmWo5tC5kCgWcDXTCYrajUMU="};
+//]]>
+</script>
+    <script type="text/javascript" charset="utf-8">
+      function debug(m){}
+    </script>
+    <link rel="icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+
+<script type="text/javascript">
+  if ("/projects/visualvm/content/" == window.location.pathname) {
+      window.location = "http://visualvm.java.net/index.html"
+  } else {
+      // Determine if the pathname starts with /projects/visualvm/content/
+      var index = window.location.pathname.indexOf("/projects/visualvm/content/");
+      if (index == 0) {
+          var segement = window.location.pathname.substring(27);
+          window.location = "http://visualvm.java.net/"+ segement;
+      }
+  }
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/theme/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/css/visualvm.css" />
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script src="http://visualvm.java.net/js/jquery.cookies.2.2.0.min.js" type="text/javascript"></script>
+<script src="http://visualvm.java.net/js/jnlogin.js" type="text/javascript"></script>
+    
+    
+  
+  </head>
+  <body id="bg">
+    <div align="center">
+      <div id="container">
+        
+      
+<div id="logobar">
+  <div id="visualvm_logo"><a href="http://openframework.or.kr/framework_reference/visualvm/ko_KR/docindex.html">VisualVM 한국어 문서 사이트</a></div>
+  <div id="logobar_clear"></div>
+</div>
+
+
+        <div id="main">
+          <div id="printSideColumn">
+            <div id="sideColumn">
+              
+            </div>
+            <div id="rightSideColumn">
+              
+            </div>
+          </div>
+          <div id="pageContent" class="content">
+            <!--BEGIN CONTENT AREA-->
+
+
+
+
+
+
+
+<div class="contentPadding website">
+<h1>MBeans 탭</h1>
+<hr />
+<p>선택가능한 VisualVM플러그인 중에 JMX의 모니터링및 관리 기능을 추가하는 플러그인이 존재한다. 
+이 플러그인은 자바가상머신에 존재하는 모든 JMX MBean에 연결하는 <em>MBeans</em> <em>탭</em>이다.
+이 페이지는 JMX기술과 MBean에 대해 간단히 소개하고 VisualVM MBean 탭 자체에 대해서도 소개한다. </p>
+<h2>JMX 기술과 MBeans </h2>
+<p>JMX기술은 자바의 표준을 이루는 일부분이다. JMX는 애플리케이션이나 장치 그리고 서비스와 같은 자원을 관리하는 간단하고 표준적인 방법을 제공한다. 
+JMX기술은 동적이기 때문에, 이러한 자원들이 생성되거나 설치및 구현되는 시점에 자원을 모니터링하고 관리할 수 있다. 
+추가로 자바가 제공하는 측정법(instrumentation)은 JVM소프트웨어를 모니터링하고 관리하기 위해 JMX기술을 사용하도록 한다. </p>
+<p>JMX기술을 사용하는 것은 해당 자원을 <em>관리빈</em>, 이나 <em>MBeans</em>으로 알려진 한개 이상의 자바 객체에 의해 측정한다. 이러한 MBean은 <em>MBean 서버</em>로 알려진 핵심적인 객체 서버에 등록된다. 
+MBean서버는 관리에이전트처럼 동작하고 자바 프로그래밍 언어가 가능한 대부분의 장치에서 동작한다.</p>
+<h3>플랫폼 MBeans</h3>
+<p><em>플랫폼 MBeans</em> JVM소프트웨어와 자바 런타임 환경인 JRE의 다른 컴포넌트를 모니터링하고 관리하기 위해 자바가 제공하는 MBean의 묶음이다.
+각각의 플랫폼 MBean은 클래스로딩 시스템, JIT 컴파일 시스템, 가비지 컬렉터 등등 JVM소프트웨어의 기능을 캡슐화한다.  
+이러한 MBean들은 다른 가상머신 기능을 모니터링하고 관리하도록 JMX스펙을 따르는 모니터링및 관리 툴을 사용하여 표기되거나 상호작용할 수 있다.
+이러한 모니터링및 관리툴중 하나가 VisualVM이다. </p>
+<p>자바 SE는 플랫폼 MBean이 등록된 표준 <em>플랫폼 MBean 서버</em>를 제공한다. 
+플랫폼 MBean서버는 생성하고자 하는 또다른 MBean을 등록할 수도 있다. </p>
+<h3>JMX기술에 대한 더 많은 정보 </h3>
+<p>JMX기술과 자바 SE의 모니터링및 관리에 대해 좀더 알고자 한다면, 다음 문서를 참고하자. </p>
+<ul>
+  <li><a href="http://java.sun.com/docs/books/tutorial/jmx/index.html">자바 튜토리얼의 JMX 기술 부분</a></li>
+  <li><a target="_blank" href="http://java.sun.com/javase/6/docs/technotes/guides/jmx/index.html">자바 SE를 위한 JMX 기술문서</a></li>
+  <li><a target="_blank" href="http://java.sun.com/javase/6/docs/technotes/guides/management/">자바 SE를 위한 모니터링및 관리 문서</a></li>
+</ul>
+<h2>MBean탭 플러그인 추가</h2>
+<p>VisualVM을 사용해서 실행중인 JVM소프트웨어 인스턴스의 MBean에 접근하기 위해, MBean탭 플러그인을 설치할 필요가 있다. 
+플러그인을 설치하기 위해서는 다음의 과정을 거쳐야 한다. </p>
+<ol>
+  <li>VisualVM의 메인메뉴에서 Tools아래 Plugins를 선택한다. 그러면 다음의 창을 볼수 있을것이다.  
+  <p>  <img src="../images/docs/plugin-window.png" alt="VisualVM 플러그인 설치창" width="840" height="556" /></li>
+  <li>'VisualVM-MBeans'을 체크하고 'Install'을 클릭한다. </li>
+  <li>나머지는 화면에 나오는데로 그대로 따라가면 된다. </li>
+</ol>
+<p>실행중인 자바 애플리케이션을 표시하려면, 마우스 우측 버튼을 클릭하고 'Open'을 선택한다. 그러면 VisualVM의 우측창에서 MBean탭을 볼수 있다.
+VisualVM이 실행중인 애플리케이션을 모니터링하고 있다면, MBean탭이 순서대로 보이도록 하기 위해, VisualVM의 오른쪽 패널에서 모니터링중인 애플리케이션을 닫을 필요가 있다. 
+그리고 애플리케이션에서 마우스 우측 버튼을 클릭해서 모니터링을 재시작하고 'Open'을 다시 선택한다. </p>
+<p><img src="../images/docs/vvm-mbeans-tab.png" alt="VisualVM의 MBeans탭" width="902" height="592" /></p>
+<h2>VisualVM에서 MBean표시</h2>
+<p>MBean탭은 플랫폼 MBean서버에 등록된 모든 MBean에 대한 정보를 보여준다. 
+MBean탭은 플랫폼 MBean 측정법(instrumentation)의 모든 기능에 접속이 가능하다. 
+추가로 MBean탭을 사용해서 사용자가 직접 생성한 애플리케이션의 MBean을 모니터링하고 관리할 수도 있다. </p>
+<img src="../images/docs/mbeans-tab.png" alt="JConsole MBeans 탭"/>
+<p>왼쪽에 보이는 트리는 현재 실행중인 MBean을 모두 보여준다. 
+트리에서 특정 MBean을 선택하면 위의 그림처럼 MBean의 속성이나 작업(operations), 알림 그리고 메타데이터를 보여주기 위해 오른쪽에 탭이 나타난다.
+이러한 탭들은 이어서 좀더 세세하게 다룰것이다. </p>
+<p>모든 플랫폼 MBean과 각각의 다양한 속성, 작업, 알림및 메타데이터는 MBean탭을 통해 접근이 가능하다. 
+위 그림은 <a href="http://java.sun.com/javase/6/docs/api/java/lang/management/MemoryMXBean.html">메모리(Memory)</a> 플랫폼 MBean의 속성을 보여준다. </p>
+
+<h3>MBean 트리 구성</h3>
+<p>기본적으로, MBean은 각자의 객체명에 기초하여 트리내 표기된다. 
+객체명이 생성되는 시점에 명시되는 키 프로퍼티의 순서는 MBean이 MBean트리에 추가될때 MBean탭에 의해 보존된다.
+The exact key property list that the MBeans tab will use to build the MBean  tree will be the one returned by the method <span class="style1">ObjectName.getKeyPropertyListString()</span>, with <span class="style1">type</span> as the  first key, and <span class="style1">j2eeType</span>, if present, as the second key.</p>
+<p>However, relying on the default order of the <span class="style1">ObjectName</span> key properties can sometimes  lead to unexpected behavior when the MBeans tab renders the MBean tree. 
+For example, if  two object names have similar keys but their key order differs, then the  corresponding MBeans will not be created under the same node in the MBean  tree.</p>
+<p>For example, suppose you create Triangle MBean objects with the following names.</p>
+<pre>com.sun.example:type=Triangle,side=isosceles,name=1  
+com.sun.example:type=Triangle,name=2,side=isosceles  
+com.sun.example:type=Triangle,side=isosceles,name=3</pre>
+<p>As far as the JMX technology is concerned, these objects will be  treated in exactly the same way. The order of the keys in the  object name makes no difference to the JMX technology. However, if VisualVM connects  to these MBeans and the default MBean tree rendering is used, then the  object <span class="style1">com.sun.example:type=Triangle,name=2,side=isosceles</span> will end up being created under the <span class="style1">Triangle</span> node, in a  node called <span class="style1">2</span>, which in turn will contain a sub-node called <span class="style1">isosceles</span>. The  other two <span class="style1">isosceles</span> triangles, <span class="style1">name=1</span> and <span class="style1">name=3</span>, will be grouped together under  <span class="style1">Triangle</span> in a different node called <span class="style1">isosceles</span>, as shown below.</p>
+<img src="../images/docs/mbean-tree1.png" alt="Example of Unexpected MBean Tree Rendering" height="240" width="194" />
+<p>To avoid this problem, you can specify the order in which the  MBeans are displayed in the tree by supplying an ordered key property list. You can set the ordered key property list by selecting VisualVM's Tools | Options menu, and clicking on the MBeans button, as shown below.</p>
+<p><img src="../images/docs/mbeans-options.png" alt="MBeans options menu"/></p>
+<p>The key property list system property takes a comma-separated list of keys, in  the order of your choosing, where each key must be a string representing an  object name key or an empty string. If a key specified in the  list does not apply to a particular MBean, then that key will  be discarded. If an MBean has more keys than the ones specified in  the key property list, then the key order defined by the value returned  by <span class="style1">ObjectName.getKeyPropertyListString()</span> will be used to complete the key order you define in the Ordered Key Property List field. Therefore, specifying an empty list of keys simply means that VisualVM will  display keys in the order they appear in the MBean's <span class="style1">ObjectName</span>.</p>
+<p>So, returning to the example of the Triangle MBeans cited above, you could chose to configure VisualVM so that all  your MBeans will be grouped according to their <span class="style1">side</span> key property first, and  their <span class="style1">name</span> key property second. To do this, you would add the following in the Ordered Key Property List field in the MBeans tab of the Tools | Options menu: </p>
+<p><img src="../images/docs/key-prop-list.png" alt="Setting the Key Property List" width="538" height="79" /></p>
+<p>If you restart the application, the MBeans will now show up in VisualVM's MBeans tree as shown in the following figure. </p>
+<p><img src="../images/docs/mbean-tree2.png" alt="Example of MBean Tree Constructed Using keyPropertyList" height="239" width="194" />
+
+<p>As you can see, the <span class="style1">side</span> key comes first, followed by the <span class="style1">name</span> key. The  <span class="style1">type</span> key comes at the end because it was not specified in the  key property list, so the MBean tree algorithm applied the original key order  for the remaining keys. Consequently, the type key is appended at the end, after  the keys which were set in the MBeans options menu.</p>
+<p>According to the object name convention defined by the <a href="http://java.sun.com/products/JavaManagement/best-practices.html">JMX Best Practices Guidelines</a>, the <span class="style1">type</span>  key should always come first. So, to respect this convention you should set the following key property list. </p>
+<p><img src="../images/docs/key-prop-list2.png" alt="Setting the key property list in accordance with JMX best practices" width="539" height="74" /></p>
+<p>Setting the  above key property list will cause VisualVM to render the MBean tree for  the Triangle MBeans as shown below. </p>
+<img src="../images/docs/mbean-tree3.png" alt="Example of MBean Tree Constructed Respecting JMX Best Practices" height="228" width="196" />
+<p>This is obviously much more comprehensible than the first two MBean trees shown in this section.</p>
+
+
+
+
+
+<h2>MBean Attributes</h2>
+<p>Selecting the Attributes tab displays all the attributes of an MBean. The following figure  shows all the attributes of the <span class="style1">Threading</span> platform MBean.</p>
+<img src="../images/docs/mbean-attribs.png" alt="Viewing the attributes of the Threading MBean."/>
+<p>You can display additional information about an attribute by double-clicking on the attribute  value, if it appears in bold text. For example, if you click on  the value of the <span class="style1">HeapMemoryUsage</span> attribute of the <span class="style1">java.lang.Memory</span> MBean, you will  see additional information about the attribute, as shown below.</p>
+<img src="../images/docs/attrib-values.png" alt="Viewing the values of MBean attributes."/>
+<p>Double-clicking on numeric attribute values will display a chart that plots changes in  that numeric value. For example, double-clicking on the <span class="style1">CollectionTime</span> attribute of the  Garbage Collector MBean  <span class="style1">MarksweepCompact</span> will plot the time spent performing garbage collection.</p>
+<p><img src="../images/docs/attrib-plotting.png" alt="Plotting changes in an attribute value."/></p>
+<p>You can also use VisualVM to set the values of writable attributes. The  value of a writable attribute is displayed in blue. Here you can  see the <span class="style1">Memory</span> MBean's <span class="style1">Verbose</span> attribute.</p>
+<img src="../images/docs/mbean-writeable-attrib.png" alt="Setting an MBean's writable attribute value." />
+<p>You can set attributes by clicking on them and then editing them.  For example, to enable or disable the verbose tracing of the  garbage  collector in VisualVM, select the <span class="style1">Memory</span> MBean in the MBeans tab and set  the Verbose attribute to <span class="style1">true</span> or <span class="style1">false</span>. Similarly, the class loading MBean also  has a Verbose attribute, which can be set to enable or disable class  loading verbose tracing.</p>
+<h2>MBean Operations</h2>
+<p>Selecting the Operations tab displays all the operations of an MBean. The MBean  operations appear as buttons, that you can click to invoke the operation. The figure  shows all the operations of the <span class="style1">Threading</span> platform MBean.</p>
+<img src="../images/docs/mbean-ops.png" alt="Viewing the Threading platform MXBean's operations."/>
+<p>The image below shows the result of clicking on the <span class="style1">dumpAllThreads</span> button to invoke the corresponding option. </p>
+<p><img src="../images/docs/operation-done.png" alt="Result of performing a thread dump." width="465" height="312" /></p>
+<h2>MBean Notifications</h2>
+<p>You can subscribe to notifications from MBeans by selecting the Notifications tab, and clicking the Subscribe button at the bottom of the main pane. The  number of notifications received is displayed in square brackets, and the Notifications node  itself will appear in bold text when new notifications are received. The notifications  of the <span class="style1">AnagramsStats</span>  example MBean from the <a href="http://www.netbeans.org/kb/60/java/jmx-tutorial.html">JMX NetBeans Tutorial</a> are shown in the figure below.</p>
+<img src="../images/docs/mbean-notifs.png" alt="Viewing an MBean's notifications." />
+<h2>MBean Metadata</h2>
+<p>An MBean's metadata, or <span class="style1">MBeanInfo</span>, is displayed by the Metadata tab. This includes information like the MBean's object name, class name, a brief description,  and Descriptor information. The Metadata tab also shows the MBean's <span class="style1">MBeanAttributeInfo</span>. The Metadata tab for the <span class="style1">Memory</span> platform MBean is shown below.</p>
+<p><img src="../images/docs/mbean-metadata.png" /></p>
+<h2>HotSpot Diagnostic MBean</h2>
+<p>VisualVM's MBeans tab also allows you to tell the HotSpot VM to  perform a heap dump, and to get or set a VM option via  the <span class="style1">HotSpotDiagnostic</span> platform MBean.</p>
+<img src="../images/docs/mbean-hotspot.png" alt="Performing heap dumps using the HotSpot VM Diagnostic MBean."/>
+<p>You can perform a heap dump manually by invoking the <span class="style1">com.sun.management.HotSpotDiagnostic</span> MBean's  <span class="style1">dumpHeap</span> operation.  In addition, you can specify the <span class="style1">HeapDumpOnOutOfMemoryError</span> Java VM option using  the <span class="style1">setVMOption</span> operation, so that the VM performs a heap dump automatically whenever  it receives an <span class="style1">OutOfMemoryError</span>.</p>
+<hr/>
+<p><a href="docindex.html">Return to the VisualVM Documentation index</a></p>
+
+
+
+
+
+
+
+      </div>
+
+            <!--END CONTENT AREA-->
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <small class="finePrint">
+          <a href="http://java.net/terms_of_use" title="Terms of Use">Terms of Use</a>;
+          <a href="http://www.oracle.com/us/legal/privacy/index.html">Privacy Policy</a>;
+          Copyright &copy;2013-2013 (<a href="http://java.net/projects/help/pages/ReleaseNotes">revision 20130208.5d7f765</a>)
+        </small>
+      </div>
+    </div>
+        <!-- popups that are anchored to specific elements -->
+    <div class="popupMenuShadow" id="contextMenuShadow"></div>
+    <div class="popupMenuContainer" id="contextMenu">
+      <div class="popupMenu inline">	
+        <div class="upArrow"></div>
+        <div class="header"></div>
+        <div class="contextMenuBody" id="contextMenuBody">&nbsp;</div>
+      </div>
+    </div> 
+    
+    <!-- large content loaded via ajax. Faded but not modal. -->
+    <div class="jqmWindow" id="jqm_large_overlay">
+      <div class="jqmHeader">
+        <div class="jqmTitle">&nbsp;</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">
+        <img alt="loading" src="http://asset-2.java.net/images/activity.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" title="Done"> Done </button></div>
+      </div>
+    </div>
+    
+    <!-- confirmation dialogs with buttons. Faded and modal. -->
+    <div class="jqmWindow" id="jqm_dialog">
+      <div class="jqmHeader">
+        <div class="jqmTitle">Please Confirm</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">&nbsp;</div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_no_button" title="No" onclick="Modal.no()"> No </button></div>
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_yes_button" title="Yes" onclick="Modal.yes();"> Yes </button></div>
+      </div>
+    </div>    
+
+    <div id="jq-ui-autocomplete-parent"></div>
+
+     <script src="http://java.net/theme/javascript/s_code_remote.js" type="text/javascript"></script>
+    
+  </body>
+  <script src="http://asset-3.java.net/javascripts/body_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-66384-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>  
+</html>

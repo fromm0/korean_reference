@@ -1,0 +1,233 @@
+<!-- Copyright (c) 2008, 2011, Oracle and/or its affiliates. All rights reserved.  -->
+<!-- translated by LeeDongGuk (fromm0@gmail.com, http://ldg.pe.kr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>VisualVM 시작하기 &mdash; 한국어 미러사이트</title>
+    <link href="http://asset-2.java.net/stylesheets/base_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <style>
+      #bg {
+        background-color: inherit;
+      }
+      #container {
+        width: inherit;
+      }
+      #sideColumn {
+        background-color: inherit;
+        width: 15em;
+      }
+      #main {
+        width: inherit;
+        float: none;
+        margin: 0;
+      }
+      #main .content {
+        width: inherit;
+        float: none;
+      }
+
+      .content .website table tr th, .content .website table tr td {
+        padding: 1px 2px;
+      }
+    </style>
+    <!--[if IE 7]>
+    <link href="http://asset-1.java.net/stylesheets/ie7_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <!--[if IE 6]>
+    <link href="http://asset-0.java.net/stylesheets/iex60.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <link href="http://asset-0.java.net/stylesheets/print_packaged.css?20130208.5d7f765" media="print" rel="stylesheet" type="text/css" />
+    <script src="http://asset-2.java.net/javascripts/head_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+                publisher:'bcd30425-1749-43d6-a311-18a82f89771a',
+        });
+    </script>
+        <script type="text/javascript">
+//<![CDATA[
+var page={"token":"u+JuugcacCb1e+KBCTnxmWo5tC5kCgWcDXTCYrajUMU="};
+//]]>
+</script>
+    <script type="text/javascript" charset="utf-8">
+      function debug(m){}
+    </script>
+    <link rel="icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+
+<script type="text/javascript">
+  if ("/projects/visualvm/content/" == window.location.pathname) {
+      window.location = "http://visualvm.java.net/index.html"
+  } else {
+      // Determine if the pathname starts with /projects/visualvm/content/
+      var index = window.location.pathname.indexOf("/projects/visualvm/content/");
+      if (index == 0) {
+          var segement = window.location.pathname.substring(27);
+          window.location = "http://visualvm.java.net/"+ segement;
+      }
+  }
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/theme/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/css/visualvm.css" />
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script src="http://visualvm.java.net/js/jquery.cookies.2.2.0.min.js" type="text/javascript"></script>
+<script src="http://visualvm.java.net/js/jnlogin.js" type="text/javascript"></script>
+    
+    
+  
+  </head>
+  <body id="bg">
+    <div align="center">
+      <div id="container">
+        
+      
+<div id="logobar">
+  <div id="visualvm_logo"><a href="http://openframework.or.kr/framework_reference/visualvm/ko_KR/docindex.html">VisualVM 한국어 문서 사이트</a></div>
+  <div id="logobar_clear"></div>
+</div>
+
+        <div id="main">
+          <div id="printSideColumn">
+            <div id="sideColumn">
+              
+            </div>
+            <div id="rightSideColumn">
+              
+            </div>
+          </div>
+          <div id="pageContent" class="content">
+            <!--BEGIN CONTENT AREA-->
+
+
+
+
+
+
+
+<div class="contentPadding website">
+<h1>JConsole 플러그인 래퍼(Wrapper)탭</h1>
+<hr />
+<p>VisualVM에는 선택가능한 플러그인이 존재한다. 이중에 자바SE의 모니터링및 관리 콘솔인 JConsole은 자체탭을 제공한다. 
+JConsole플러그인은 JConsole플러그인 래퍼탭을 사용해서 VisualVM에 쉽게 추가가 가능하다. </p>
+<blockquote>
+  <p><strong>알림</strong>: JConsole을 위한 탭을 생성하는 방법의 세부적인 정보는 자바SE의 <a href="http://java.sun.com/javase/6/docs/technotes/guides/management/toc.html">모니터링및 관리 가이드 문서</a>에 있는 <a href="http://java.sun.com/javase/6/docs/technotes/guides/management/jconsole.html#gdeje">커스텀탭 생성</a>을 보라. . 
+  어쨌든, JConsole을 위한 커스텀탭을 생성한 적이 없이 VisualVM을 사용하고 있다면, VisualVM에 직접 커스텀 플러그인을 생성해야만 한다.  
+  VisualVM플러그인을 생성하는 세부적인 정보를 보기 위해서는 <a href="http://visualvm.java.net/api-quickstart.html">VisualVM 확장하기</a> 와 <a href="http://visualvm.java.net/api-faq.html">VisualVM API에 대한 흔한질문들</a>을 보라.
+  </p>
+</blockquote>
+<h2>JConsole 플러그인 래퍼 탭 추가</h2>
+<p>VisualVM에 JConsole플러그인 래퍼탭을 추가하기 위해, 다음의 과정을 거치자. </p>
+<ol>
+  <li>VisualVM 드랍다운 메뉴에서 'Tools' 아래 'Plugins' 를 선택하자. 그러면 다음의 창이 보일것이다. 
+    <p><img src="../images/docs/adding-jconsole-plugins-tab.png" alt="JConsole 플러그인 래퍼탭 추가" width="843" height="557" /></p>
+  </li>
+  <li>'VisualVM-JConsole'에 체크하고 'Install'을 클릭한다. </li>
+  <li>화면에 나오는데로 그대로 따라간다. </li>
+  <li>실행중인 자바 애플리케이션에 하이라이트가 표시되면, 해당 애플리케이션을 선택하고 마우스 우측 버튼을 클릭 후 'Open'을 선택한다. 
+  그러면 우측화면에 VisualVM의 JConsole플러그인 탭이 보일것이다. 
+  혹시 JConsole플러그인이 탭에 보이지 않는다면, 다음의 과정을 좀더 보자. 
+<p> <img src="../images/docs/jconsole-plugins-tab.png" alt="JConsole 플러그인 래퍼탭" width="880" height="489" /></p></li>
+
+<li>Tools | Options 메뉴를 사용해서 커스텀 JConsole플러그인을 가져올수도 있다. </li>
+<li>'JConsole Plugins'을 클릭한다. </li>
+<li>'Add JAR/Folder'를 클릭하고 JConsole 플러그인 자바아카이브(JAR) 파일을 찾자.
+JTop이라 불리는 JConsole 예제 플러그인은 자바SE 6에 제공된다.  
+JTop애플리케이션은 애플리케이션에서 실행중인 모든 쓰레드의 CPU사용율을 보여주는 JDK기능이다. 
+이 기능은 CPU를 많이 사용하는 쓰레드를 찾는데 도움이 된다. 독자적인 GUI와 마찬가지로 JConsole플러그인을 사용할 수 있다.
+JTop플러그인을 위한 JAR파일은 <em><span class="style1">JDK_HOME</span></em><span class="style1">/demo/management/JTop/JTop.jar</span>에서 찾을수 있다.
+여기서 <em><span class="style1">JDK_HOME</span></em>은 JDK를 설치한 위치다. 
+  <p><img src="../images/docs/select-jconsole-plugin.png" alt="JConsole 플러그인 선택" width="731" height="467" />    </li>
+<li>JConsole Plugins 의 선택가능한 패널에서, 폴링주기를 셋팅할 수 있다. 
+폴링주기 옵션은 JConsole Plugins탭이 정보를 업데이트하는 주기를 정의한다.  
+<li>OK를 클릭해서 패널을 닫자.  
+<li>VisualVM의 오른쪽 패널에서, 모니터링된 프로세스의 탭을 닫자. 
+<li>왼쪽패널에서 프로세스를 선택 후 마우스 우측 버튼을 클릭하고 Open을 선택해서 프로세스의 모니터링을 재시작하자.
+JTop탭은 JConsole Plugins탭에서 보일것이다. 
+  <p><img src="../images/docs/jtop-plugin.png" alt="JTop플러그인을 보여주는 JConsole 플러그인 탭"/>
+  <p>JTop탭이 추가되고, 실행중인 여러개의 쓰레드의 CPU사용율을 보여준다.   
+</ol>
+<hr/>
+<p><a href="docindex.html">VisualVM 문서 인덱스 페이지로 이동</a></p>
+
+
+
+
+
+
+
+      </div>
+
+            <!--END CONTENT AREA-->
+          </div>
+        </div>
+        <div class="clear"></div>
+ 
+        <small class="finePrint">
+          <a href="http://java.net/terms_of_use" title="Terms of Use">Terms of Use</a>;
+          <a href="http://www.oracle.com/us/legal/privacy/index.html">Privacy Policy</a>;
+          Copyright &copy;2013-2013 (<a href="http://java.net/projects/help/pages/ReleaseNotes">revision 20130208.5d7f765</a>)
+        </small>
+      </div>
+    </div>
+        <!-- popups that are anchored to specific elements -->
+    <div class="popupMenuShadow" id="contextMenuShadow"></div>
+    <div class="popupMenuContainer" id="contextMenu">
+      <div class="popupMenu inline">	
+        <div class="upArrow"></div>
+        <div class="header"></div>
+        <div class="contextMenuBody" id="contextMenuBody">&nbsp;</div>
+      </div>
+    </div> 
+    
+    <!-- large content loaded via ajax. Faded but not modal. -->
+    <div class="jqmWindow" id="jqm_large_overlay">
+      <div class="jqmHeader">
+        <div class="jqmTitle">&nbsp;</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">
+        <img alt="loading" src="http://asset-2.java.net/images/activity.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" title="Done"> Done </button></div>
+      </div>
+    </div>
+    
+    <!-- confirmation dialogs with buttons. Faded and modal. -->
+    <div class="jqmWindow" id="jqm_dialog">
+      <div class="jqmHeader">
+        <div class="jqmTitle">Please Confirm</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">&nbsp;</div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_no_button" title="No" onclick="Modal.no()"> No </button></div>
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_yes_button" title="Yes" onclick="Modal.yes();"> Yes </button></div>
+      </div>
+    </div>    
+
+    <div id="jq-ui-autocomplete-parent"></div>
+
+     <script src="http://java.net/theme/javascript/s_code_remote.js" type="text/javascript"></script>
+    
+  </body>
+  <script src="http://asset-3.java.net/javascripts/body_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-66384-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>  
+</html>

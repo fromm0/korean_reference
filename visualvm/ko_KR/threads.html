@@ -1,0 +1,253 @@
+<!-- translated by LeeDongGuk (fromm0@gmail.com, http://ldg.pe.kr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>VisualVM &mdash; 한국어 미러사이트</title>
+    <link href="http://asset-2.java.net/stylesheets/base_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <style>
+      #bg {
+        background-color: inherit;
+      }
+      #container {
+        width: inherit;
+      }
+      #sideColumn {
+        background-color: inherit;
+        width: 15em;
+      }
+      #main {
+        width: inherit;
+        float: none;
+        margin: 0;
+      }
+      #main .content {
+        width: inherit;
+        float: none;
+      }
+
+      .content .website table tr th, .content .website table tr td {
+        padding: 1px 2px;
+      }
+    </style>
+    <!--[if IE 7]>
+    <link href="http://asset-1.java.net/stylesheets/ie7_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <!--[if IE 6]>
+    <link href="http://asset-0.java.net/stylesheets/iex60.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <link href="http://asset-0.java.net/stylesheets/print_packaged.css?20130208.5d7f765" media="print" rel="stylesheet" type="text/css" />
+    <script src="http://asset-2.java.net/javascripts/head_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+                publisher:'bcd30425-1749-43d6-a311-18a82f89771a',
+        });
+    </script>
+        <script type="text/javascript">
+//<![CDATA[
+var page={"token":"u+JuugcacCb1e+KBCTnxmWo5tC5kCgWcDXTCYrajUMU="};
+//]]>
+</script>
+    <script type="text/javascript" charset="utf-8">
+      function debug(m){}
+    </script>
+    <link rel="icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+
+<script type="text/javascript">
+  if ("/projects/visualvm/content/" == window.location.pathname) {
+      window.location = "http://visualvm.java.net/index.html"
+  } else {
+      // Determine if the pathname starts with /projects/visualvm/content/
+      var index = window.location.pathname.indexOf("/projects/visualvm/content/");
+      if (index == 0) {
+          var segement = window.location.pathname.substring(27);
+          window.location = "http://visualvm.java.net/"+ segement;
+      }
+  }
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/theme/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/css/visualvm.css" />
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script src="http://visualvm.java.net/js/jquery.cookies.2.2.0.min.js" type="text/javascript"></script>
+<script src="http://visualvm.java.net/js/jnlogin.js" type="text/javascript"></script>
+    
+    
+  
+  </head>
+  <body id="bg">
+    <div align="center">
+      <div id="container">
+        
+       
+<div id="logobar">
+  <div id="visualvm_logo"><a href="http://openframework.or.kr/framework_reference/visualvm/ko_KR/docindex.html">VisualVM 한국어 문서 사이트</a></div>
+  <div id="logobar_clear"></div>
+</div>
+
+        <div id="main">
+          <div id="printSideColumn">
+            <div id="sideColumn">
+              
+            </div>
+            <div id="rightSideColumn">
+              
+            </div>
+          </div>
+          <div id="pageContent" class="content">
+            <!--BEGIN CONTENT AREA-->
+
+
+
+
+
+
+
+        <h1>애플리케이션 쓰레드 모니터링</h1>
+        <hr />
+        <p>VisualVM은 애플리케이션별 탭에서 로컬및 원격 애플리케이션을 위한 데이터를 제공한다. 
+        애플리케이션탭은 Applications창의 우측에 위치한 메인창에 나온다. 
+        한번에 여러개의 애플리케이션탭을 열수도 있다. 
+        각각의 애플리케이션탭은 애플리케이션에 대한 여러가지 정보를 보여주기 위해 각각의 하위탭을 포함한다. </p>
+
+        <h3>쓰레드 동작상태 모니터링</h3>
+
+        <p>VisualVM은 Threads탭에서 쓰레드의 동작상태에 대한 실시간 데이터를 보여준다. <br/>
+        <b>알림:</b> Threads탭에서 보여주는 정보는 JMX에 기초한 데이터를 제공한다. 
+        대상 애플리케이션에 JMX연결을 맺을 수 있고 JMX정보를 얻을수 있다면 Threads탭이 보인다.
+        대상 애플리케이션이 JDK 1.6이상에서 동작하는 로컬 애플리케이션이라면 JMX연결은 즉시 맺어진다. 
+        대상 애플리케이션이 JDK 1.5이하에서 동작한다면 JMX연결을 명시적으로 맺을 필요가 있을것이다.
+        JMX연결에 대한 좀더 세부적인 정보는 다음 문서를 참고하자. </p> 
+        <ul>
+            <li><a href="jmx_connections.html">JMX에이전트에 명시적으로 연결</a></li>
+        </ul>
+        
+        <p>기본적으로 Threads탭은 현재의 쓰레드 동작상태를 시간별로 보여준다.
+        Details탭에서 쓰레드에 대한 좀더 세부적인 정보를 시간별로 보기 위해서 쓰레드를 클릭할 수 있다. </p>
+        
+        <h4>Timeline 탭</h4>
+        <p>이 탭은 실시간의 쓰레드 상태를 시간별로 보여준다. 
+        현재 보고있는 화면을 크게하거나 작게하고 원래 크기로 돌리기 위해 Timeline툴바의 버튼을 이용할수 있다.
+        드랍다운 형태의 메뉴를 사용해서 표시할 쓰레드를 선택할 수 있다. 
+        모든 쓰레드를 보거나 살아있는 쓰레드 혹은 종료된 쓰레드 역시 선택할 수 있다.
+        쓰레드의 일부를 표기하기 위해 한개 혹은 여러개의 쓰레드를 선택할 수도 있다. 
+        Details탭에서 쓰레드의 세부정보를 보기 위해 쓰레드 타임라인의 쓰레드 중 하나를 더블클릭할 수 있다. </p>
+
+        <p>각각의 쓰레드의 타임라인은 쓰레드 각각의 상태에 대한 간단한 개요를 제공한다. </p>
+        <img src="../images/docs/thread-timeline-screen.png" style="border:1px solid;" alt="Threads탭의 타임라인의 스크린샷" 
+        title="Threads탭의 타임라인의 스크린샷" />
+      
+        <h4>Details 탭</h4>
+        <p>Details탭은 개별 쓰레드에 대한 좀더 세부적인 정보를 보여준다. 
+        드랍다운 목록을 사용해서, 모든 쓰레드 또는 살아있는 쓰레드및 종료된 쓰레드를 선택할 수도 있다. 
+        Timeline뷰에서 선택한 쓰레드의 세부정보만을 표기하기 위해 선택할수도 있다. 
+        각각의 쓰레드는 이름과 클래스명 그리고 현재 상태를 표시한다. 
+        쓰레드의 짧은 설명또한 제공한다. </p>
+
+        <p>Details탭에 표시된 각각의 쓰레드는 다음의 2가지 탭을 가진다. </p>
+        <ul>
+          <li><b>General.</b> 이 탭은 쓰레드 상태에 대한 통계정보를 표기한다. </li>
+          <li><b>Details.</b> 이 탭은 시점별로 쓰레드의 상태를 모두 나열한다. </li>
+        </ul>
+        <p>각각의 쓰레드를 위한 타임라인은 쓰레드의 대략적인 개요를 제공한다. </p>
+        <img src="../images/docs/thread-details-screen.png" style="border:1px solid;" alt="Threads탭의 타임라인 스크린샷" 
+        title="Threads탭의 타임라인 스크린샷" />
+        
+        <h3>쓰레드 덤프 생성</h3>
+        <p>VisualVM을 사용해서 로컬 애플리케이션이 동작하는 동안 쓰레드 덤프를 생성할 수 있다. 
+        쓰레드 덤프 생성은 애플리케이션을 멈추게 하지는 않는다. 
+        쓰레드 덤프를 출력하면, 자바 쓰레드의 쓰레드 상태를 포함해서 쓰레드의 세부상태를 볼수 있다. 
+        </p>
+        
+        <p>VisualVM을 사용해서 쓰레드 덤프를 출력하면, 툴은 애플리케이션의 활성화된 쓰레드의 많은 로그를 출력한다. 
+        VisualVM을 사용해서 쓰레드 덤프를 생성하는 것은 명령창에서 생성하는 방법보다 더 편리할 수 있다. 
+        쓰레드 덤프의 많은 내용은 데드락이나 애플리케이션 행 상태와 같은 다양한 경우를 진단하는데 도움을 준다. </p>
+        <p>쓰레드 덤프 하위탭의 쓰레드 덤프 스크린샷</p>
+        <img src="../images/docs/thread-dump-screen.png" style="border:1px solid;" alt="Threads탭의 타임라인 스크린샷" 
+        title="쓰레드 덤프 하위탭의 쓰레드 덤프 스크린샷" />
+        
+        <hr/>
+        <p><a href="docindex.html">VisualVM 문서 인덱스 페이지로 이동</a></p>
+        
+
+
+
+
+
+
+      </div>
+
+            <!--END CONTENT AREA-->
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <small class="finePrint">
+          <a href="http://java.net/terms_of_use" title="Terms of Use">Terms of Use</a>;
+          <a href="http://www.oracle.com/us/legal/privacy/index.html">Privacy Policy</a>;
+          Copyright &copy;2013-2013 (<a href="http://java.net/projects/help/pages/ReleaseNotes">revision 20130208.5d7f765</a>)
+        </small>
+      </div>
+    </div>
+        <!-- popups that are anchored to specific elements -->
+    <div class="popupMenuShadow" id="contextMenuShadow"></div>
+    <div class="popupMenuContainer" id="contextMenu">
+      <div class="popupMenu inline">	
+        <div class="upArrow"></div>
+        <div class="header"></div>
+        <div class="contextMenuBody" id="contextMenuBody">&nbsp;</div>
+      </div>
+    </div> 
+    
+    <!-- large content loaded via ajax. Faded but not modal. -->
+    <div class="jqmWindow" id="jqm_large_overlay">
+      <div class="jqmHeader">
+        <div class="jqmTitle">&nbsp;</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">
+        <img alt="loading" src="http://asset-2.java.net/images/activity.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" title="Done"> Done </button></div>
+      </div>
+    </div>
+    
+    <!-- confirmation dialogs with buttons. Faded and modal. -->
+    <div class="jqmWindow" id="jqm_dialog">
+      <div class="jqmHeader">
+        <div class="jqmTitle">Please Confirm</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">&nbsp;</div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_no_button" title="No" onclick="Modal.no()"> No </button></div>
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_yes_button" title="Yes" onclick="Modal.yes();"> Yes </button></div>
+      </div>
+    </div>    
+
+    <div id="jq-ui-autocomplete-parent"></div>
+
+     <script src="http://java.net/theme/javascript/s_code_remote.js" type="text/javascript"></script>
+    
+  </body>
+  <script src="http://asset-3.java.net/javascripts/body_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-66384-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>  
+</html>

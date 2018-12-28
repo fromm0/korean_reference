@@ -1,0 +1,271 @@
+<!-- translated by LeeDongGuk (fromm0@gmail.com, http://ldg.pe.kr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>VisualVM &mdash; 한국어 미러사이트</title>
+    <link href="http://asset-2.java.net/stylesheets/base_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <style>
+      #bg {
+        background-color: inherit;
+      }
+      #container {
+        width: inherit;
+      }
+      #sideColumn {
+        background-color: inherit;
+        width: 15em;
+      }
+      #main {
+        width: inherit;
+        float: none;
+        margin: 0;
+      }
+      #main .content {
+        width: inherit;
+        float: none;
+      }
+
+      .content .website table tr th, .content .website table tr td {
+        padding: 1px 2px;
+      }
+    </style>
+    <!--[if IE 7]>
+    <link href="http://asset-1.java.net/stylesheets/ie7_packaged.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <!--[if IE 6]>
+    <link href="http://asset-0.java.net/stylesheets/iex60.css?20130208.5d7f765" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <link href="http://asset-0.java.net/stylesheets/print_packaged.css?20130208.5d7f765" media="print" rel="stylesheet" type="text/css" />
+    <script src="http://asset-2.java.net/javascripts/head_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+                publisher:'bcd30425-1749-43d6-a311-18a82f89771a',
+        });
+    </script>
+        <script type="text/javascript">
+//<![CDATA[
+var page={"token":"u+JuugcacCb1e+KBCTnxmWo5tC5kCgWcDXTCYrajUMU="};
+//]]>
+</script>
+    <script type="text/javascript" charset="utf-8">
+      function debug(m){}
+    </script>
+    <link rel="icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="http://visualvm.java.net/favicon.png" />
+
+<script type="text/javascript">
+  if ("/projects/visualvm/content/" == window.location.pathname) {
+      window.location = "http://visualvm.java.net/index.html"
+  } else {
+      // Determine if the pathname starts with /projects/visualvm/content/
+      var index = window.location.pathname.indexOf("/projects/visualvm/content/");
+      if (index == 0) {
+          var segement = window.location.pathname.substring(27);
+          window.location = "http://visualvm.java.net/"+ segement;
+      }
+  }
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/theme/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://visualvm.java.net/css/visualvm.css" />
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script src="http://visualvm.java.net/js/jquery.cookies.2.2.0.min.js" type="text/javascript"></script>
+<script src="http://visualvm.java.net/js/jnlogin.js" type="text/javascript"></script>
+    
+    
+  
+  </head>
+  <body id="bg">
+    <div align="center">
+      <div id="container">
+        
+        
+<div id="logobar">
+  <div id="visualvm_logo"><a href="http://openframework.or.kr/framework_reference/visualvm/ko_KR/docindex.html">VisualVM 한국어 문서 사이트</a></div>
+  <div id="logobar_clear"></div>
+</div>
+
+        <div id="main">
+          <div id="printSideColumn">
+            <div id="sideColumn">
+              
+            </div>
+            <div id="rightSideColumn">
+              
+            </div>
+          </div>
+          <div id="pageContent" class="content">
+            <!--BEGIN CONTENT AREA-->
+
+
+
+
+
+
+<div class="contentPadding website">
+        <h1>스냅샷 활용</h1>
+        <hr />
+        <p>VisualVM 애플리케이션 데이터의 스냅샷을 생성해서 로컬시스템에 저장할 수 있다. 
+        스냅샷은 저장한 후 언제든 다시 열고 볼수 있기 때문에 애플리케이션에 대한 데이터를 수집하는 편리한 방법이다. 
+        대상 애플리케이션은 스냅샷을 보기 위해 실행할 필요가 없다. 
+        스냅샷은 다른 사람에게 보내서 그 사람이 직접볼수도 있다. </p>
+
+        
+        <h2>스냅샷 타입</h2>
+        <p>스냅샷은 VisualVM에서 열수 있도록 특정시점에 수집된 데이터를 보관한다.
+        스냅샷은 몇가지 타입으로 생성및 저장할 수 있다. </p>
+        
+        
+        <h3>프로파일러 스냅샷</h3>
+        <p>프로파일러 스냅샷은 스냅샷을 생성한 시점의 프로파일링 데이터를 가진다. 
+        프로파일링 세션을 유지하는 동안 특정시점에 프로파일러 스냅샷을 생성할 수 있다. 
+        프로파일러 스냅샷을 생성하면, Applications창의 애플리케이션 노드 아래 스냅샷을 나타내는 노드가 표시된다.
+        임시로 생성되는 스냅샷 파일은 VisualVM 사용자디렉터리에 저장된다. </p>
+        <p>VisualVM은 프로파일러 스냅샷에서 다음의 두가지 타입을 가진다. </p>
+        <ul>
+            <li><b>메모리 스냅샷.</b> 메모리 스냅샷은 할당된 객체의 프로파일링 데이터를 가진다. 
+            메모리 사용 상황을 분석하기 위해 프로파일러를 사용해서 메모리 스냅샷을 생성할 수 있다. </li>
+            <li><b>CPU 스냅샷.</b> CPU스냅샷은 애플리케이션의 성능에 대한 데이터를 가진다. 
+            애플리케이션의 성능을 분석하기 위해 프로파일러를 사용해서 CPU스냅샷을 생성할 수 있다. </li>
+        </ul>
+        
+        <p>메모리 프로파일링 스냅샷의 스크린샷</p> 
+        <img src="../images/docs/profiler-memory-snapshot.png" style="border:1px solid;" alt="메모리 프로파일링 스냅샷의 스크린샷" 
+        title="메모리 프로파일링 스냅샷의 스크린샷" />
+       <p>CPU 프로파일링 스냅샷의 스크린샷</p> 
+        <img src="../images/docs/profiler-cpu-snapshot.png" style="border:1px solid;" alt="CPU 프로파일링 스냅샷의 스크린샷" 
+        title="CPU 프로파일링 스냅샷의 스크린샷" />
+        
+        <p>프로파일러 스냅샷을 나중에 보고싶다면, 프로파일러 스냅샷이나 애플리케이션 스냅샷을 선택해서 스냅샷을 로컬시스템에 저장해야한다.</p>
+        
+        <h4>프로파일러 스냅샷 생성</h4>
+        <p>프로파일링 세션을 유지하는 동안 프로파일러 스냅샷을 생성할 수 있다. 
+        메모리나 CPU 스냅샷을 생성했다면, 스냅샷은 메인창의 애플리케이션 탭에 열린다. </p>
+            
+        <p>스냅샷을 생성하기 위해서는 다음의 방식을 선택하면 된다. </p>
+            <ul>
+                <li>Profiler탭에서 Take Snapshot of Collected Results 버튼을 클릭한다. </li>
+                <li>애플리케이션 노드를 선택하고 마우스 우측버튼을 클릭한뒤 Profiler Snapshot를 선택한다. </li>
+            </ul>
+        
+        <p>스냅샷 툴바를 사용하기 위해서는 다음의 과정을 거친다. </p>
+        <ul>
+            <li><b>스냅샷 파일을 저장</b> 스냅샷 파일로 저장하기 위해 클릭(로컬시스템에 저장할때는 <tt>.nps</tt> 확장자를 사용)</li>
+            <li><b>현재 보고있는 화면을 이미지로 저장</b> 스냅샷을 이미지로 저장하기 위해 클릭(로컬시스템에 저장할때는 <tt>.png</tt> 확장자를 사용)</li>
+            <li><b>결과 검색</b> 프로파일링 결과에서 검색어를 찾기 위해 클릭</li>
+            <li><b>다음 찾기</b> 뒤에 나오는 검색어를 다시 찾기 위해 클릭</li>
+            <li><b>이전 찾기</b> 앞에 나오는 검색어를 찾기 위해 클릭</li>
+        </ul>
+
+        <h3>애플리케이션 스냅샷</h3>
+            <p>애플리케이션 스냅샷은 스냅샷을 생성한 시점에 애플리케이션의 힙덤프, 쓰레드덤프, 프로파일러 스냅샷을 수집한다. 
+            애플리케이션 스냅샷은 자바 가상머신에 대한 일반적인 정보 또한 수집한다.
+            </p>
+            <p>Applications창의 애플리케이션 노드를 선택하고 마우스 우측 버튼을 클릭하고 팝업메뉴에서 Application Snapshot를 선택해서 애플리케이션 스냅샷을 생성한다.
+            애플리케이션 스냅샷은 VisualVM을 켜둔동안 유지된다. </p>
+            <p>애플리케이션 스냅샷을 생성할때</p>
+            <ul>
+                <li>애플리케이션 스냅샷 노드는 Applications창에서 Snapshots노드아래 표시된다. </li>
+                <li>애플리케이션 데이터는 VisualVM 사용자디렉터리의 <tt>repository/snapshots</tt> 디럭터리안에 폴더별로 저장된다. </li>
+            </ul>
+            <p>애플리케이션 스냅샷은 Applications창의 Snapshots노드아래 나열된다. 
+            스냅샷의 내용을 보기 위해서 애플리케이션 스냅샷 노드의 + 를 열어보자. </p>
+            <img src="../images/docs/application-snapshot-appwindow.png" style="border:1px solid;" alt="애플리케이션 스냅샷을 보여주는 Applications창의 스크린샷" 
+            title="애플리케이션 스냅샷을 보여주는 Applications창의 스크린샷" />
+
+            <p>애플리케이션 스냅샷을 생성한 후, Applications창에서 보이는 애플리케이션 스냅샷의 + 를 열어서 컨텐츠의 내용을 보거나 변경할 수 있다. 
+            스냅샷을 열거나 저장하고 이름을 변경하거나 삭제하는 팝업메뉴를 열기 위해 애플리케이션 스냅샷 노드나 애플리케이션 스냅샷 노드아래 나열된 항목들을 선택하고 마우스 우측 버튼을 클릭할 수 있다. 
+            로컬시스템에 하나의 애플리케이션 스냅샷 아카이브(<tt>.apps</tt>)로 애플리케이션 스냅샷을 저장할 수 있다.</p>
+            
+            <p>애플리케이션 스냅샷의 Overview탭은 JVM소프트웨어에 대한 정보를 수집한다. </p>
+            <img src="../images/docs/application-snapshot-overview.png" style="border:1px solid;" alt="애플리케이션 스냅샷의 Overview 탭 스크린샷" 
+            title="애플리케이션 스냅샷의 Overview 탭 스크린샷" />
+        
+        
+            <hr/>
+            <p><a href="docindex.html">VisualVM 문서 인덱스 페이지로 이동</a></p>
+
+        
+        
+
+
+
+
+
+
+      </div>
+
+            <!--END CONTENT AREA-->
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <small class="finePrint">
+          <a href="http://java.net/terms_of_use" title="Terms of Use">Terms of Use</a>;
+          <a href="http://www.oracle.com/us/legal/privacy/index.html">Privacy Policy</a>;
+          Copyright &copy;2013-2013 (<a href="http://java.net/projects/help/pages/ReleaseNotes">revision 20130208.5d7f765</a>)
+        </small>
+      </div>
+    </div>
+        <!-- popups that are anchored to specific elements -->
+    <div class="popupMenuShadow" id="contextMenuShadow"></div>
+    <div class="popupMenuContainer" id="contextMenu">
+      <div class="popupMenu inline">	
+        <div class="upArrow"></div>
+        <div class="header"></div>
+        <div class="contextMenuBody" id="contextMenuBody">&nbsp;</div>
+      </div>
+    </div> 
+    
+    <!-- large content loaded via ajax. Faded but not modal. -->
+    <div class="jqmWindow" id="jqm_large_overlay">
+      <div class="jqmHeader">
+        <div class="jqmTitle">&nbsp;</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">
+        <img alt="loading" src="http://asset-2.java.net/images/activity.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" title="Done"> Done </button></div>
+      </div>
+    </div>
+    
+    <!-- confirmation dialogs with buttons. Faded and modal. -->
+    <div class="jqmWindow" id="jqm_dialog">
+      <div class="jqmHeader">
+        <div class="jqmTitle">Please Confirm</div>
+        <img alt="Close" class="jqmClose" src="http://asset-2.java.net/images/close.gif?20130208.5d7f765" />
+      </div>
+      <div class="jqmTarget">&nbsp;</div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_no_button" title="No" onclick="Modal.no()"> No </button></div>
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_yes_button" title="Yes" onclick="Modal.yes();"> Yes </button></div>
+      </div>
+    </div>    
+
+    <div id="jq-ui-autocomplete-parent"></div>
+
+     <script src="http://java.net/theme/javascript/s_code_remote.js" type="text/javascript"></script>
+    
+  </body>
+  <script src="http://asset-3.java.net/javascripts/body_packaged.js?20130208.5d7f765" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-66384-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>  
+</html>
