@@ -1,0 +1,2601 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>prototype.js v1.4.0 사용하기</title>
+		<meta content="tutorial, reference, documentation, prototype.js, prototype, ajax, JavaScript, web 2.0, using protoype.js, prototype-1.4.0.js, developer notes" name="KEYWORDS">
+		<meta name="description" content="Prototype.je documentation">
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<link rel="stylesheet" href="prot_ref.css" type="text/css" media="all">
+		<script src="prototype-1.js"></script>
+		<script>
+			function sp(link)
+			{
+				var em =  'serg' + 'io_p' + 'ereira@';
+				em += 'ms' + 'n.c' + 'om';
+				document.write('<a href="mai' + 'lto:' + em + '">' + link + '</a>');
+			}
+
+			function navigateToVersion(list)
+			{
+				var url = list.options[list.selectedIndex].value;
+				if(url != '')
+					document.location = url;
+			}
+		</script></head><body>
+		<div id="mainContent">
+		
+			<h1><a href="http://prototype.conio.net/">prototype.js</a> 를 위한 개발자 노트</h1>
+			<h2>1.4.0 버전을 다룸</h2>
+			
+			<div class="author"><script>sp('Sergio Pereira')</script><a href="mailto:sergio_pereira@msn.com">Sergio Pereira</a>에 의해 작성됨</div>
+			<div class="author">최근 업데이트: 2006년 4월 13일</div>
+			<p id="versions">
+				<select id="otherVersions" onchange="navigateToVersion(this)">
+					<option value="" selected="selected">Other versions</option>
+					<option value="DeveloperNotes-Prototype-JS.pdf">PDF (v1.4.0)</option>
+					<option value="http://www.sergiopereira.com/articles/prototype.js.html">English (v1.4.0)</option>
+					<option value="http://www.fabryprog.it/from_sergiopereira/prototype.js.html">Italian (v1.4.0)</option>
+					<option value="prototype140.js.ptBR.html">Portuguese (v1.4.0)</option>
+					<option value="http://thinhunan.cnblogs.com/archive/2006/04/01/DeveloperNotesForPrototype.html">Chinese (v1.4.0)</option>
+					<option value="http://prototype.rajmi.hu/prototype.js.hu.html">Hungarian (v1.4.0)</option>
+					<option value="http://www.bouwkamp.com/ajax/prototype.js.html">Dutch (v1.4.0)</option>
+					<option value="http://blog.elksoft.pl/wp-content/prototype.js.pl.html">Polish (v1.4.0)</option>
+					<option value="http://www.imgsrc.co.jp/~kuriyama/prototype/prototype.js.html">Japanese (v1.4.0)</option>
+					<option value="prototype131.js.html">English (v1.3.1)</option>
+					<option value="https://compdoc2cn.dev.java.net/prototype/html/prototype.js.cn.html">Chinese (v1.3.1)</option>	
+					<option value="http://victoryoalli.railsplayground.com/prototype.js.html">Spanish (v1.3.1)</option>	
+					<option value="http://www.electrolinux.com/traductions/prototype.js.html">French (v1.3.1)</option>	
+					<option value="http://www.devshare.de/_ajax/prototype.js.html">German (v1.3.1)</option>
+					<option value="prototype.js.ro.html">Romanian (v1.3.1)</option>
+					<option value="http://kropp.spb.ru/docs/prototype/">Russian (v1.3.1)</option>
+					<option value="">Other versions (volunteers needed)</option>
+				</select>
+			</p>
+			
+			<a name="TOC"></a>
+			<h3>Table of Contents</h3>
+			<div id="toc">
+				<a href="#Whatsthat">Prototype은 무엇인가.?</a>
+				<a href="#RelatedArticle">관련글</a>
+				<a href="#UtilityFunctions">utility 함수</a>
+				<a href="#DollarFunction"><span class="functionName">$()</span> 함수 사용하기</a>
+				<a href="#Dollar_F_Function"><span class="functionName">$F()</span> 함수 사용하기</a>
+				<a href="#Dollar_A_Function"><span class="functionName">$A()</span> 함수 사용하기</a>
+				<a href="#Dollar_H_Function"><span class="functionName">$H()</span> 함수 사용하기</a>
+				<a href="#Dollar_R_Function"><span class="functionName">$R()</span> 함수 사용하기</a>
+				<a href="#TryThese"><span class="functionName">Try.these()</span> 함수 사용하기</a>
+				<a href="#UsingAjax"><span class="objectClass">Ajax</span> 객체</a>
+				<a href="#UsingAjaxRequest"><span class="objectClass">Ajax.Request</span> class 사용하기</a>
+				<a href="#UsingAjaxUpdater"><span class="objectClass">Ajax.Updater</span> class 사용하기</a>
+				<a href="#Enumerating">열거(Enumerating)... Wow! Damn! Wahoo!</a>
+				<a href="#Loops">루프, 루비-스타일</a>
+				<a href="#EnumeratingArrays">스테로이드(steroids)에서 당신의 배열</a>
+				<a href="#Books">내가 강력하게 추천하는 책들.</a>
+				<a href="#Reference">prototype.js 참조</a>
+				<a href="#Reference.Extensions">JavaScript classes를 위한 확장</a>
+				<a href="#Reference.Extensions.Object"><span class="code">Object</span> class를 위한 확장</a>
+				<a href="#Reference.Extensions.Number"><span class="code">Number</span> class를 위한 확장</a>
+				<a href="#Reference.Extensions.Function"><span class="code">Function</span> class를 위한 확장</a>
+				<a href="#Reference.Extensions.String"><span class="code">String</span> class를 위한 확장</a>
+				<a href="#Reference.Array"><span class="code">Array</span> class를 위한 확장</a>
+				<a href="#Reference.Extensions.DOM"><span class="code">document</span> DOM 객체를 위한 확장</a>
+				<a href="#Reference.Extensions.Event"><span class="code">Event</span> 객체를 위한 확장</a>
+				<a href="#Reference.NewObjects">prototype.js에 새롭게 정의된 객체와 클래스</a>
+				<a href="#Reference.PeriodicalExecuter"><span class="objectClass">PeriodicalExecuter</span> 객체</a>
+				<a href="#Reference.Prototype"><span class="objectClass">Prototype</span> 객체</a>
+				<a href="#Reference.Enumerable"><span class="objectClass">Enumerable</span> 객체</a>
+				<a href="#Reference.Hash"><span class="objectClass">Hash</span> 객체</a>
+				<a href="#Reference.ObjectRange"><span class="objectClass">ObjectRange</span> class</a>
+				<a href="#Reference.Class"><span class="objectClass">Class</span> 객체</a>
+				<a href="#Reference.Ajax"><span class="objectClass">Ajax</span> 객체</a>
+				<a href="#Ajax.Responders"><span class="objectClass">Ajax.Responders</span> 객체</a>
+				<a href="#Ajax.Base"><span class="objectClass">Ajax.Base</span> class</a>
+				<a href="#Ajax.Request"><span class="objectClass">Ajax.Request</span> class</a>
+				<a href="#Ajax.options"><span class="objectClass">options</span> 인자 객체</a>
+				<a href="#Ajax.Updater"><span class="objectClass">Ajax.Updater</span> class</a>
+				<a href="#Ajax.PeriodicalUpdater"><span class="objectClass">Ajax.PeriodicalUpdater</span> class</a>
+				<a href="#Element"><span class="objectClass">Element</span> 객체</a>
+				<a href="#Element.ClassNames"><span class="objectClass">Element.ClassNames</span> class</a>
+				<a href="#Abstract"><span class="objectClass">Abstract</span> 객체</a>
+				<a href="#Abstract.Insertion"><span class="objectClass">Abstract.Insertion</span> class</a>
+				<a href="#Insertion"><span class="objectClass">Insertion</span> 객체</a>
+				<a href="#Insertion.Before"><span class="objectClass">Insertion.Before</span> class</a>
+				<a href="#Insertion.Top"><span class="objectClass">Insertion.Top</span> class</a>
+				<a href="#Insertion.Bottom"><span class="objectClass">Insertion.Bottom</span> class</a>
+				<a href="#Insertion.After"><span class="objectClass">Insertion.After</span> class</a>
+				<a href="#Field"><span class="objectClass">Field</span> 객체</a>
+				<a href="#Form"><span class="objectClass">Form</span> 객체</a>
+				<a href="#Form.Element"><span class="objectClass">Form.Element</span> 객체</a>
+				<a href="#Form.Element.Serializers"><span class="objectClass">Form.Element.Serializers</span> 객체</a>
+				<a href="#Abstract.TimedObserver"><span class="objectClass">Abstract.TimedObserver</span> class</a>
+				<a href="#Form.Element.Observer"><span class="objectClass">Form.Element.Observer</span> class</a>
+				<a href="#Form.Observer"><span class="objectClass">Form.Observer</span> class</a>
+				<a href="#Abstract.EventObserver"><span class="objectClass">Abstract.EventObserver</span> class</a>
+				<a href="#Form.Element.EventObserver"><span class="objectClass">Form.Element.EventObserver</span> class</a>
+				<a href="#Form.EventObserver"><span class="objectClass">Form.EventObserver</span> class</a>
+				<a href="#Position"><span class="objectClass">Position</span> 객체 (사전 준비중인 문서)</a>
+			</div>
+
+			<!-- *************************************************** -->
+
+			<a name="Whatsthat"></a>
+			<h3>Prototype은 무엇인가.?</h3>
+			<p>
+				<a href="http://prototype.conio.net/">prototype.js</a>는 <a href="http://www.conio.net/">Sam Stephenson</a>에 의해 작성된 자바스크립트 라이브러리이다. 이 놀랍도록 멋진 생각과 표준에 의해 잘 작성된 코드의 일부는 웹2.0의 특성을 나타내는 풍부하고 상호작용하는 웹페이지와 많은 연관을 가진다.
+			</p>
+			<p>
+				만약 당신이 최근 이 라이브러리를 사용하기 시작했다면, 당신은 아마도 이 문서가 가장 좋은 지시사항중에 하나는 아니라는것을 알아차렸을것이다. 나 이전에 다른 많은 개발자들처럼, 나는 소스코드와 이것을 사용한 경험에서 prototype.js에 대한 지식을 가지게 되었다. 나는 모든 이가 배우고 공유하는 동안 좀더 많은 정보를 얻게 되는게 가장 좋은 것이라고 생각한다.
+			</p>
+			<p>
+				나는 objects, classes, functions, 그리고 이 라이브러리에 의해 제공되는 확장을 위한 <a href="#Reference">비공식적인 참조문서</a> 또한 제공한다.
+			</p>
+			<p>
+				당신이 예제와 참조문서를 읽었을때, Ruby프로그래밍 언어에 친숙한 개발자는 Ruby의 내장 클래스와 이 라이브러리에 의해 구현된 많은 확장 사이의 의도적인 유사성을 알아차리게 될것이다.
+			</p>
+
+			<p class="backToc"><a href="#toc">toc</a></p>
+			<a name="RelatedArticle"></a>
+			<h3>관련글</h3>
+			<p>고급 <a href="http://www.sergiopereira.com/articles/advjs.html">자바스크립트 가이드문서</a>.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ************************************************************************************** -->
+			<a name="UtilityFunctions"></a>
+			<h3>유틸리티 함수들(utility functions)</h3>
+			<p>
+				라이브러리는 미리 정의된 많은 수의 객체와 유틸리티 함수를 가진다. 이 알기쉬운 함수들의 목적은 반복적인 타이핑과 어구를 많이 줄이는데 있다.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="DollarFunction"></a>
+			<h4><span class="functionName">$()</span> 함수 사용하기</h4>
+			<p>
+				<span class="code">$()</span>함수는 가장 많이 사용되는 DOM의 <span class="code">document.getElementById()</span>함수에 대한 편리한 단축키이다. DOM함수처럼, 이것은 인자로 던져진 id를 가진 요소를 하나 반환한다. 
+			</p>
+			<p>
+				하지만 DOM함수와는 달리, 이것은 여러개의 id를 사용할수 있고 <span class="code">$()</span>는 요청된 요소를 가진 <span class="code">Array</span>객체를 반환할것이다. 예제는 아래와 같다.
+			</p>
+			<pre class="code">&lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt; Test Page &lt;/TITLE&gt;
+<span class="highlite">&lt;script src="prototype-1.4.0.js"&gt;&lt;/script&gt;</span>
+
+&lt;script&gt;
+	function test1()
+	{
+		<span class="highlite">var d = $('myDiv');</span>
+		alert(d.innerHTML);
+	}
+
+	function test2()
+	{
+		<span class="highlite">var divs = $('myDiv','myOtherDiv');</span>
+		for(i=0; i&lt;divs.length; i++)
+		{
+			alert(divs[i].innerHTML);
+		}
+	}
+&lt;/script&gt;
+&lt;/HEAD&gt;
+
+&lt;BODY&gt;
+	&lt;div id="myDiv"&gt;
+		&lt;p&gt;This is a paragraph&lt;/p&gt;
+	&lt;/div&gt;
+	&lt;div id="myOtherDiv"&gt;
+		&lt;p&gt;This is another paragraph&lt;/p&gt;
+	&lt;/div&gt;
+
+	&lt;input type="button" value=Test1 onclick="test1();"&gt;&lt;br&gt; 
+	&lt;input type="button" value=Test2 onclick="test2();"&gt;&lt;br&gt; 
+
+&lt;/BODY&gt;
+&lt;/HTML&gt;</pre>			
+
+			<p>
+				이 함수의 다른 좋은 점은 이것은 인자형태를 가질수 있는 다른 함수를 생성할때 매우 유용하도록 만들어주는 id문자열이나 요소객체 자체를 던질수 있다는 것이다. 
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Dollar_F_Function"></a>
+			<h4><span class="functionName">$F()</span> 함수 사용하기</h4>
+			<p>
+				<span class="code">$F()</span> 함수는 다른 단축키이다. 이것은 text박스나 드랍다운 list와 같은 어떤 필드의 입력 컨트롤의 값을 반환한다. 이 함수는 요소 id나 요소객체 자체를 인자로 가질수 있다.
+			</p>
+			<pre class="code">&lt;script&gt;
+	function test3()
+	{
+		alert(  <span class="highlite">$F('userName')</span>  );
+	}
+&lt;/script&gt;
+
+&lt;input type="text" id="userName" value="Joe Doe"&gt;&lt;br&gt; 
+&lt;input type="button" value=Test3 onclick="test3();"&gt;&lt;br&gt; 
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->	
+			<a name="Dollar_A_Function"></a>
+			<h4><span class="functionName">$A()</span> 함수 사용하기</h4>
+			<p>
+				<span class="code">$A()</span> 함수는 이것을 받아들이는 하나의 인자를 <span class="code">Array</span>객체로 변환한다.
+			</p>
+			<p>
+				<a href="#Reference.Array">Array 클래스를 위한 확장</a>과 조합된 이 함수는 이것을 더욱 쉽게 만든다. 예를 들면, 작성한 함수는 인자의 수를 유연하게 받아들인다.
+			</p>
+			<pre class="code">&lt;script&gt;
+
+	function showOptions(){
+		var someNodeList = $('lstEmployees').getElementsByTagName('option');
+		var nodes = $A(someNodeList);
+
+		nodes.each(function(node){
+				alert(node.nodeName + ': ' + node.innerHTML);
+			});
+	}
+&lt;/script&gt;
+
+&lt;select id="lstEmployees" size="10" &gt;
+	&lt;option value="5"&gt;Buchanan, Steven&lt;/option&gt;
+	&lt;option value="8"&gt;Callahan, Laura&lt;/option&gt;
+	&lt;option value="1"&gt;Davolio, Nancy&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input type="button" value="Show the options" onclick="showOptions();" &gt; 
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->			
+			<a name="Dollar_H_Function"></a>	
+			<h4><span class="functionName">$H()</span> 함수 사용하기</h4>
+			<p>
+				<span class="code">$H()</span> 함수는 결합된 배열을 열거할수 있는 <a href="#Reference.Hash">Hash</a>객체로 변환한다. 
+			</p>
+			<pre class="code">&lt;script&gt;
+	function testHash()
+	{
+		//let's create the object
+		var a = {
+			first: 10,
+			second: 20,
+			third: 30
+			};
+
+		//now transform it into a hash
+		var h = <span class="highlite">$H(a)</span>;
+		alert(h.toQueryString()); //displays: first=10&amp;second=20&amp;third=30
+	}
+
+&lt;/script&gt;
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->		
+			<a name="Dollar_R_Function"></a>
+			<h4><span class="functionName">$R()</span> 함수 사용하기</h4>
+			<p>
+				<span class="code">$R()</span> 함수는 <span class="code">new ObjectRange(lowerBound, upperBound, excludeBounds)</span>를 작성하기 위한 짧은 형태이다. 
+			</p>
+			<p>
+				이 클래스의 완전한  설명을 보기 위해 <a href="#Reference.ObjectRange">ObjectRange</a> 클래스 문서를 보라. <span class="code">each</span> 메소드를 통해 반복(iterators)의 사용법을 보여주는 간단한 예제를 보자. 더 많은 메소드는 <a href="#Reference.Enumerable">Enumerable</a> 클래스 문서에서 볼수 있을것이다.
+			</p>
+			<pre class="code">&lt;script&gt;
+	function demoDollar_R(){
+		var range = <span class="highlite">$R(10, 20, false)</span>;
+		range.each(function(value, index){
+			alert(value);
+		});
+	}
+
+&lt;/script&gt;
+
+&lt;input type="button" value="Sample Count" onclick="demoDollar_R();" &gt; 
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->	
+			<a name="TryThese"></a>	
+			<h4><span class="functionName">Try.these()</span> 함수 사용하기</h4>
+			<p>
+				이것은 인자처럼 많은 수의 함수를 가지고 그것들을 순서대로 차례차례 호출하도록 해준다. 이것은 함수중에 하나씩 수행하고 성공적인 함수호출의 결과를 반환할때까지 순차적으로 수행된다.
+			</p>
+			<p>
+				예제는 아래와 같다. <span class="code">xmlNode.text</span>는 몇몇 브라우저에서 작동하고 <span class="code">xmlNode.textContent</span>는 다른 브라우저에서 작동한다. <span class="code">Try.these()</span>함수를 사용하면 당신은 작동하는 것중 하나를 반환할수 있다.
+			</p>
+			<pre class="code">&lt;script&gt;
+function getXmlNodeValue(xmlNode){
+	return <span class="highlite">Try.these</span>(
+		function() {return xmlNode.text;},
+		function() {return xmlNode.textContent;}
+		);
+}
+&lt;/script&gt;
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- **************************************************************************************** -->
+			<a name="UsingAjax"></a>
+			<h3><span class="objectClass">Ajax</span> 객체</h3>
+			<p>
+				위에서 언급된 유틸리티 함수들은 좋다. 하지만 다시 보자. 그것들은 대부분 고급(advanced) 형태는 아니다. 당신은 스스로 이것들을 만들수 있고 당신 자신만의 스크립트에 유사한 함수를 이미 가지고 있을수도 있다. 하지만 이러한 함수들은 단지 일부분에 해당되는 팁일뿐이다.
+			</p>
+			<p>
+				나는 prototype.js에 대한 당신의 관심이 대부분의 <a href="http://en.wikipedia.org/wiki/Ajax_%28programming%29">AJAX</a>기능을 다룰수 있다는 것이라고 확신한다. 그래서 당신이 AJAX로직을 수행할 필요가 있을때 좀더 쉽게 사용하도록 도와주는 라이브러리를 사용하는 방법을 살펴보자.
+			</p>
+			<p>
+				<span class="code">AJAX</span>객체는 AJAX함수를 작성할 때 포함되는 트릭성격의 코드를 포장하고 단순화하기 위한 라이브러리에 의해 생성된 미리-정의된 객체이다. 이 객체는 캡슐화된 AJAX로직을 제공하는 많은 수의 클래스를 포함한다. 그 클래스중에 몇개를 살펴보자.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->		
+			<a name="UsingAjaxRequest"></a>
+			<h4><span class="objectClass">Ajax.Request</span> 클래스 사용하기</h4>
+			<p>
+				만약 당신이 어떠한 헬퍼(helper) 라이브러리도 사용하지 않는다면, 당신은 <span class="code">XMLHttpRequest</span>객체를 생성하기 위한 많은 코드를 작성할 것이고 단계를 비동기적으로 수행할것이다. 그리고나서 응답을 뽑아내고 이것을 처리한다. 그리고나서는 한가지 이상의 브라우저를 지원하지 않는다면 스스로 행운이라고 생각할 것이다.
+			</p>
+			
+			<p>
+				AJAX기능을 지원하기 위해, 라이브러리는 <span class="code">Ajax.Request</span>클래스를 정의한다.
+			</p>
+			<p>
+				당신이 다음처럼 XML응답을 반환하는 <em>http://yoursever/app/get_sales?empID=1234&year=1998</em> url을 통해 서버와 통신할수 있는 애플리케이션을 가지고 있다고 해보자.
+			</p>
+			
+			<pre class="code">&lt;?xml version="1.0" encoding="utf-8" ?&gt; 
+&lt;ajax-response&gt;
+	&lt;response type="object" id="productDetails"&gt;
+		&lt;monthly-sales&gt;
+			&lt;employee-sales&gt;
+				&lt;employee-id&gt;1234&lt;/employee-id&gt; 
+				&lt;year-month&gt;1998-01&lt;/year-month&gt; 
+				&lt;sales&gt;$8,115.36&lt;/sales&gt; 
+			&lt;/employee-sales&gt;
+			&lt;employee-sales&gt;
+				&lt;employee-id&gt;1234&lt;/employee-id&gt; 
+				&lt;year-month&gt;1998-02&lt;/year-month&gt; 
+				&lt;sales&gt;$11,147.51&lt;/sales&gt; 
+			&lt;/employee-sales&gt;
+		&lt;/monthly-sales&gt;
+	&lt;/response&gt;
+&lt;/ajax-response&gt;			
+			</pre>
+			
+			<p>
+				XML을 가져오기 위해 서버와 통신하는 것은 <span class="code">Ajax.Request</span>객체를 사용하면 매우 간단하다. 아래의 샘플은 이것을 수행하는 방법을 보여준다.
+			</p>
+			
+			<pre class="code">&lt;script&gt;
+	function searchSales()
+	{
+		var empID = $F('lstEmployees');
+		var y = $F('lstYears');
+		var url = 'http://yourserver/app/get_sales';
+		var pars = 'empID=' + empID + '&amp;year=' + y;
+		<div class="highlite">
+		var myAjax = new Ajax.Request(
+			url, 
+			{
+				method: 'get', 
+				parameters: pars, 
+				onComplete: showResponse
+			});
+		</div>
+	}
+
+	function showResponse(originalRequest)
+	{
+		//put returned XML in the textarea
+		$('result').value = originalRequest.responseText;
+	}
+&lt;/script&gt;
+
+&lt;select id="lstEmployees" size="10" onchange="searchSales()"&gt;
+	&lt;option value="5"&gt;Buchanan, Steven&lt;/option&gt;
+	&lt;option value="8"&gt;Callahan, Laura&lt;/option&gt;
+	&lt;option value="1"&gt;Davolio, Nancy&lt;/option&gt;
+&lt;/select&gt;
+&lt;select id="lstYears" size="3" onchange="searchSales()"&gt;
+	&lt;option selected="selected" value="1996"&gt;1996&lt;/option&gt;
+	&lt;option value="1997"&gt;1997&lt;/option&gt;
+	&lt;option value="1998"&gt;1998&lt;/option&gt;
+&lt;/select&gt;
+&lt;br&gt;&lt;textarea id=result cols=60 rows=10 &gt;&lt;/textarea&gt;
+			</pre>
+		
+			<p>
+				<span class="code">Ajax.Request</span>객체의 생성자의 두번째 파라미터를 알아보겠는가.? <span class="code">{method: 'get', parameters: pars, onComplete: showResponse}</span> 파라미터는 문자적 표기법으로 익명 객체를 나타낸다. 이것이 의미하는 것은 <span class="code">'get'</span> 문자열을 포함하는 명명된 <span class="code">메소드(method)</span>의 프라퍼티, HTTP요청 문자열을 포함하는 명명된 <span class="code">파라미터(parameter)</span>의 프라퍼티, 그리고 함수 <span class="code">showResponse</span>를 포함하는 <span class="code">onComplete</span> 프라퍼티/메소드를 가지는 객체를 전달한다는 것이다.
+			</p>
+			<p>
+				당신이 AJAX를 <span class="code">비동기적으로(asynchronous)</span> 서버에 호출할지를 결정하고 <span class="code">true</span>나 <span class="code">false</span>값으로 셋팅할수 있는 asynchronous(디폴트 값은 <span class="code">true</span>이다.)와 같은 이 객체내 정의하고 활성화시킬수 있는 다른 프라퍼티가 몇개 있다.
+			</p>
+			<p>
+				이 파라미터는 AJAX호출을 위한 옵션을 정의한다. 샘플에서, 우리는 HTTP GET명령을 통해 첫번째 인자에서 url을 호출한다. 변수 <span class="code">pars</span>내 포함된 조회문자열(querystring)을 전달하고 <span class="code">Ajax.Request</span>객체는 응답을 받아들이는 작업을 마칠때 <span class="code">showResponse</span>함수를 호출할 것이다.
+			</p>
+			<p>
+				당신이 아는것처럼, <span class="code">XMLHttpRequest</span>는 HTTP호출을 하는 동안 진행과정을 보고한다. 이 진행과정은 4가지의 단계(<em>Loading</em>, <em>Loaded</em>, <em>Interactive</em>, 또는 <em>Complete</em>)를 알릴수 있다. 당신은 이러한 단계중에서 <span class="code">Ajax.Request</span>객체 호출을 사용자정의 함수로 만들수 있다. Complete는 가장 공통적인 단계이다. 함수를 객체에게 알리기 위해, 우리 예제의 <span class="code">onComplete</span>처럼 요청옵션내 <span class="code">onXXXXX</span>로 명명된 프라퍼티/메소드를 간단히 제공하라. 당신이 전달하는 이 함수는 <span class="code">XMLHttpRequest</span>객체 자체가 될 하나의 인자를 가진 객체에 의해 호출될것이다. 당신은 반환 데이터를 얻기 위해 이 객체를 사용할수 있고 아마도 호출의 HTTP결과 코드를 포함할 <span class="code">상태(status)</span> 프라퍼티를 체크할것이다.
+			</p>	
+			<p>
+				두개의 다른 흥미로운 옵션은 결과를 처리하기 위해 사용될수 있다. 우리는 AJAX호출이 에러없이 수행될때 호출될 함수처럼 <span class="code">onSuccess</span>옵션을 명시할수 있다. <span class="code">onFailure</span>옵션은 서버에러가 발생할때 호출될 함수가 될수 있다. <span class="code">onXXXXX</span>의 선택적인 함수처럼, 이 두가지는 AJAX호출이 옮기는 <span class="code">XMLHttpRequest</span>객체를 전달하도록 호출될수 있을것이다.
+			</p>
+			<p>
+				1.4.0 버전에서, 이벤트 콜랙 핸들링의 새로운 형태가 소개되었다. 만약 당신이 AJAX호출이 발생하는데도 불구하고 특정 이벤트를 위해 수행되어야 하는 코드를 가지고 있다면, 당신은 새로운 <a href="#Ajax.Responders">Ajax.Responders</a> 객체를 사용할수 있다.
+			</p>
+			<p>
+				당신이 AJAX호출이 진행중이라는 시각적 표시를 보여주길 원한다고 해보자. 당신은 두개의 전역 이벤트 핸들러를 사용할수 있다. 하나는 첫번째 호출이 시작되었을때 아이콘을 보여주는것이고 다른 하나는 적어도 하나가 끝났을때 아이콘을 숨기는 것이다. 아래의 예제를 보자.
+			</p>
+		
+			<pre class="code">&lt;script&gt;
+	var myGlobalHandlers = {
+		onCreate: function(){
+			Element.show('systemWorking');
+		},
+
+		onComplete: function() {
+			if(Ajax.activeRequestCount == 0){
+				Element.hide('systemWorking');
+			}
+		}
+	};
+
+	<span class="highlite">Ajax.Responders.register(myGlobalHandlers);</span>
+&lt;/script&gt;
+
+&lt;div id='systemWorking'&gt;&lt;img src='spinner.gif'&gt;Loading...&lt;/div&gt;
+	</pre>
+
+			<p>
+				우리의 샘플은 흥미로운 방법으로 XML응답을 처리하지는 않았다. 우리는 textarea내 XML을 집어넣었다. 응답의 전형적인 사용법은 XML내부에서 바라는 정보를 찾고자 할것이고 몇몇 페이지 요소나 페이지내 HTML을 만드는 몇가지의 XSLT변형을 업데이트할것이다. 
+			</p>
+			<p>좀더 완전한 설명을 보기 위해서, <a href="#Ajax.Request">Ajax.Request 참조</a> 와 <a href="#Ajax.options">options 참조</a>를 보라..
+			<p class="backToc"><a href="#toc">toc</a></p>
+			
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="UsingAjaxUpdater"></a>
+			</p><h4><span class="objectClass">Ajax.Updater</span> 클래스 사용하기</h4>
+			<p>
+				만약 당신이 HTML로 이미 포맷팅된 정보를 반환할수 있는 서버 종료점(endpoint)을 가진다면, 라이브러리는 당신이 <span class="code">Ajax.Updater</span>클래스를 사용하는것을 좀더 쉽게 만들어준다. 이것으로 당신은 어느 요소가 AJAX호출로부터 반환된 HTML을 채우는지 알리게 된다. 예제는 내가 글로 표현하는 것보다 당신을 좀더 쉽게 이해하도록 도와줄것이다.
+			</p>
+
+		
+			<pre class="code">&lt;script&gt;
+	function getHTML()
+	{
+		var url = 'http://yourserver/app/getSomeHTML';
+		var pars = 'someParameter=ABC';
+		<div class="highlite">
+		var myAjax = new Ajax.Updater(
+			'placeholder', 
+			url, 
+			{
+				method: 'get', 
+				parameters: pars
+			});
+		</div>
+	}
+&lt;/script&gt;
+
+&lt;input type=button value=GetHtml onclick="getHTML()"&gt;
+&lt;div id="placeholder"&gt;&lt;/div&gt;
+			</pre>
+			
+			<p>
+				당신이 보는것처럼, 코드는 <span class="code">onComplete</span>함수와 생성자에 전달된 요소 id를 제외하고 이전예제에 비해서 매우 간단하다. 클라이언트에서 서버 에러들을 다루는 것이 어떻게 가능한지 보기 위해 코드를 조금 변경해 보자.
+			</p>
+			<p>
+				우리는 호출을 위해 더 많은 옵션을 추가하고 에러 상황을 뽑아내기 위해 함수를 명시한다. 이것은 <span class="code">onFailure</span>옵션을 사용하여 수행한다. 우리는 성공적인 작동의 경우에만 활성화될 <span class="code">묶음자(placeholder)</span>를 명시할것이다. 이것을 달성하기 위해, 우리는 간단한 요소 id에서 두개의 프라퍼티(<span class="code">success</span>-모든것이 정상적일때 사용되는, <span class="code">failure</span>-어떤것이 실패일때 사용되는)를 가지는 객체로 첫번째 파라미터를 변경할 것이다. 우리는 예제에서 <span class="code">failure</span> 프라퍼티를 사용하지 않을것이고, <span class="code">onFailure</span>옵션에서 <span class="code">reportError</span>함수를 사용할것이다.
+			</p>
+			<pre class="code">&lt;script&gt;
+	function getHTML()
+	{
+		var url = 'http://yourserver/app/getSomeHTML';
+		var pars = 'someParameter=ABC';
+		<div class="highlite">
+		var myAjax = new Ajax.Updater(
+					{success: 'placeholder'}, 
+					url, 
+					{
+						method: 'get', 
+						parameters: pars, 
+						onFailure: reportError
+					});
+		</div>
+	}
+
+	function reportError(request)
+	{
+		alert('Sorry. There was an error.');
+	}
+&lt;/script&gt;
+
+&lt;input type=button value=GetHtml onclick="getHTML()"&gt;
+&lt;div id="placeholder"&gt;&lt;/div&gt;
+
+			</pre>
+
+			<p>
+				만약 당신의 서버 로직이 HTML마크업 대신에 자바스크립트 코드를 반환한다면, <span class="code">Ajax.Updater</span>객체는 자바스크립트 코드가 될수 있다. 자바스크립트로 응답을 처리하기 위한 객체를 얻기 위해, 당신은 객체 생성자의 마지막 인자로 프라퍼티들의 목록에 <span class="code">evalScripts: true;</span>를 간단히 추가한다. 하지만 여기엔 문제가 있다. 이러한 스크립트 블럭은 페이지의 스크립트에 추가되지 않을것이다. 옵션이름인 <span class="code">evalScripts</span>이 제시하는것처럼, 스크립트는  <strong>평가</strong>될것이다. 차이점이 무엇일까.? 요청된 URL이 반환하는 것이 무엇인지 추측해보자.
+			</p>
+			<pre class="code">&lt;script language="javascript" type="text/javascript"&gt;
+	function sayHi(){
+		alert('Hi');
+	}
+&lt;/script&gt;
+
+&lt;input type=button value="Click Me" onclick="sayHi()"&gt;
+			</pre>
+			<p>
+				이 경우 당신이 이전에 이것을 시도했다면 이것이 작동하지 않는것을 알고 있을것이다. 이유는 스크립트 블럭은 평가될것이고 평가된 스크립트는 <span class="code">sayHi</span> 라는 이름의 함수를 생성하지 않을것이다. 이것은 아무것도 하지 않을것이다. 이 함수를 생성하기 위해, 우리는 함수를 <strong>생성</strong>하기 위해 변경할 필요가 있다. 아래를 보라.
+			</p>
+			<pre class="code">&lt;script language="javascript" type="text/javascript"&gt;
+	<div class="highlite">sayHi = function(){
+		alert('Hi');
+	};</div>
+&lt;/script&gt;
+
+&lt;input type=button value="Click Me" onclick="sayHi()"&gt;
+			</pre>
+			<p>
+				이전 예제에서, 우리는 변수를 선언하기 위해 <span class="code">var</span> 키워드를 사용하지 않았다. 그렇게 하는 것은 스크립트 블럭에 지역화될 함수 객체를 생성할것이다. <span class="code">var</span> 키워드 없이 함수 객체는 window범위에서 작동한다. 
+			</p>
+			<p>
+				좀더 상세한 complete설명을 위해서는, <a href="#Ajax.Updater">Ajax.Request 참조문서</a>와 <a href="#Ajax.options">Ajax.options 참조문서</a>를 보라.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+			
+<!-- ------------------------------------------------------------------------------------------- -->
+<a name="Enumerating"></a>
+			<h3>열거(Enumerating)... </h3>
+			<p>
+				우리는 루프(loop)에 친숙하다. 당신이 알다시피, 배열 자체를 생성하고 같은 종류의 요소로 채운다. 루프 제어구조(이를 테면, foreach, while, repeat 등등)을 생성하고 숫자로 된 인덱스를 통해 순차적으로 각각의 요소에 접근하고 그 요소로 작업을 수행한다. 
+			</p>
+			<p>
+				당신이 이것에 대해 생각할때, 언제나 당신은 코드에 배열을 가지고 루프내 배열을 사용할것이라는것을 의미한다. 이러한 반복을 다루기 위해 좀더 많은 기능을 가진 배열 객체가 있다면 좋지 않겠는가.? 그렇다. 많은 프로그래밍 언어는 배열이나 유사한 구조(collection과 list와 같은)에서 이러한 기능을 제공한다. 
+			</p>
+			<p>
+				prototype.js는 우리에게 반복가능한 데이터를 다룰때 사용하도록 구현된 <a href="#Reference.Enumerable" class="code">Enumerable</a> 객체를 제공한다. prototype.js 라이브러리는 더 나아가 <span class="code">Enumerable</span>의 모든 메소드로 <a href="#Reference.Array"><span class="code">Array</span> 클래스를 확장한다</a>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+<a name="Loops"></a>
+			<h4>루프, 루비-스타일</h4>
+			<p>
+				표준 자바스크립트에서, 당신이 배열의 요소를 순차적으로 표시하길 원한다면, 당신은 다음처럼 작성할수 있다. 
+			</p>
+			<pre class="code">&lt;script&gt;
+	function showList(){
+		var simpsons = ['Homer', 'Marge', 'Lisa', 'Bart', 'Meg'];
+<div class="highlite">		for(i=0;i&lt;simpsons.length;i++){
+			alert(simpsons[i]);
+		}</div>
+	}
+
+&lt;/script&gt;
+
+&lt;input type="button" value="Show List" onclick="showList();" &gt; 
+			</pre>
+			<p>
+				prototype.js를 사용하면, 다음과 같이 다시 작성할수 있다. 
+			</p>
+			<pre class="code">	function showList(){
+		var simpsons = ['Homer', 'Marge', 'Lisa', 'Bart', 'Meg'];
+<div class="highlite">		simpsons.each( function(familyMember){
+			alert(familyMember);
+		});</div>
+	}
+			</pre>
+			<p>
+				당신은 특이한 문법으로 별로 좋지않다고 생각할지도 모른다. 위 예제에서, 엉망으로 만드는 것은 아무것도 없다. 
+			</p>
+			<p>
+				<span class="code">each</span> 메소드에 대한 인자처럼 전달되는 이 함수는 보았는가.? <strong>iterator</strong> 함수처럼 이것을 참조해보자. 
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<a name="EnumeratingArrays"></a>
+			<h4>스테로이드(steroids)에서 당신의 배열</h4>
+			<p>
+				위에서 언급된것처럼, 이것은 같은 프라퍼티와 메소드를 가지는 배열내 모든 요소를 위해 공통이다. 우리의 새로운 배열을 가지고 iterator함수의 장점을 가질수 있는 방법을 보자. 
+			</p>
+			<p>
+				문법에 따르는 요소를 찾아라. 
+			</p><p>
+			</p><pre class="code">&lt;script&gt;
+	function findEmployeeById(emp_id){
+		var listBox = $('lstEmployees')
+		var options = listBox.getElementsByTagName('option');
+		options = $A(options);
+		var opt = options.<span class="highlite">find</span>( <strong>function(employee){
+			return <span class="highlite">(employee.value == emp_id)</span>;
+		}</strong>);
+		alert(opt.innerHTML); //displays the employee name
+	}
+&lt;/script&gt;
+
+&lt;select id="lstEmployees" size="10" &gt;
+	&lt;option value="5"&gt;Buchanan, Steven&lt;/option&gt;
+	&lt;option value="8"&gt;Callahan, Laura&lt;/option&gt;
+	&lt;option value="1"&gt;Davolio, Nancy&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input type="button" value="Find Laura" onclick="findEmployeeById(8);" &gt; 
+			</pre>
+			<p>
+				배열에서 항목을 걸러내는 방법을 보자. 그리고나서 각각의 요소로부터 맴버를 가져온다. 
+			</p><p>
+			</p><pre class="code">&lt;script&gt;
+	function showLocalLinks(paragraph){
+		paragraph = $(paragraph);
+		var links = $A(paragraph.getElementsByTagName('a'));
+		//find links that do not start with 'http'
+		var localLinks = links.<span class="highlite">findAll</span>( function(link){
+			var start = link.href.substring(0,4);
+			return start !='http';
+		});
+		//now the link texts
+		var texts = localLinks.<span class="highlite">pluck('innerHTML')</span>;
+		//get them in a single string
+		var result = texts.<span class="highlite">inspect()</span>;
+		alert(result);
+	}
+
+&lt;/script&gt;
+&lt;p id="someText"&gt;
+	This &lt;a href="http://othersite.com/page.html"&gt;text&lt;/a&gt; has 
+	a &lt;a href="#localAnchor"&gt;lot&lt;/a&gt; of 
+	&lt;a href="#otherAnchor"&gt;links&lt;/a&gt;. Some are 
+	&lt;a href="http://wherever.com/page.html"&gt;external&lt;/a&gt;
+	and some are &lt;a href="#someAnchor"&gt;local&lt;/a&gt;
+&lt;/p&gt;
+&lt;input type=button value="Find Local Links" onclick="showLocalLinks('someText')"&gt;
+			</pre>
+			<p>
+				이것은 이 문법에 완전히 빠지도록 하기 위한 몇가지 예제를 가진다. 사용가능한 모든 함수를 위해 <a href="#Reference.Enumerable" class="code">Enumerable</a>
+				and <a href="#Reference.Array" class="code">Array</a> 참조문서를 보라.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+<!-- ************************************************************************************************************************************* -->
+			
+<a name="Books"></a>
+			<!-- Translators: please ignore and remove this book reference stuff -->
+			<h3>내가 강력하게 추천하는 책들.</h3>
+			<p>
+				다음의 책들은 AJAX애플리케이션을 만들기 위해 요구되는 새로운 스킬을 배우는데 많은 도움을 주었고 이미 알고 있던 스킬을 좀더 탄탄하게 만들어주었다. 나는 좋은 책이 충분히 금적적인 가치를 하고 오랜시간동안 가치를 이어간다고 생각한다. 
+			</p>
+
+			<p class="recommendations" id="books">
+				<a href="http://www.amazon.com/exec/obidos/redirect?tag=sergiopereira-20&amp;creative=374929&amp;camp=211189&amp;link_code=as2&amp;path=ASIN/0764579088"><img src="images/0764579088.jpg" border="0"></a><img src="images/ir_003.gif" class="tracker">
+
+				<a href="http://www.amazon.com/exec/obidos/redirect?tag=sergiopereira-20&amp;creative=374929&amp;camp=211189&amp;link_code=as2&amp;path=ASIN/1932394613"><img src="images/1932394613.jpg" border="0"></a><img src="images/ir_005.gif" class="tracker">
+
+				<a href="http://www.amazon.com/exec/obidos/redirect?tag=sergiopereira-20&amp;creative=374929&amp;camp=211189&amp;link_code=as2&amp;path=ASIN/0735712018"><img src="images/0735712018.jpg" border="0"></a><img src="images/ir_004.gif" class="tracker">
+
+				<a href="http://www.amazon.com/exec/obidos/redirect?tag=sergiopereira-20&amp;creative=374929&amp;camp=211189&amp;link_code=as2&amp;path=ASIN/0201760401"><img src="images/0201760401.jpg" border="0"></a><img src="images/ir.gif" class="tracker">
+
+				<a href="http://www.amazon.com/exec/obidos/redirect?tag=sergiopereira-20&amp;creative=374929&amp;camp=211189&amp;link_code=as2&amp;path=ASIN/0974514055"><img src="images/0974514055.jpg" border="0"></a><img src="images/ir_002.gif" class="tracker">
+
+				<script type="text/javascript" src="images/link-enhancer"></script><img src="images/ir_006.gif"><img src="images/ir_007.gif">
+				<noscript><img src="http://www.assoc-amazon.com/s/noscript?tag=sergiopereira-20" alt="" /></noscript>
+			</p>
+
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- *********************************************************************************** -->
+			<hr>
+			<a name="Reference"></a>
+			<h3> prototype.js 참조</h3>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions"></a>
+			<h4> JavaScript 클래스에 대한 확장</h4>
+			<p>
+				prototype.js라이브러리에 기능을 추가하기 위한 방법중 하나는 현재 존재하는 JavaScript클래스를 확장하는 것이다.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions.Object"></a>
+			<h4><span class="code">Object</span>  클래스를 위한 확장</h4>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>extend(destination, source)</td><td>static</td><td>destination: 객체, source: 객체</td>
+						<td class="refDescription"><span class="code">source</span>에서 <span class="code">destination</span>으로 모든 프라퍼티와 메소드를 복사하여 상속을 구현하기 위한 방법을 제공</td>
+					</tr>
+					<tr>
+						<td>inspect(targetObj)</td><td>static</td><td>targetObj: 객체</td>
+						<td class="refDescription">targetObj의 사람이 읽을수 있는 문자열 표현으로 반환. 주어진 객체가 <span class="code">inspect</span> 인스턴스 메소드를 정의하지 않는다면, <span class="code">toString</span> 의 값을 반환</td>
+					</tr>
+
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions.Number"></a>	
+			<h4><span class="code">Number</span> 클래스를 위한 확장</h4>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>toColorPart()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">
+						숫자의 16진법 표현을 반환. 색상의 RGB컴포넌트를 HTML표현으로 변환할때 유용</td>
+					</tr>
+					<tr>
+						<td>succ()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">다음 숫자를 반환. 이 함수는 반복을 포함하는 시나리오에서 사용된다. 
+						</td>
+					</tr>
+					<tr>
+						<td>times(iterator)</td><td>instance</td><td>iterator: Function(value, index)를 충족하는 함수 객체</td> 
+						<td class="refDescription">인자 <span class="code">value</span>와 <span class="code">index</span>를 반복적으로 전달하는 <span class="code">iterator</span> 함수를 호출하는 것은 iteration과 현재 index내 현재 값을 각각 포함한다.  
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				다음의 예제는 0에서 9까지의 메시지 박스를 표시할것이다.
+			</p>
+			<pre class="code">&lt;script&gt;
+	function demoTimes(){
+		var n = 10;
+		n.times(function(index){
+			alert(index);
+		});
+		/***************************
+		 * you could have also used: 
+		 *           (10).times( .... ); 
+		 ***************************/
+	}
+
+&lt;/script&gt;
+
+&lt;input type=button value="Test Number.times()" onclick="demoTimes()"&gt;
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions.Function"></a>
+			<h4><span class="code">Function</span> 클래스를 위한 확장</h4>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>bind(object)</td><td>instance</td><td>object: 메소드를 소유하는 객체</td>
+						<td class="refDescription">함수(=메소드) 소유자 객체로 미리 묶는 함수의 인스턴스를 반환. 반환된 함수는 원래의 것과 같은 인자를 가질것이다.</td>
+					</tr>
+					<tr>
+						<td>bindAsEventListener(object)</td><td>instance</td><td>object: 메소드를 소유하는 객체</td>
+						<td class="refDescription">유하는 객체	함수(=메소드) 소유자 객체로 미리 묶는 함수의 인스턴스를 반환. 반환된 함수는 이것의 인자로 현재 <span class="code">이벤트</span> 객체를 가질것이다.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				실제로 이 확장중 하나를 보자.
+			</p>
+			<pre class="code">&lt;input type=checkbox id=myChk value=1&gt; Test?
+&lt;script&gt;
+	//declaring the class
+	var CheckboxWatcher = Class.create();
+
+	//defining the rest of the class implementation
+	CheckboxWatcher.prototype = {
+
+	   initialize: function(chkBox, message) {
+			this.chkBox = $(chkBox);
+			this.message = message;
+			//assigning our method to the event
+			<div class="highlite">
+			this.chkBox.onclick = 
+			   this.showMessage.bindAsEventListener(this);
+			</div>
+	   },
+
+	   showMessage: function(evt) {
+		  alert(this.message + ' (' + evt.type + ')');
+	   }
+	};
+
+
+	var watcher = new CheckboxWatcher('myChk', 'Changed');
+&lt;/script&gt;
+
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions.String"></a>
+			<h4><span class="code">String</span> 클래스를 위한 확장</h4>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>stripTags()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">HTML이나 XML태그가 삭제된 문자열을 반환</td>
+					</tr>
+					<tr>
+						<td>stripScripts()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">삭제된 <span class="code">&lt;script /&gt;</span> 블럭을 가진 문자열을 반환</td>
+					</tr>
+					<tr>
+						<td>escapeHTML()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">HTML마크업 문자들이 escaped된 문자열 반환</td>
+					</tr>
+					<tr>
+						<td>unescapeHTML()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription"><span class="code">escapeHTML()</span>의 반대</td>
+					</tr>
+					<tr>
+						<td>extractScripts()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">문자열내에서 발견되는 모든 <span class="code">&lt;script /&gt;</span>블럭을 포함하는 <span class="code">Array</span>객체 반환</td>
+					</tr>
+					<tr>
+						<td>evalScripts()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">문자열내에서 발견되는 각각의 <span class="code">&lt;script /&gt;</span>블럭을 평가하기</td>
+					</tr>
+					<tr>
+						<td>toQueryParams()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">쿼리문자열(querystring)을 파라미터 이름에 의해 인덱스화되는 결합된 <span class="code">Array</span>로 쪼개기</td>
+					</tr>
+					<tr>
+						<td>parseQuery()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription"><span class="code">toQueryParams()</span>와 같음.</td>
+					</tr>
+					<tr>
+						<td>toArray()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">문자열을 이것의 문자들의 <span class="code">Array</span>로 쪼개기</td>
+					</tr>
+					<tr>
+						<td>camelize()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">-(하이픈)으로 분리된 문자열을 camelCaseString으로 변환하기. 이 함수는 예를 들면, 프라퍼티 스타일을 다루는 코드를 작성할때 유용하다.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Array"></a>
+			<h4><span class="code">Array</span> 클래스를 위한 확장</h4>
+			<p>
+				시작하기 위해, <span class="code">Array</span>는 <span class="code">Enumerable</span>를 확장한다. 그래서 <span class="code">Enumerable</span>객체내에 정의되는 모든 편리한 메소드는 사용가능하다. 이것외에도, 아래의 메소드들이 구현되었다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>clear()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">배열을 비우고 자체를 반환한다.</td>
+					</tr>
+					<tr>
+						<td>compact()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription"><span class="code">null</span> 이거나 <span class="code">undefined</span>인 요소를 제외하고 배열을 반환한다. 이 메소드는 배열자체를 변경하지 않는다. </td>
+					</tr>
+					<tr>
+						<td>first()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">배열의 첫번째 요소를 반환한다.</td>
+					</tr>
+					<tr>
+						<td>flatten()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">기복이 없고, 1차원의 배열을 반환한다. 이 함수는 배열이고 반환된 배열내 요소를 포함하는 배열의 각 요소를 찾음으로써 수행된다. </td>
+					</tr>
+					<tr>
+						<td>indexOf(value)</td><td>instance</td>
+						<td>value: 당신이 찾는 것</td>
+						<td class="refDescription">배열에서 찾아진다면 주어진 <span class="code">value</span>의 0부터 시작하는 인덱스의 위치를 반환. <span class="code">value</span>이 없다면 -1을 반환</td>
+					</tr>
+					<tr>
+						<td>inspect()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">요소를 가진 배열의 잘 포맷팅된 문자열 표시를 반환하기 위해 변경</td>
+					</tr>
+					<tr>
+						<td>last()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">배열의 마지막 요소를 반환한다.</td>
+					</tr>
+					<tr>
+						<td>reverse([applyToSelf])</td><td>instance</td>
+						<td>applyToSelf: 배열 자체가 반전되는지 표시</td>
+						<td class="refDescription">역순서로 배열을 반환. 인자가 주어지지 않거나 인자가 <span class="code">true</span>라면, 배열자체는 반전될것이다. 그렇지 않으면 변경되지 않고 남는다.
+						</td>
+					</tr>
+					<tr>
+						<td>shift()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">첫번째 요소를 반환하고 배열로부터 이것을 제거한다. 배열의 길이는 1 감소한다.</td>
+					</tr>
+					<tr>
+						<td>without(value1 [, value2 [, .. valueN]])</td><td>instance</td>
+						<td>value1 ... valueN: 배열내 존재한다면 제외될 값</td>
+						<td class="refDescription">인자로 주어진 요소를 제외한 배열을 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions.DOM"></a>
+			<h4><span class="code">document</span> DOM 객체를 위한 확장</h4>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>getElementsByClassName(className [, parentElement])</td><td>instance</td>
+						<td>className: 요소와 연관된 CSS클래스 이름, 
+						parentElement: 객체 또는 가져올 요소를 포함하는 요소의 id.</td>
+						<td class="refDescription">주어진 CSS클래스명과 연관된 모든 요소를 반환. <span class="code">parentElement</span> id가 주어졌다면, 전체 문서가 검색될것이다.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Extensions.Event"></a>
+			<h4><span class="code">Event</span> 객체를 위한 확장</h4>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>KEY_BACKSPACE</td><td>Number</td>
+						<td class="refDescription">8: 되돌리기(<-) 키를 위한 상수 코드.</td>
+					</tr>
+					<tr>
+						<td>KEY_TAB</td><td>Number</td>
+						<td class="refDescription">9: 탭키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_RETURN</td><td>Number</td>
+						<td class="refDescription">13: 리턴키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_ESC</td><td>Number</td>
+						<td class="refDescription">27: Esc키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_LEFT</td><td>Number</td>
+						<td class="refDescription">37: 왼쪽 화살표 키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_UP</td><td>Number</td>
+						<td class="refDescription">38: 위쪽 화살표 키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_RIGHT</td><td>Number</td>
+						<td class="refDescription">39: 오른쪽 화살표 키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_DOWN</td><td>Number</td>
+						<td class="refDescription">40: 아래쪽 화살표 키를 위한 상수코드</td>
+					</tr>
+					<tr>
+						<td>KEY_DELETE</td><td>Number</td>
+						<td class="refDescription">	46: Delete키를 위한 상수코드</td>
+					</tr>
+					<tr class="privateMember">
+						<td>observers:</td><td>Array</td>
+						<td class="refDescription">캐시된 관찰자(observers)의 목록. 상세한 객체의 내부구현의 일부</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>element(event)</td><td>static</td>
+						<td>event: 이벤트 객체</td>
+						<td class="refDescription">이벤트를 일으키는 요소를 반환</td>
+					</tr>
+					<tr>
+						<td>isLeftClick(event)</td><td>static</td>
+						<td>event: 이벤트 객체</td>
+						<td class="refDescription">마우스 왼쪽 버튼을 클릭시 <span class="code">true</span>값 반환</td>
+					</tr>
+					<tr>
+						<td>pointerX(event)</td><td>static</td>
+						<td>event: 이벤트 객체</td>
+						<td class="refDescription">페이지에서 마우스 포인터의 x측 좌표값 반환</td>
+					</tr>
+					<tr>
+						<td>pointerY(event)</td><td>static</td>
+						<td>event: 이벤트 객체</td>
+						<td class="refDescription">페이지에서 마우스 포인터의 y측 좌표값 반환</td>
+					</tr>
+					<tr>
+						<td>stop(event)</td><td>static</td>
+						<td>event: 이벤트 객체</td>
+						<td class="refDescription">이벤트의 디폴트 행위를 취소하고 위임을 연기하기 위해 이 함수를 사용</td>
+					</tr>
+					<tr>
+						<td>findElement(event, tagName)</td><td>static</td>
+						<td>event: 이벤트 객체, tagName: 원하는 태그명</td>
+						<td class="refDescription">DOM트리 위쪽으로 가로지른다. 주어진 태그명을 가진 첫번째 요소를 검색한다. 이벤트를 발생시키는 요소로부터 시작한다.</td>
+					</tr>
+					<tr>
+						<td>observe(element, name, observer, useCapture)</td><td>static</td>
+						<td>element: 객체 또는 아이디, name: 이벤트 명 (like 'click', 'load', etc), observer: 이벤트를 다루는 함수, useCapture: <span class="code">true</span>라면, <em>capture</em>내 이벤트를 다루고 <span class="code">false</span>라면 <em>bubbling</em> 내 이벤트를 다룬다.</td>
+						<td class="refDescription">이벤트를 위한 이벤트 핸들러 함수를 추가</td>
+					</tr>
+					<tr>
+						<td>stopObserving(element, name, observer, useCapture)</td><td>static</td>
+						<td>element: 객체 또는 아이디, name: 이벤트 명 ('click' 처럼), observer: 이벤트를 다루는 함수, useCapture: true라면 <em>capture</em>내 이벤트를 다루고, false라면 <em>bubbling</em>내에서 다룬다.</td>
+						<td class="refDescription">이벤트로부터 이벤트 핸들러를 제거</td>
+					</tr>
+					<tr class="privateMember">
+						<td>_observeAndCache(element, name, observer, useCapture)</td><td>static</td>
+						<td>&nbsp;</td>
+						<td class="refDescription">private메소드, 이것에 대해 걱정하지말라.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>unloadCache()</td><td>static</td>
+						<td>(none)</td>
+						<td class="refDescription">private메소드, 이것에 대해 걱정하지말라. 메모리로부터 캐시된 모든 관찰자(observer)를 지운다.</td>
+					</tr>
+				</tbody></table>
+			</p>
+
+			<p>
+				<span class="code">window</span>객체의 이벤트를 로그하기 위한 이벤트 핸들러를 추가하는 객체를 사용하는 방법을 보자.
+			</p>
+			<pre class="code">&lt;script&gt;
+	<span class="highlite">Event.observe(window, 'load', showMessage, false);</span>
+
+	function showMessage() {
+	  alert('Page loaded.');
+	}
+&lt;/script&gt;			
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.NewObjects"></a>
+			<h4>prototype.js에 새롭게 정의된 객체와 클래스</h4>
+			<p>
+				라이브러리가 당신을 돕는 다른 방법은 객체지향 디자인과 공통적인 기능을 위한 지원 모두를 구현하는 많은 객체를 제공하는 것이다. 
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.PeriodicalExecuter"></a>
+			<h4><span class="objectClass">PeriodicalExecuter</span> 객체</h4>
+			<p>
+				이 객체는 주어진 함수를 주어진 시간간격으로 반복적으로 호출하기 위한 로직을 제공한다. 
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](callback, interval)</td><td>constructor</td><td>callback: 파라미터 성격이 아닌 함수, interval: 초단위 시간간격</td>
+						<td class="refDescription">함수를 반복적으로 호출할 이 객체의 하나의 인스턴스를 생성</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>callback</td><td>Function()</td><td class="refDescription">호출되기 위한 함수. 이 함수로 전달될 파라미터는 없다.</td>
+					</tr>
+					<tr>
+						<td>frequency</td><td>Number</td><td class="refDescription">	이것은 수초내 간격으로 실질적으로 작용</td>
+					</tr>
+					<tr class="privateMember">
+						<td>currentlyExecuting</td><td>Boolean</td><td class="refDescription">만약 함수 호출이 진행중이라면 표시</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Prototype"></a>
+			<h4><span class="objectClass">Prototype</span> 객체</h4>
+			<p>
+				<span class="code">Prototype</span> 객체는 사용되는 라이브러리의 버전을 명시하는 것보다 중요한 역활을 가지지 않는다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>Version</td><td>String</td><td class="refDescription">	라이브러리의 버전</td>
+					</tr>
+					<tr>
+						<td>emptyFunction</td><td>Function()</td><td class="refDescription">	비어있는(empty) 함수 객체</td>
+					</tr>
+					<tr>
+						<td>K</td><td>Function(obj)</td><td class="refDescription">주어진 파라미터를 되돌리는 함수 객체</td>
+					</tr>
+					<tr class="privateMember">
+						<td>ScriptFragment</td><td>String</td>
+						<td class="refDescription">스크립트를 확인하는 정규식 표현</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>		
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Enumerable"></a>
+			<h4><span class="objectClass">Enumerable</span> 객체</h4>
+			<p>
+				<span class="code">Enumerable</span> 객체는 list형태의 구조내에서 항목을 반복하기 위한 좀더 멋진 코드를 작성하는 것을 허용한다. 
+			</p>
+			<p>
+				많은 객체들은 유용한 인터페이스에 영향을 끼치기 위해 <span class="code">Enumerable</span> 을 확장한다. 
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>Version</td><td>String</td><td class="refDescription">라이브러리의 버전</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>each(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">주어진 iterator함수를 호출하는 것은 첫번째 인자내 목록으로 각각의 요소와 두번째 인자내 요소의 인덱스 전달한다.</td>
+					</tr>
+					<tr>
+						<td>all([iterator])</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						이 함수는 주어진 함수를 사용하여 값들의 전체 집합을 테스트하기 위한 방법이다. iterator 함수가 어떤 요소를 위해 <span class="code">false</span>나 <span class="code">null</span>을 반환한다면, all은 <span class="code">false</span>를 반환할것이다. 그렇지 않다면 <span class="code">true</span>를 반환할것이다. iterator가 주어지지 않는다면, 요소 자체가 <span class="code">false</span> 나 <span class="code">null</span>이 아닌지 테스트할것이다. 당신은 "모든 요소가 false가 아닌지 체크한다"와 같이 이것을 읽을수 있다. 
+						</td>
+					</tr>
+					<tr>
+						<td>any(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체(선택사항)</td>
+						<td class="refDescription">
+						이 함수는 주어진 함수를 사용하여 값들의 전체 집합을 테스트하기 위한 방법이다. iterator함수가 어떤 요소를 위해 <span class="code">false</span> 나 <span class="code">null</span>을 반환하지 않는다면 <span class="code">any</span>는 <span class="code">true</span>를 반환할것이다. 그렇지 않다면 <span class="code">false</span>를 반환할것이다.  iterator가 주어지지 않는다면, 요소 자체가 <span class="code">false</span> 나 <span class="code">null</span>이 아닌지 테스트할것이다. 당신은 "어느 요소가 false가 아닌지 체크한다"와 같이 이것을 읽을수 있다. 
+						</td>
+					</tr>
+					<tr>
+						<td>collect(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 각각의 요소를 위한 iterator함수를 호출하고 <span class="code">Array</span>로 각각의 결과를 반환한다. 집합내 각각의 요소를 위한 하나의 결과 요소는 같은 순서이다. 
+						</td>
+					</tr>
+					<tr>
+						<td>detect(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 각각의 요소를 위한 iterator함수를 호출하고 true를 반환하는 iterator함수를 야기하는 첫번째 요소를 반환한다. true를 반환하는 요소가 없다면, <span class="code">detect</span>는 null을 반환한다.
+						</td>
+					</tr>
+					<tr>
+						<td>entries()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">
+						<span class="code">toArray()</span>와 같다.
+						</td>
+					</tr>
+					<tr>
+						<td>find(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						<span class="code">detect()</span>와 같다.
+						</td>
+					</tr>
+					<tr>
+						<td>findAll(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 각각의 요소를 위한 iterator함수를 호출하고 <span class="code">true</span>로 해석되는 값을 반환하는 iterator함수를 야기하는 모든 요소를 가진 <span class="code">Array</span>을 반환한다. 이 함수는 <span class="code">reject()</span>와는 반대의 함수이다.
+						</td>
+					</tr>
+					<tr>
+						<td>grep(pattern [, iterator])</td><td>instance</td>
+						<td>pattern: 요소를 일치시키기 위해 사용되는 RegExp객체, iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 각각의 요소의 문자열 값을 <span class="code">pattern</span> 정규표현식에 대해 테스트한다. 함수는 정규표현식에 대응되는 모든 요소를 포함하는 <span class="code">Array</span> 를 반환할것이다. iterator함수가 주어진다면, <span class="code">Array</span>는 대응되는 각각의 요소를 가진 iterator를 호출한 결과를 포함할것이다. 
+						</td>
+					</tr>
+					<tr>
+						<td>include(obj)</td><td>instance</td>
+						<td>obj: 객체</td>
+						<td class="refDescription">
+						집합내 주어진 객체를 찾도록 시도한다. 객체가 찾아진다면, <span class="code">true</span>를 반환하고 찾지 못한다면 <span class="code">false</span>를 반환한다.
+						</td>
+					</tr>
+					<tr>
+						<td>inject(initialValue, iterator)</td><td>instance</td>
+						<td>initialValue: 초기화 값처럼 사용되는 객체, 
+						iterator: Function(accumulator, value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						iterator함수를 사용하여 집합의 모든 요소를 조합한다. 호출된 iterator는 accumulator인자에서 이전 반복의 결과를 전달한다. 첫번째 반복은 <span class="code">accumulator</span>인자내 <span class="code">initialValue</span>를 가진다. 마지막 결과는 마지막 반환값이다.
+						</td>
+					</tr>
+					<tr>
+						<td>invoke(methodName [, arg1 [, arg2 [...]]])</td><td>instance</td>
+						<td>methodName: 각각의 요소내에서 호출될 메소드의 이름, 
+						arg1..argN: 메소드 호출로 전달될 인자.</td>
+						<td class="refDescription">
+						집합의 각각의 요소내 methodName에 의해 명시되는 메소드를 호출하는 것은 주어진 인자(arg1에서 argN) 전달하고 <span class="code">Array</span>객체로 결과를 반환한다. 
+						</td>
+					</tr>
+					<tr>
+						<td>map(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						<span class="code">collect()</span>과 같다.
+						</td>
+					</tr>
+					<tr>
+						<td>max([iterator])</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 가장 큰 값이나 iterator가 주어진다면 집합내 각각의 요소를 위한 iterator호출의 가장 큰 결과를 반환한다. 
+						</td>
+					</tr>
+					<tr>
+						<td>include(obj)</td><td>instance</td>
+						<td>obj: 객체</td>
+						<td class="refDescription">
+						<span class="code">include()</span>과 같다.
+						</td>
+					</tr>
+					<tr>
+						<td>min([iterator])</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 가장 작은 값을 가진 요소나 iterator가 주어진다면 집합내 각각의 요소를 위한 iterator호출의 가장 작은 결과를 가진 요소를 반환한다.
+						</td>
+					</tr>
+					<tr>
+						<td>partition([iterator])</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						두개의 다른 배열을 포함하는 <span class="code">Array</span>를 반환한다. 첫번째 배열은 <span class="code">true</span>를 반환하는 iterator함수를 야기하는 모든 요소를 포함할것이고 두번째 배열은 남아있는 요소를 포함할것이다. 만약 iterator가 주어지지 않는다면, 첫번째 배열은 <span class="code">true</span>로 해석하는 요소를 포함할것이고 다른 배열은 남아있는 요소를 포함할것이다. 
+						</td>
+					</tr>
+					<tr>
+						<td>pluck(propertyName)</td><td>instance</td>
+						<td>propertyName : 각각의 요소로부터 읽어들이는 프라퍼티의 이름. 이것은 요소의 인덱스를 포함할수 있다.</td>
+						<td class="refDescription">
+						집합의 각각의 요소내 propertyName에 의해 명시된 프라퍼티에 값을 가져가고 <span class="code">Array</span>객체로 결과를 반환한다.
+						</td>
+					</tr>
+					<tr>
+						<td>reject(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						집합내 각각의 요소를 위한 iterator함수를 호출하고 <span class="code">false</span>로 해석하는 값을 반환하는 iterator함수를 야기하는 모든 요소를 가진 <span class="code">Array</span>를 반환한다. 이 함수는 <span class="code">findAll()</span>과는 반대되는 함수이다..
+						</td>
+					</tr>
+					<tr>
+						<td>select(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						<span class="code">findAll()</span>과 같다.
+						</td>
+					</tr>
+					<tr>
+						<td>sortBy(iterator)</td><td>instance</td>
+						<td>iterator: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						iterator함수 호출결과를 따르는 정렬된 모든 요소를 가진 <span class="code">Array</span>을 반환.
+						</td>
+					</tr>
+					<tr>
+						<td>toArray()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">
+						집합의 모든 요소를 가지는 <span class="code">Array</span>를 반환.
+						</td>
+					</tr>
+					<tr>
+						<td>zip(collection1[, collection2 [, ... collectionN [,transform]]])</td><td>instance</td>
+						<td>collection1 .. collectionN: 병합될 목록, transform: Function(value, index)를 충족하는 함수 객체</td>
+						<td class="refDescription">
+						현재의 집합으로 각각의 주어진 집합을 병합한다. 이 병합 작업은 같은 수의 요소를 가진 새로운 배열을 반환한다. 현재 집합과 각각의 요소가 각각의 병합된 집합으로부터 같은 인덱스를 가진 요소의 배열(이것을 하위 배열이라고 부르자.)이다. transform함수가 주어진다면, 각각의 하위 배열은 반환되기 전에 이 함수에 의해 변형딜것이다. 
+						빠른 예제 : [1,2,3].zip([4,5,6], [7,8,9]).inspect() 는 "[[1,4,7],[2,5,8],[3,6,9] ]" 를 반환한다.</td>
+					</tr>
+
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Hash"></a>
+			<h4><span class="objectClass">Hash</span> 객체</h4>
+			<p>
+				<span class="code">Hash</span> 객체는 hash구조를 구현한다. 이를테면, Key:Value쌍의 집합.
+			</p>
+			<p>
+				<span class="code">Hash</span>객체내 각각의 항목은 두개의 요소(첫번째는 key, 두번째는 value)를 가진 배열이다. 각각의 항목은 두개의 프라퍼티(<span class="code">key</span> 와 
+				<span class="code">value</span>)를 가진다. 
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>keys()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">모든 항목의 key를 가진 <span class="code">Array</span>을 반환
+						</td>
+					</tr>
+					<tr>
+						<td>values()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">모든 항목의 value를 가진 <span class="code">Array</span>을 반환
+						</td>
+					</tr>
+					<tr>
+						<td>merge(otherHash)</td><td>instance</td>
+						<td>otherHash: Hash 객체</td>
+						<td class="refDescription">hash와 전달된 다른 hash를 조합하고 새로운 결과 hash를 반환
+						</td>
+					</tr>
+					<tr>
+						<td>toQueryString()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">쿼리 문자열처럼 포맷팅된 문자열로 hash의 모든 항목을 반환. 이를테면 <span class="code">'key1=value1&amp;key2=value2&amp;key3=value3'</span>
+						</td>
+					</tr>
+					<tr>
+						<td>inspect()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">key:value쌍을 가진 hash의 포맷팅된 문자열 표현을 반환하기 위해 변경(오버라이드)</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.ObjectRange"></a>
+			<h4><span class="objectClass">ObjectRange</span> 클래스</h4>
+			<p><em><a class="code" href="#Reference.Enumerable">Enumerable</a>으로부터 상속</em></p>
+
+			<p>
+				상위 경계나 하위 경계로 값들의 범위를 표시
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>start</td><td>(any)</td><td>instance</td>
+						<td class="refDescription">범위의 시작값</td>
+					</tr>
+					<tr>
+						<td>end</td><td>(any)</td><td>instance</td>
+						<td class="refDescription">범위의 마지막값</td>
+					</tr>
+					<tr>
+						<td>exclusive</td><td>Boolean</td><td>instance</td>
+						<td class="refDescription">경계자체가 범위의 일부인지 판단</td>
+					</tr>
+				</tbody></table>
+			</p>
+
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](start, end, exclusive)</td><td>constructor</td><td>start: 시작값, end: 마지막값, exclusive: 경계가 범위내 포함되는가.?</td>
+						<td class="refDescription">하나의 range객체를 생성한다. <span class="code">start</span> 에서 <span class="code">end</span>로 범위를 지정한다. <span class="code">start</span> 와 <span class="code">end</span>가 같은 타입의 객체이고 <span class="code">succ()</span>메소드를 가져야만 한다.
+						</td>
+					</tr>
+					<tr>
+						<td>include(searchedValue)</td><td>instance</td>
+						<td>searchedValue: 검색할 값</td>
+						<td class="refDescription">
+						주어진 값이 범위내 값인지 체크. <span class="code">true</span> 나 <span class="code">false</span>값을 반환한다.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Class"></a>
+			<h4><span class="objectClass">Class</span> 객체</h4>
+			<p>
+				<span class="code">Class</span> 객체는 라이브러리에서 다른 클래스를 선언할때 사용된다. 클래스를 선언할때 이 객체를 사용하는 것은 생성자로 제공되는 <span class="code">initialize()</span>메소드를 지원하기 위한 새로운 클래스를 발생시킨다.
+			</p>
+			<p>
+				아래의 샘플을 보라.
+			</p>
+			<pre class="code">//declaring the class
+<span class="highlite">var MySampleClass = Class.create();</span>
+
+//defining the rest of the class implmentation
+MySampleClass.prototype = {
+
+   initialize: function(message) {
+		this.message = message;
+   },
+
+   showMessage: function(ajaxResponse) {
+      alert(this.message);
+   }
+};	
+
+//now, let's instantiate and use one object
+var myTalker = new MySampleClass('hi there.');
+myTalker.showMessage(); //displays alert
+
+			</pre>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>create(*)</td><td>instance</td><td>(any)</td>
+						<td class="refDescription">새로운 클래스를 위한 생성자를 정의</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Reference.Ajax"></a>
+			<h4><span class="objectClass">Ajax</span> 객체</h4>
+			<p>
+				이 객체는 AJAX기능을 제공하는 많은 다른 클래스를 위한 root와 명명공간(namespace)처럼 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>activeRequestCount</td><td>Number</td><td>instance</td>
+						<td class="refDescription">진행중인 AJAX요청의 수.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>getTransport()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">새로운 <span class="code">XMLHttpRequest</span> 객체를 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+			
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Ajax.Responders"></a>
+			<h4><span class="objectClass">Ajax.Responders</span> 객체</h4>
+			<p><em><a class="code" href="#Reference.Enumerable">Enumerable</a>로 부터 상속되었다</em></p>
+			<p>
+				이 객체는 Ajax관련 이벤트가 발생할때 호출될 객체의 목록을 보존한다. 예를 들어, 당신이 AJAX작업을 위한 전역 예외 핸들러를 연결하길 원한다면 이 객체를 사용할수 있다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>responders</td><td>Array</td><td>instance</td>
+						<td class="refDescription">객체의 목록은 AJAX이벤트 알림(notifications)을 위해 등록되었다..</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>register(responderToAdd)</td><td>instance</td><td>responderToAdd:
+						호출될 메소드를 가진 객체</td>
+						<td class="refDescription">
+							<span class="code">responderToAdd</span>인자를 전달하는 객체는 AJAX이벤트(이를테면, <span class="code">onCreate</span>, <span class="code">onComplete</span>, 
+							<span class="code">onException</span> 등등)처럼 명명된 메소드를 포함해야만 한다. 유사한 이벤트가 발생하면, 적절한 이름을 가진 메소드를 포함하는 모든 등록된 객체가 호출되는 메소드를 가질것이다. 
+						</td>
+					</tr>
+					<tr>
+						<td>unregister(responderToRemove)</td><td>instance</td><td>responderToRemove:
+						list로부터 제거될 객체</td>
+						<td class="refDescription">
+							<span class="code">responderToRemove</span> 인자로 전달되는 객체는 등록된 객체의 list로부터 제거될것이다.
+						</td>
+					</tr>
+					<tr>
+						<td>dispatch(callback, request, transport, json)</td><td>instance</td>
+						<td>callback: 보고되는 AJAX이벤트 이름, request: 이벤트를 책임지는 the Ajax.Request 객체, transport: AJAX호출을 가지는 XMLHttpRequest 객체, json: 응답의 X-JSON 헤더(존재할때만)
+						</td>
+						<td class="refDescription">
+							등록된 객체의 목록을 통해 실행하는 것은 <span class="code">callback</span> 인자내 결정된 메소드를 가지는 것을 찾는다. 호출되는 각각의 메소드는 다른 3개의 인자를 전달한다. AJAX응답이 몇몇 JSON컨텐츠를 가지는 <span class="code">X-JSON</span> HTTP 헤더를 포함한다면, 이것은 평가되고 <span class="code">json</span>인자로 전달될것이다. 만약 이벤트가 <span class="code">onException</span>라면, transport인자는 대신에 예외를 가질것이고 <span class="code">json</span>은 전달되지 않을것이다.
+						</span></td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Ajax.Base"></a>
+			<h4><span class="objectClass">Ajax.Base</span> 클래스</h4>
+			<p>
+				이 클래스는 <span class="code">Ajax</span>객체내 정의된 다른  대부분의 클래스를 위한 기본(base)클래스처럼 사용된다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>setOptions(options)</td><td>instance</td><td>options: <a href="#Ajax.options">AJAX 옵션</a></td>
+						<td class="refDescription">AJAX작업을 위해 필요한 <a href="#Ajax.options">옵션</a> 셋팅</td>
+					</tr>
+					<tr>
+						<td>responseIsSuccess()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">만약 AJAX작업이 성공한다면 <span class="code">true</span>를 반환하고, 실패한다면 <span class="code">false</span>를 반환</td>
+					</tr>
+					<tr>
+						<td>responseIsFailure()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription"><span class="code">responseIsSuccess()</span>와는 반대.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+			
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Ajax.Request"></a>
+			<h4><span class="objectClass">Ajax.Request</span> 클래스</h4>
+			<p><em><a class="code" href="#Ajax.Base">Ajax.Base</a>로 부터 상속</em></p>
+			<p>
+				AJAX 작업을 캡슐화
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>Events</td><td>Array</td><td>static</td>
+						<td class="refDescription">AJAX작업중 보고되는 가능한 이벤트/상태의 목록. 목록은 'Uninitialized', 'Loading', 'Loaded', 'Interactive', 그리고 'Complete.'를 포함한다.</td>
+					</tr>
+					<tr>
+						<td>transport</td><td>XMLHttpRequest</td><td>instance</td>
+						<td class="refDescription">AJAX작업을 가지는 <span class="code">XMLHttpRequest</span> 객체</td>
+					</tr>
+					<tr>
+						<td>url</td><td>String</td><td>instance</td>
+						<td class="refDescription">요청에 의해 대상이 되는 URL</td>
+					</tr>
+				</tbody></table>
+			</p>
+
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](url, options)</td><td>constructor</td><td>url: 꺼내기 위한 url, 
+						options: AJAX 옵션</td>
+						<td class="refDescription">
+							주어진 <span class="code">옵션</span>을 사용하여 주어진 <span class="code">url</span>을 호출할 이 객체의 하나의 인스턴스를 생성. 
+							<strong>중요사항</strong>: 선택된 url은 브라우저의 보안 셋팅을 위한 대상이 될 가치가 없다. 많은 경우 브라우저는 현재 페이지처럼 같은 호스트로부터가 아니라면 url을 가져오지 않을것이다. 당신은 설정을 피하거나 사용자의 브라우저를 제한하기 위한 로컬 url만을 사용할 것이다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>evalJSON()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 AJAX응답내 존재하는 <span class="code">X-JSON</span> HTTP헤더의 컨텐츠를 평가하기 위해 내부적으로 호출된다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>evalReponse()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. AJAX응답이 <span class="code">text/javascript</span>의 <span class="code">Content-type</span>헤더를 가진다면, 응답 몸체는 평가되고 이 메소드는 사용될것이다. </td>
+					</tr>
+					<tr>
+						<td>header(name)</td><td>instance</td><td>name: HTTP 헤더명</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 AJAX응답의 HTTP헤더의 컨텐츠를 가져오기 위해 내부적으로 호출된다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>onStateChange()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 AJAX호출 상태 변경시 객체 자체에 의해 호출된다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>request(url)</td><td>instance</td><td>url: AJAX호출을 위한 url</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 생성자를 호출하는 동안 벌써 호출되었다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>respondToReadyState(readyState)</td><td>instance</td><td>readyState: 상태 숫자값(1 에서  4)</td>
+						<td class="refDescription">이 메소드는 대개 외부에서 호출되지 않는다. 이것은 AJAX호출 상태가 변경될때 객체 자체에 의해 호출된다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>setRequestHeaders()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 HTTP요청을 하는 동안 보내어질 HTTP헤더를 조합하기 위한 객체 스스로에 의해 호출된다.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Ajax.options"></a>			
+			<h4><span class="objectClass">options</span> 인자 객체</h4>
+			<p>
+				AJAX작업의 중요한 부분은 <span class="code">options</span> 인자이다. 이것은 기대되는 프라퍼티를 가지는 동안 어떠한 객체도 전달될수 있다. 이것은 AJAX호출을 위해 익명 객체를 생성하는 것이 공통적이다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>디폴트</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>method</td><td>String</td><td>'post'</td>
+						<td class="refDescription">HTTP요청의 메소드</td>
+					</tr>
+					<tr>
+						<td>parameters</td><td>String</td><td>''</td>
+						<td class="refDescription">요청에 전달한 값들의 url형태의 목록</td>
+					</tr>
+					<tr>
+						<td>asynchronous</td><td>Boolean</td><td>true</td>
+						<td class="refDescription">AJAX호출이 비동기적으로 만들어지는지 표시</td>
+					</tr>
+					<tr>
+						<td>postBody</td><td>String</td><td>undefined</td>
+						<td class="refDescription">HTTP POST의 경우 요청의 몸체내 전달되는 내용</td>
+					</tr>
+					<tr>
+						<td>requestHeaders</td><td>Array</td><td>undefined</td>
+						<td class="refDescription">요청과 함께 전달되기 위한 HTTP헤더의 목록. 이 목록은 많은 수의 항목을 가져야 한다. 나머지 항목은 사용자 정의 헤더의 이름이다. 그리고 다음의 항목은 헤더의 문자열 값이다. 예제 : <span class="code">['my-header1', 'this is the value', 'my-other-header', 'another value']</span></td>
+					</tr>
+					<tr>
+						<td>onXXXXXXXX</td><td>Function(XMLHttpRequest)</td><td>undefined</td>
+						<td class="refDescription">각각의 이벤트/상태가 AJAX호출이 발생하는 동안 도착할때 호출될 사용자정의 함수. 예제 <span class="code">var myOpts = {onComplete: showResponse, onLoaded: registerLoaded};</span>. 사용되는 함수는 AJAX작업을 가지는 <span class="code">XMLHttpRequest</span>객체를 포함하는 하나의 인자를 받을것이다.</td>
+					</tr>
+					<tr>
+						<td>onSuccess</td><td>Function(XMLHttpRequest)</td><td>undefined</td>
+						<td class="refDescription">AJAX호출이 성공적으로 완성될때 호출될 사용자정의 함수. 사용되는 함수는 AJAX작업을 가지는 <span class="code">XMLHttpRequest</span>객체를 포함하는 하나의 인자를 받을것이다.</td>
+					</tr>
+					<tr>
+						<td>onFailure</td><td>Function(XMLHttpRequest)</td><td>undefined</td>
+						<td class="refDescription">AJAX호출이 에러를 가진채 끝날때 호출될 사용자정의 함수. 사용되는 함수는 AJAX작업을 가지는 <span class="code">XMLHttpRequest</span>객체를 포함하는 하나의 인자를 받을것이다.</td>
+					</tr>
+					<tr>
+						<td>insertion</td><td>Function(Object, String)</td><td>null</td>
+						<td class="refDescription">삽입하기 위해 호출되는 함수는 텍스트를 요소로 반환한다. 함수는 수정되기 위한 요소객체와 <a class="code" href="#Ajax.Updater">Ajax.Updater</a>객체에만 적용되는 응답 텍스트의 두개의 인자를 가지고 호출된다.</td>
+					</tr>
+					<tr>
+						<td>evalScripts</td><td>Boolean</td><td>undefined, false</td>
+						<td class="refDescription">스크립트 블럭이 응답이 도착했을때 평가할지를 판단. <a class="code" href="#Ajax.Updater">Ajax.Updater</a>객체에만 적용.</td>
+					</tr>
+					<tr>
+						<td>decay</td><td>Number</td><td>undefined, 1</td>
+						<td class="refDescription"><a class="code" href="#Ajax.PeriodicalUpdater">Ajax.PeriodicalUpdater</a> 객체는 받은 응답이 마지막 것과 같을때 비율을 새롭게 하여 연속적인 후퇴를 결정. 예를 들어, 당신이 2를 사용한다면, 새롭게 된것중에 하나가 이전것과 같은 결과를 만든후에, 객체는 다음 refresh를 위한 시간의 두배를 기다릴것이다. 이것은 다시 반복한다면, 객체는 4배를 기다릴것이다. 이것을 후퇴를 피하기 위해 정의되지 않거나 1을 사용하도록 남겨두라.</td>
+					</tr>
+					<tr>
+						<td>frequency</td><td>Number</td><td>undefined, 2</td>
+						<td class="refDescription">
+							초단위의 갱신간격(횟수가 아닌), <a class="code" href="#Ajax.PeriodicalUpdater">Ajax.PeriodicalUpdater</a>객체에만 적용.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Ajax.Updater"></a>
+			<h4><span class="objectClass">Ajax.Updater</span> 클래스</h4>
+			<p><em><a class="code" href="#Ajax.Request">Ajax.Request</a>로 부터 상속</em></p>
+			<p>
+				요청된 url이 당신 페이지의 특정 요소내 직접적으로 삽입하길 원하는 HTML을 반환할때 사용된다. 당신은 url이 도착을 평가할 <span class="code">&lt;script&gt;</span>블럭을 반환할때 이 객체를 사용할수 있다. 스크립트로 작업하기 위해 <span class="code">evalScripts</span> 옵션을 사용하라.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr class="privateMember">
+						<td>containers</td><td>Object</td><td>instance</td>
+						<td class="refDescription">이 객체는 두개의 프라퍼티(<span class="code">containers.success</span> 는 AJAX호출이 성공할때 사용될것이다. 그리고 AJAX호출이 실패한다면 <span class="code">containers.failure</span>가 사용될것이다.)를 포함한다.</td>
+					</tr>
+				</tbody></table>
+			</p>
+
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](container, url, options)</td><td>constructor</td>
+						<td>	container: 이것은 요소의 id, 요소객체 자체, 또는 두개의 프라퍼티(AJAX호출이 성공했을때 사용될 <strong>object.success</strong> 요소(또는 id), 그리고 AJAX호출이 실패했을때 사용될 <strong>object.failure</strong>요소(또는 id))를 가지는 객체가 될수 있다. url: 가져오기 위한 url, options: <a class="code" href="#Ajax.options">AJAX 옵션</a></td>
+						<td class="refDescription">주어진 <span class="code">옵션</span>을 사용하여 주어진 <span class="code">url</span>을 호출할 이 객체의 하나의 인스턴스를 생성.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>updateContent()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">	이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 응답을 받았을때 객체 자체에 의해 호출된다. 이것은 HTML로 적절한 요소를 수정하거나 <span class="code">insertion</span>옵션내 전달되는 함수를 호출할것이다. 이 함수는 두개의 인자(수정되기 위한 요소와 응답 텍스트)를 가지고 호출될것이다.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Ajax.PeriodicalUpdater"></a>
+			<h4><span class="objectClass">Ajax.PeriodicalUpdater</span> 클래스</h4>
+			<p><em><a class="code" href="#Ajax.Base">Ajax.Base</a>로 부터 상속</em></p>
+			<p>
+				이 클래스는 반복적으로 인스턴스화하고 페이지에서 요소를 새롭게 하거나 <span class="objectClass">Ajax.Updater</span>가 수행할수 있는 다른 작업중 어느것을 수행하기 위한 <span class="objectClass">Ajax.Updater</span>객체를 사용한다. 좀더 많은 정보를 위해 <a href="#Ajax.Updater">Ajax.Updater 참조</a>를 체크하라.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>container</td><td>Object</td><td>instance</td>
+						<td class="refDescription">이 값은 <span class="code">Ajax.Updater</span>생성자에 일관적으로 전달될것이다.</td>
+					</tr>
+					<tr>
+						<td>url</td><td>String</td><td>instance</td>
+						<td class="refDescription">이 값은 <span class="code">Ajax.Updater</span>의 생성자에 일관적으로 전달될것이다.</td>
+					</tr>
+					<tr>
+						<td>frequency</td><td>Number</td><td>instance</td>
+						<td class="refDescription">초단위의 refresh간격. 디폴트는 2초. 이 숫자는 <span class="code">Ajax.Updater</span> 객체를 호출할때 현재 <span class="code">축소(decay)</span>에 의해 곱해질것이다.
+						</td>
+					</tr>
+					<tr>
+						<td>decay</td><td>Number</td><td>instance</td>
+						<td class="refDescription">작업을 재-수행할때 적용될 축소(decay)레벨을 유지</td>
+					</tr>
+					<tr class="privateMember">
+						<td>updater</td><td><a href="#Ajax.Updater">Ajax.Updater</a></td><td>instance</td>
+						<td class="refDescription">가장 최신에 사용된 <span class="code">Ajax.Updater</span> 객체</td>
+					</tr>
+					<tr class="privateMember">
+						<td>timer</td><td>Object</td><td>instance</td>
+						<td class="refDescription">다른 refresh를 위한 시각일때 객체를 알리기 위해 사용되는 자바스크립트 타이머</td>
+					</tr>
+				</tbody></table>
+			</p>
+
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](container, url, options)</td><td>constructor</td>
+						<td>or	container:이것은 요소의 id, 요소객체 자체, 또는 두개의 프라퍼티(AJAX호출이 성공할때 사용될 <span class="code">object.success</span> 요소(나 id), AJAX호출이 실패할때 사용할 <span class="code">object.failure</span> 요소(나 id))를 가지는 객체가 될수 있다. url: 가져오기 위한 url, options: <a class="code" href="#Ajax.options">AJAX 옵션</a></td>
+						<td class="refDescription">주어진 <span class="code">옵션</span>을 사용하여 주어진 <span class="code">url</span>을 호출할 이 객체의 하나의 인스턴스를 생성</td>
+					</tr>
+					<tr class="privateMember">
+						<td>start()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것의 정기적인 작업 수행을 시작하기 위해 객체 자체에 의해 호출된다.
+						</td>
+					</tr>
+					<tr>
+						<td>stop()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것의 정기적인 작업 수행을 시작하기 위해 객체 자체에 의해 호출된다.
+						</td>
+					</tr>
+					<tr class="privateMember">
+						<td>updateComplete()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 요청을 완성한 후에 사용되는 <span class="code">Ajax.Updater</span>에 의해 호출된다. 이것은 다음 refresh스케줄링 하기 위해 사용된다.
+						</td>
+					</tr>
+					<tr class="privateMember">
+						<td>onTimerEvent()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 다음 수정을 위한 시각일때 내부적으로 호출된다.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Element"></a>
+			<h4><span class="objectClass">Element</span> 객체</h4>
+			<p>
+				이 객체는 DOM내 요소를 변경하기 위해 몇몇 유틸리티성 함수들을 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>addClassName(element, className)</td><td>instance</td><td>element: element 객체 또는 아이디, 
+						className: CSS 클래스명</td>
+						<td class="refDescription">주어진 class명을 요소의 class명으로 추가</td>
+					</tr>
+					<tr>
+						<td>classNames(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">주어진 element와 관련된 CSS class명을 표시하는 <span class="code">Element.ClassNames</span> 객체를 반환</td>
+					</tr>
+					<tr>
+						<td>cleanWhitespace(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">요소의 자식노드에서 공백을 제거</td>
+					</tr>
+					<tr>
+						<td>empty(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">element태그가 비어있는지(또는 공백만을 가지고 있는지) 표시하는 <span class="code">Boolean</span>값을 반환</td>
+					</tr>
+					<tr>
+						<td>getDimensions(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">
+							element의 면적(dimensions)을 반환. 반환된 값은 두개의 프라퍼티(<span class="code">height</span> 와 <span class="code">width</span>)를 가지는 객체이다. 
+						</td>
+					</tr>
+					<tr>
+						<td>getHeight(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">요소의 <span class="code">offsetHeight</span>값을 반환</td>
+					</tr>
+					<tr>
+						<td>getStyle(element, cssProperty)</td><td>instance</td><td>element: element 객체 또는 아이디, cssProperty : CSS프라퍼티('prop-name' 또는 'propName' 가 작동하는 형태)의 이름</td>
+						<td class="refDescription">
+						주어진 element내 CSS프라퍼티의 값을 반환하거나 존재하지 않는다면 <span class="code">null</span> 을 반환</td>
+					</tr>
+					<tr>
+						<td>hasClassName(element, className)</td><td>instance</td><td>element: element 객체 또는 아이디, 
+						className: CSS class명</td>
+						<td class="refDescription">요소가 class명중에 하나로 주어진 class명을 가진다면 <span class="code">true</span>를 반환</td>
+					</tr>
+					<tr>
+						<td>hide(elem1 [, elem2 [, elem3 [...]]])</td><td>instance</td><td>elemN: element 객체 또는 아이디</td>
+						<td class="refDescription"><span class="code">style.display</span>를 <span class="code">'none'</span>로 셋팅하여 각각의 요소를 숨긴다.</td>
+					</tr>
+					<tr>
+						<td>makeClipping(element)</td><td>instance</td><td>element: element 객체나 아이디</td>
+						<td class="refDescription"></td>
+					</tr>
+					<tr>
+						<td>makePositioned(element)</td><td>instance</td><td>element: element 객체나 아이디</td>
+						<td class="refDescription">element의 <span class="code">style.position</span>  을 <span class="code">'relative'</span>로 변경</td>
+					</tr>
+					<tr>
+						<td>remove(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">문서로 부터 요소를 제거한다.</td>
+					</tr>
+					<tr>
+						<td>removeClassName(element, className)</td><td>instance</td><td>element: element 객체 또는 아이디, 
+						className: CSS 클래스명</td>
+						<td class="refDescription">요소의 class명으로 부터 주어진 class명을 제거</td>
+					</tr>
+					<tr>
+						<td>scrollTo(element)</td><td>instance</td><td>element: element 객체나 아이디</td>
+						<td class="refDescription">창을 element위치로 스크롤</td>
+					</tr>
+					<tr>
+						<td>setStyle(element, cssPropertyHash)</td><td>instance</td><td>element: element 객체나 아이디, cssPropertyHash : 적용되기 위한 스타일을 가지는 Hash객체</td>
+						<td class="refDescription"><span class="code">cssPropertyHash</span> 인자내 값에 따라, 주어진 element내 CSS프라퍼티의 값을 셋팅.</td>
+					</tr>
+					<tr>
+						<td>show(elem1 [, elem2 [, elem3 [...]]])</td><td>instance</td><td>elemN: element 객체 또는 아이디</td>
+						<td class="refDescription"><span class="code">style.display</span>를 <span class="code">''</span>로 다시 셋팅하여 각각의 요소를 보여준다.</td>
+					</tr>
+					<tr>
+						<td>toggle(elem1 [, elem2 [, elem3 [...]]])</td><td>instance</td><td>elemN: element 객체 또는 아이디</td>
+						<td class="refDescription">각각의 전달된 요소의 가시성(visibility)을 토글(toggle)한다.</td>
+					</tr>
+					<tr>
+						<td>undoClipping(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription"></td>
+					</tr>
+					<tr>
+						<td>undoPositioned(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">element의 <span class="code">style.position</span> 을 <span class="code">''</span>으로 초기화</td>
+					</tr>
+					<tr>
+						<td>update(element, html)</td><td>instance</td><td>element: element 객체 또는 아이디, html: html 컨텐츠</td>
+						<td class="refDescription">
+							주어진 html인자를 가지는 요소의 내부 html을 대체. 주어진 html이 <span class="code">&lt;script&gt;</span>블럭을 포함한다면, 그것들은 포함되지는 않지만 평가될것이다.
+						</td>
+					</tr>
+					<tr>
+						<td>visible(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">요소가 눈에 보이는지 표시하는 <span class="code">Boolean</span>값을 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Element.ClassNames"></a>
+			<h4><span class="objectClass">Element.ClassNames</span> class</h4>
+			<p><em><a class="code" href="#Reference.Enumerable">Enumerable</a>로부터 상속</em></p>
+
+			<p>
+				element에 관련된 CSS class명의 collection을 표시
+			</p>
+
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element)</td><td>constructor</td><td>element: DOM element 객체또는 아이디</td>
+						<td class="refDescription">주어진 element의 CSS class명을 표시하는 <span class="code">Element.ClassNames</span> 객체를 생성
+						</td>
+					</tr>
+					<tr>
+						<td>add(className)</td><td>instance</td>
+						<td>className: CSS class 명</td>
+						<td class="refDescription">element에 관련된 class명의 리스트에 주어진 CSS class명을 추가
+						</td>
+					</tr>
+					<tr>
+						<td>remove(className)</td><td>instance</td>
+						<td>className: CSS class 명</td>
+						<td class="refDescription">
+						element에 관련된 class명의 리스트로부터 주어진 CSS class명을 제거
+						</td>
+					</tr>
+					<tr>
+						<td>set(className)</td><td>instance</td>
+						<td>className: CSS class 명</td>
+						<td class="refDescription">
+						주어진 CSS class명을 가진 element을 결합, element로부터 다른 class명을 제거.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Abstract"></a>
+			<h4>The <span class="objectClass">Abstract</span> 객체</h4>
+			<p>
+				이 객체는 라이브러리내 다른 클래스를 위한 root처럼 제공한다. 이것은 어떤 프라퍼티나 메소드도 가지지 않는다. 이 객체에 정의된 클래스는 전통적인 추상 클래스처럼 처리된다.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+			
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Abstract.Insertion"></a>
+			<h4><span class="objectClass">Abstract.Insertion</span> 클래스</h4>
+			<p>
+				이 클래스는 동적으로 내용물을 추가할 다른 클래스를 위한 기본 클래스처럼 사용된다. 이 클래스는 추상 클래스처럼 사용된다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, content)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, content: 삽입되는 HTML</td>
+						<td class="refDescription">동적 내용물 삽입을 도울 객체를 생성</td>
+					</tr>
+					<tr class="privateMember">
+						<td>contentFromAnonymousTable()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription"></td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>종류</th><th>상세설명</th>
+					</tr>
+					<tr class="privateMember">
+						<td>adjacency</td><td>String</td><td>static, parameter</td>
+						<td class="refDescription">내용물이 주어진 요소에 대해 상대적으로 위치할 지점을 명시하는 파라미터. 가능한 값은 <span class="code">'beforeBegin'</span>, <span class="code">'afterBegin'</span>, <span class="code">'beforeEnd'</span>, 그리고 <span class="code">'afterEnd'</span>.</td>
+					</tr>
+					<tr>
+						<td>element</td><td>Object</td><td>instance</td>
+						<td class="refDescription">삽입이 상대적으로 만들어질 요소객체</td>
+					</tr>
+					<tr>
+						<td>content</td><td>String</td><td>instance</td>
+						<td class="refDescription">삽입될 HTML.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+			
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Insertion"></a>
+			<h4><span class="objectClass">Insertion</span> 객체</h4>
+			<p>
+				이 객체는 라이브러리내 다른 클래스를 위한 root처럼 제공한다. 이것은 어떠한 프라퍼티나 메소드를 가지지 않는다. 이 객체에 정의된 클래스는 전통적인 추상 클래스처럼 처리된다.
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Insertion.Before"></a>
+			<h4><span class="objectClass">Insertion.Before</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>로 부터 상속</em></p>
+			<p>
+				요소 앞에 HTML삽입
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, content)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, content: 삽입되는 HTML</td>
+						<td class="refDescription"><a class="code" href="#Abstract.Insertion">Abstract.Insertion</span>으로 부터 상속. 동적으로 내용물을 삽입하는 것을 돕는 객체를 생성</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				다음의 코드는
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?&lt;/span&gt;
+
+&lt;script&gt; <span class="highlite">new Insertion.Before('person', 'Chief ')</span>; &lt;/script&gt;
+			</pre>
+			<p>
+				다음처럼 HTML이 변경될것이다.
+			</p>
+			<pre class="code">&lt;br&gt;Hello, <span class="highlite">Chief </span>&lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?&lt;/span&gt;	
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Insertion.Top"></a>
+			<h4><span class="objectClass">Insertion.Top</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>로 부터 상속</em></p>
+			<p>
+				요소아래의 첫번째 자식으로 HTML을 삽입. 이 내용물은 요소의 열기 태그뒤에 위치할것이다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, content)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, content: 삽입되는 HTML</td>
+						<td class="refDescription"><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>으로부터 상속. 동적으로 내용물을 삽입하는 것을 돕는 객체 생성</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				다음의 코드는
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?&lt;/span&gt;
+
+&lt;script&gt; <span class="highlite">new Insertion.Top('person', 'Mr. ')</span>; &lt;/script&gt;
+			</pre>
+			<p>
+				다음처럼 HTML이 변경될것이다.
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;<span class="highlite">Mr. </span>Wiggum. How's it going?&lt;/span&gt;	
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Insertion.Bottom"></a>
+			<h4><span class="objectClass">Insertion.Bottom</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>로 부터 상속</em></p>
+			<p>
+				요소아래의 마지막 자식으로 HTML삽입. 내용물은 요소의 닫기 태그앞에 위치할것이다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, content)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, content: HTML to be inserted</td>
+						<td class="refDescription"><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>로 부터 상속. 동적으로 내용물을 삽입하는 것을 돕는 객체 생성</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				다음의 코드는
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?&lt;/span&gt;
+
+&lt;script&gt; <span class="highlite">new Insertion.Bottom('person', " What's up?")</span>; &lt;/script&gt;
+			</pre>
+			<p>
+				다음처럼 HTML이 변경될것이다.
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?<span class="highlite"> What's up?</span>&lt;/span&gt;	
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Insertion.After"></a>
+			<h4><span class="objectClass">Insertion.After</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>로 부터 상속</em></p>
+			<p>
+				요소의 닫기 태그뒤 HTML삽입
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, content)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, content: HTML to be inserted</td>
+						<td class="refDescription"><a class="code" href="#Abstract.Insertion">Abstract.Insertion</a>으로부터 상속. 동적으로 내용물을 삽입하는 것을 돕는 객체 생성</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				다음의 코드는
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?&lt;/span&gt;
+
+&lt;script&gt; <span class="highlite">new Insertion.After('person', ' Are you there?')</span>; &lt;/script&gt;
+			</pre>
+			<p>
+				다음처럼 HTML이 변경될것이다.
+			</p>
+			<pre class="code">&lt;br&gt;Hello, &lt;span id="person" style="color:red;"&gt;Wiggum. How's it going?&lt;/span&gt;<span class="highlite"> Are you there?</span>	
+			</pre>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Field"></a>
+			<h4><span class="objectClass">Field</span> 객체</h4>
+			<p>
+				이 객체는 폼내 input필드와 작동하기 위한 몇가지 유틸리티성 함수를 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>clear(field1 [, field2 [, field3 [...]]])</td><td>instance</td><td>fieldN: field element 객체 또는 아이디 </td>
+						<td class="refDescription">field요소로부터 각각 전달된 값을 지움(clear)</td>
+					</tr>
+					<tr>
+						<td>present(field1 [, field2 [, field3 [...]]])</td><td>instance</td><td>fieldN: field element 객체 또는 아이디 </td>
+						<td class="refDescription">모든 폼 field가 빈값이 아니라면 <span class="code">true</span>를 반환</td>
+					</tr>
+					<tr>
+						<td>focus(field)</td><td>instance</td><td>field: field element 객체 또는 아이디</td>
+						<td class="refDescription">주어진 폼 field로 입력 포커스 이동</td>
+					</tr>
+					<tr>
+						<td>select(field)</td><td>instance</td><td>field: field element 객체 또는 아이디</td>
+						<td class="refDescription">텍스트 선택을 지원하는 field내 값을 선택</td>
+					</tr>
+					<tr>
+						<td>activate(field)</td><td>instance</td><td>field: field element 객체 또는 아이디</td>
+						<td class="refDescription">포커스를 이동하고 텍스트 선택을 지원하는 field내 값을 선택</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form"></a>
+			<h4><span class="objectClass">Form</span> 객체</h4>
+			<p>
+				이 객체는 데이터 항목 폼과 그것들의 입력 field와 작동하기 위한 몇몇 유틸리티성 함수를 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>serialize(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription"><span class="code">'field1=value1&field2=value2&field3=value3'</span>처럼 field명과 값의 url형태의 목록을 반환</td>
+					</tr>
+					<tr>
+						<td>findFirstElement(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription">form에서 첫번째로 사용가능한 필드 element를 반환</td>
+					</tr>
+					<tr>
+						<td>getElements(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription">폼내 모든 입력 field를 포함하는 <span class="code">Array</span> 반환</td>
+					</tr>
+					<tr>
+						<td>getInputs(form [, typeName [, name]])</td><td>instance</td>
+						<td>form: form element 객체 또는 아이디, typeName: input요소의 타입,
+						name: input요소명.</td>
+						<td class="refDescription">폼내 모든 <span class="code">&lt;input&gt;</span>요소를 포함하는 <span class="code">Array</span> 반환. 선택적으로 목록은 요소의 <span class="code">타입</span>이나 <span class="code">name</span>속성에 의해 필터링 될수 있다.</td>
+					</tr>
+					<tr>
+						<td>disable(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription">폼내 모든 입력 field를 사용불가상태로 만들기</td>
+					</tr>
+					<tr>
+						<td>enable(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription">폼내 모든 입력 field를 사용가능하게 만들기</td>
+					</tr>
+					<tr>
+						<td>focusFirstElement(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription">첫번째 가시성을 활성화하고, 폼내 입력 field를 가능하게 하기</td>
+					</tr>
+					<tr>
+						<td>reset(form)</td><td>instance</td><td>form: form element 객체 또는 아이디</td>
+						<td class="refDescription">폼을 리셋하기. form객체의 <span class="code">reset()</span>메소드와 같다.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form.Element"></a>
+			<h4><span class="objectClass">Form.Element</span> 객체</h4>
+			<p>
+				이 객체는 폼요소와 작동하기 위한 몇몇 유틸리티성 함수를 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>serialize(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription"><span class="code">'elementName=elementValue'</span>처럼 요소의 name=value 짝을 반환</td>
+					</tr>
+					<tr>
+						<td>getValue(element)</td><td>instance</td><td>element: element 객체 또는 아이디</td>
+						<td class="refDescription">요소의 값을 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form.Element.Serializers"></a>
+			<h4><span class="objectClass">Form.Element.Serializers</span> 객체</h4>
+			<p>
+				이 객체는 폼요소의 현재 값을 가져오기 위해 라이브러리 내부적으로 사용되는 몇몇 유틸리티성 함수를 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>inputSelector(element)</td><td>instance</td><td>element: radio 버튼이나 checkbox처럼 <em>checked</em>프라퍼티를 가지는 form요소의 객체 또는 아이디</td>
+						<td class="refDescription"><span class="code">['elementName', 'elementValue']</span>처럼 요소의 이름과 값을 가지는 <span class="code">Array</span>을 반환</td>
+					</tr>
+					<tr>
+						<td>textarea(element)</td><td>instance</td><td>element: textbox, button 또는 password필드처럼 <em>value</em>프라퍼티를 가지는 form요소의 객체 또는 아이디.</td>
+						<td class="refDescription"><span class="code">['elementName', 'elementValue']</span>처럼 요소의 이름과 값을 가지는 <span class="code">Array</span>를 반환</td>
+					</tr>
+					<tr>
+						<td>select(element)</td><td>instance</td><td>element: &lt;select&gt; 요소의 객체 또는 아이디</td>
+						<td class="refDescription"><span class="code">['elementName', 'selOpt1 selOpt4 selOpt9']</span>처럼 요소의 이름과 모든 선택된 옵션의 값이나 텍스트를 가지는 <span class="code">Array</span>를 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Abstract.TimedObserver"></a>
+			<h4><span class="objectClass">Abstract.TimedObserver</span> 클래스</h4>
+			<p>
+				이 클래스는 값이 변경(또는 프라퍼티가 클래스정의를 얻어내는)될때까지 하나의 요소를 모니터링할 다른 클래스를 위한 기본클래스처럼 사용된다. 이 클래스는 추상클래스처럼 사용된다.
+			</p>
+			<p>
+				하위클래스는 요소의 입력값, style프라퍼티중 하나, 또는 테이블내 row의 수, 또는 당신이 추적하고자 하는 모든것을 모니터링하기 위해 생성될수 있다.
+			</p>
+			<p>
+				얻어낸 클래스는 요소내 모니터링되는 현재 값을 무엇인지 판단하기 위한 메소드를 구현하는 것이다.
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, frequency, callback)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, frequency: 초단위 간격, callback: 요소가 변경될때 호출되는 함수</td>
+						<td class="refDescription">요소를 모니터링할 객체 생성</td>
+					</tr>
+					<tr class="privateMember&gt; &lt;td&gt;getValue()&lt;/td&gt;&lt;td&gt;instance, abstract&lt;/td&gt; &lt;td&gt;(none)&lt;/td&gt; &lt;td class=" refdescription="">
+					</tr>
+					<tr class="privateMember">
+						<td>registerCallback()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 요소 모니터링릉 시작하기 위한 객체 자체에 의해 호출된다.
+						</td>
+					</tr>
+					<tr class="privateMember">
+						<td>onTimerEvent()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 요소를 체크하기 위해 정기적으로 객체 자체에 의해 호출된다.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>element</td><td>Object</td>
+						<td class="refDescription">모니터링되는 요소객체</td>
+					</tr>
+					<tr>
+						<td>frequency</td><td>Number</td><td class="refDescription">이것은 체크사이에 초단위 간격으로 이루어진다.</td>
+					</tr>
+					<tr>
+						<td>callback</td><td>Function(Object, String)</td><td class="refDescription">요소가 변경될때마다 호출되기 위한 함수. 이것은 요소객체와 새로운 값을 받을것이다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>lastValue</td><td>String</td><td class="refDescription">요소내 확인되는 마지막 값</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form.Element.Observer"></a>
+			<h4><span class="objectClass">Form.Element.Observer</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.TimedObserver">Abstract.TimedObserver</a>로 부터 상속</em></p>
+			<p>
+				폼 입력 요소의 값을 모니터링하는 <span class="code">Abstract.TimedObserver</span>의 구현물. 값 변경을 보고하는 이벤트를 드러내지 않는 요소를 모니터링하고자 할때 이 클래스를 사용하라. 이 경우 당신은 <a class="code" href="#Form.Element.EventObserver">Form.Element.EventObserver</a> 클래스를 대신 사용할수 있다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, frequency, callback)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, frequency: interval in seconds, callback: function to be called when the element changes</td>
+						<td class="refDescription"><a class="code" href="#Abstract.TimedObserver">Abstract.TimedObserver</a>으로부터 상속. 요소의 <span class="code">value</span>프라퍼티를 모니터링할 객체를 생성.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>getValue()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">요소의 값을 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form.Observer"></a>
+			<h4><span class="objectClass">Form.Observer</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.TimedObserver">Abstract.TimedObserver</a>로 부터 상속</em></p>
+			<p>
+				폼내 데이터 항목 요소의 값이 변경하는지를 모니터링하는 <span class="code">Abstract.TimedObserver</span>의 구현물. 당신이 값 변경을 보고하는 이벤트를 드러내지 않는 요소를 포함하는 폼을 모니터링하고자 할때 이 클래스를 사용하라. 이 경우 당신은 <a class="code" href="#Form.EventObserver">Form.EventObserver</a> 클래스를 대신 사용할수 있다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](form, frequency, callback)</td><td>constructor</td>
+						<td>form: form 객체 또는 아이디, frequency: 초단위 간격, callback: form내 데이터 항목 요소가 변경될때 호출되는 함수</td>
+						<td class="refDescription"><a class="code" href="#Abstract.TimedObserver">Abstract.TimedObserver</a>로부터 상속. 변경하기 위한 폼을 모니터링할 객체 생성.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>getValue()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">모든 폼의 데이터의 직렬화를 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Abstract.EventObserver"></a>
+			<h4><span class="objectClass">Abstract.EventObserver</span> 클래스</h4>
+			<p>
+				이 클래스는 요소를 위해 값-변경 이벤트가 발생할때마다 콜백함수를 수행하는 다른 클래스를 위한 기본 클래스처럼 사용된다.
+			</p>
+			<p>
+				<span class="code">Abstract.EventObserver</span> 타입의 다중 객체는 다른것을 지우지 않고 같은 요소로 묶일수 있다. 콜백은 요소에 할당되는 순서대로 수행될것이다.
+			</p>
+			<p>
+				트리거 형태의 이벤트는 radio버튼과 checkbox를 위해서는 <span class="code">onclick</span>이고 대개의 textbox와 리스트박스/드랍다운을 위해서는 <span class="code">onchange</span>이다.
+			</p>
+			<p>
+				얻어낸 클래스는 요소내 모니터링되는 현재 값을 무엇인지 판단하기 위한 메소드를 구현하는 것이다.
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, callback)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, callback: 이벤트가 발생할때 호출되는 함수</td>
+						<td class="refDescription">요소를 모니터링할 객체 생성.</td>
+					</tr>
+					<tr class="privateMember&gt; &lt;td&gt;getValue()&lt;/td&gt;&lt;td&gt;instance, abstract&lt;/td&gt; &lt;td&gt;(none)&lt;/td&gt; &lt;td class=" refdescription="">
+					</tr>
+					<tr class="privateMember">
+						<td>registerCallback()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 요소의 이벤트를 자체적으로 묶는 객체에 의해 호출된다.
+						</td>
+					</tr>
+					<tr class="privateMember">
+						<td>registerFormCallbacks()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 폼내 각각의 데이터 항목 요소의 이벤트로 자체적으로 묶기 위한 객체에 의해 호출된다.
+						</td>
+					</tr>
+					<tr class="privateMember">
+						<td>onElementEvent()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">이 메소드는 대개 외부적으로 호출되지 않는다. 이것은 요소의 이벤트로 묶일것이다.
+						</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>프라퍼티</th><th>타입</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>element</td><td>Object</td>
+						<td class="refDescription">모니터링되는 요소객체</td>
+					</tr>
+					<tr>
+						<td>callback</td><td>Function(Object, String)</td><td class="refDescription">요소가 변경될때마다 호출되기 위한 함수. 이것은 요소객체와 새로운 값을 받을것이다.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>lastValue</td><td>String</td><td class="refDescription">요소내 확인되는 마지막 값</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form.Element.EventObserver"></a>
+			<h4><span class="objectClass">Form.Element.EventObserver</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.EventObserver">Abstract.EventObserver</a>로 부터 상속</em></p>
+			<p>
+				요소내 값 변경을 감지하기 위한 폼 데이터 항목 요소의 적절한 이벤트를 위한 콜백 함수를 수행하는 <span class="code">Abstract.EventObserver</span>의 구현물. 만약 요소가 변경을 보고하는 이벤트를 드러내지 않는다면, 당신은 <a class="code" href="#Form.Element.Observer">Form.Element.Observer</a> 클래스를 대신 사용할수 있다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](element, callback)</td><td>constructor</td>
+						<td>element: element 객체 또는 아이디, callback: function to be called when the event happens</td>
+						<td class="refDescription"><a class="code" href="#Abstract.EventObserver">Abstract.EventObserver</a>로 부터 상속. 요소의 <span class="code">value</span>프라퍼티를 모니터링할 객체 생성.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>getValue()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">요소의 값 반환.</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Form.EventObserver"></a>
+			<h4><span class="objectClass">Form.EventObserver</span> 클래스</h4>
+			<p><em><a class="code" href="#Abstract.EventObserver">Abstract.EventObserver</a>로 부터 상속</em></p>
+			<p>
+				값이 변결될때 감지하기 위한 요소의 이벤트를 사용하여 폼내 포함되는 어느 데이터 항목 요소에 변경을 모니터링하는 <span class="code">Abstract.EventObserver</span>의 구현물. 만약 폼이 변경을 보고하는 이벤트를 드러내지 않는 요소를 포함한다면, 당신은 <a class="code" href="#Form.Observer">Form.Observer</a> 클래스를 대신 사용할수 있다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>[ctor](form, callback)</td><td>constructor</td>
+						<td>form: form 객체 또는 아이디, callback: form내 데이터 항목 요소가 변경될때 호출되는 함수</td>
+						<td class="refDescription"><a class="code" href="#Abstract.EventObserver">Abstract.EventObserver</a>로부터 상속. 변경을 위해 폼을 모니터링할 객체 생성.</td>
+					</tr>
+					<tr class="privateMember">
+						<td>getValue()</td><td>instance</td>
+						<td>(none)</td>
+						<td class="refDescription">모든 폼의 데이터 직렬화를 반환</td>
+					</tr>
+				</tbody></table>
+			</p>
+			<p class="backToc"><a href="#toc">toc</a></p>
+
+
+			<!-- ------------------------------------------------------------------------------------------- -->
+			<a name="Position"></a>
+			<h4><span class="objectClass">Position</span> 객체 (예비 문서)</h4>
+			<p>
+				이 객체는 요소 위치할당을 작업할때 돕는 수많은 함수를 제공한다.
+			</p>
+			<p>
+				<table class="reference" border="1" cellspacing="0">
+					<tbody><tr>
+						<th>메소드</th><th>종류</th><th>인자</th><th>상세설명</th>
+					</tr>
+					<tr>
+						<td>prepare()</td><td>instance</td><td>(none)</td>
+						<td class="refDescription">스크롤 위치내 변경을 수용하기 위한 <span class="code">deltaX</span> 와 <span class="code">deltaY</span> 프라퍼티 조정. 페이지 스크롤후 <span class="code">withinIncludingScrolloffset</span>를 호출하기 전에 이 메소드를 호출하는 것을 기억하라.</td>
+					</tr>
+					<tr>
+						<td>realOffset(element)</td><td>instance</td><td>element: object</td>
+						<td class="refDescription">요소에 영향을 끼치는 어느 스크롤 offset를 포함하는 요소의 정확한 스크롤 offset를 가진 <span class="code">Array</span>을 반환. 이 결과 배열은 <span class="code">[total_scroll_left, total_scroll_top]</span>과 유사하다.</td>
+					</tr>
+					<tr>
+						<td>cumulativeOffset(element)</td><td>instance</td><td>element: object</td>
+						<td class="refDescription">위치가 할당된 부모 요소에 의해 부과된 어느 offset를 포함하는 요소의 정확한 위치가 할당된 offset를 가진 <span class="code">Array</span>을 반환. 결과 배열은 <span class="code">[total_offset_left, total_offset_top]</span>과 유사하다.</td>
+					</tr>
+					<tr>
+						<td>within(element, x, y)</td><td>instance</td><td>element: object, x 와 y: 위치 조정</td>
+						<td class="refDescription">만약 주어진 지점이 주어진 요소의 직사각형내 조정이 되는지 테스트.</td>
+					</tr>
+					<tr>
+						<td>withinIncludingScrolloffsets(element, x, y)</td><td>instance</td><td>element: object, x and y: coordinates of a point</td>
+						<td class="refDescription">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>overlap(mode, element)</td><td>instance</td><td>mode: 'vertical' 나 'horizontal', element: object</td>
+						<td class="refDescription"><span class="code">within()</span>은 이 메소드가 호출되기 전에 호출될 필요가 있다. 이 메소드는 요소에서 겹치는 것을 조정하는 세분화정도를 표현하는 0.0과 1.0사이의 10진수를 반환할것이다. 예를 들면, 만약 요소가 100px를 가지는 정사각형 DIV이고 (300,300)에 위치한다면, <span class="code">within(divSquare, 330, 330); overlap('vertical', divSquare);</span>은 DIV의 top border로부터 10%(30px)를 가리키는 것을 의미하는 0.10을 반환할것이다.
+						</td>
+					</tr>
+					<tr>
+						<td>clone(source, target)</td><td>instance</td><td>source: element 객체 또는 아이디, target: element 객체 또는 아이디</td>
+						<td class="refDescription">source요소에 대해 똑같이 target요소의 크기를 다시 조정하고 다시 위치를 지정 </td>
+					</tr>
+				</tbody></table>
+			</p>
+
+
+			<hr>
+			<p class="footNote">
+				<em>
+					1.4.0을 위한 이 문서는 여전히 작업중입니다. 이 문서의 업데이트를 계속 지켜봐주십시오.<br>
+					만약 에러를 발견한다면, <script>sp('let me know')</script><a href="mailto:sergio_pereira@msn.com">나에게 알려주십시오.</a> 그러면 가능한한 빨리 그것을 수정할것입니다.<br>
+
+					한글 번역에 관련된 부분은 <a  href="mailto:fromm0@gmail.com">한국어 번역자</a>으로 알려주십시오.
+				</em>
+			</p>
+
+		</div>
+	
+
+	
+
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-66384-1";
+urchinTracker();
+</script>
+<script type="text/javascript" src="http://log.inside.daum.net/dwi_log/js/dwi.js"></script>
+<script type="text/javascript" >
+	_dwiPID="d-A10-162";
+	if(typeof(_dwiCatch) == "function") { _dwiCatch();}
+</script>
+</body></html>

@@ -1,0 +1,213 @@
+<html><head><title>Introducing JSON</title></head><body bgcolor="linen">
+<table border="0" width="100%">
+  <tbody><tr>
+    <td align="center" valign="middle" width="160"><a href="mailto:json@JSON.org"><img src="http://www.json.org/img/json160.gif" align="left" border="0" height="160" width="160">
+      </a>
+    </td>
+    <td align="center" valign="middle">
+      <div style="border: 2px solid black; padding: 10px; background-color: white; margin-left: 40px; margin-right: 40px; font-family: serif;">
+        <h1 align="center">JSON 개요</h1>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+				<ul>
+				<li>원문: <a href="http://www.JSON.org" target="_blank">Introducing JSON</a></li>
+<li>역자: <a href="http://www.deve.pe.kr/blog" target="_blank">이동철</a></li>
+			</ul>
+<hr>
+<p align="left"><b>JSON</b> (JavaScript Object Notation)은 경량의 DATA-교환 형식이다.
+  이 형식은 사람이 읽고 쓰기에 용이하며, 기계가 분석하고 생성함에도 용이하다.
+  <a href="http://www.crockford.com/javascript">JavaScript
+  Programming Language</a>, <a href="http://www.ecma-international.org/publications/files/ecma-st/ECMA-262.pdf">Standard
+  ECMA-262 3rd Edition - December 1999</a>의 일부에 토대를 두고 있다. 
+  JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of
+  the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. 
+  JSON은 완벽하게 언어로 부터 독립적이지만 C-family 언어 - C, C++, C#, Java, JavaScript, Perl, Python 그외 다수 - 의 프로그래머들에게 친숙한 관습을 사용하는 텍스트 형식이다. 이러한 속성들이 JSON을 이상적인 DATA-교환 언어로 만들고 있다.</p>
+<div style="border: 1px solid black; margin: 10px; padding: 10px; float: right; background-color: white;">
+  <dl>
+    <dt><i>object</i> </dt>
+    <dd><tt><b>{}</b></tt><br>
+      <tt><b>{</b></tt> <i>members</i> <tt><b>}</b></tt> </dd>
+    <dt><tt><b></b></tt></dt>
+    <dt><i>members</i> </dt>
+    <dd><i>string</i> <tt><b>:</b></tt> <i>value</i> <br>
+      <i>members</i> <tt><b>,</b></tt> <i>string</i><tt><b></b></tt> <tt><b>:</b></tt>
+      <i>value</i> </dd>
+    <dt><i>array</i> </dt>
+    <dd><tt><b>[]</b></tt><br>
+      <tt><b>[[</b></tt> <i>elements</i> <tt><b>]</b></tt></dd>
+    <dt><i>elements</i></dt>
+    <dd><i>value</i> <br>
+      <i>elements</i> <tt><b>,</b></tt> <i>value</i></dd>
+    <dt><i>value</i> </dt>
+    <dd><i>string</i><br>
+      <i>number</i><br>
+      <i>object</i><br>
+      <i>array</i><br>
+      <tt><b>true</b></tt><br>
+      <tt><b>false</b></tt><br>
+      <tt><b>null</b></tt></dd>
+    <hr size="1" noshade>
+    <dt><i>string</i></dt>
+    <dd><tt><b>""</b></tt><br>
+      <tt><b>"</b></tt> <i>chars</i> <tt><b>"</b></tt></dd>
+    <dt><i>chars</i></dt>
+    <dd><i>char</i><br>
+      <i>chars char</i></dd>
+    <dt><i>char</i></dt>
+    <dd><small><i>any-Unicode-except-</i></small><b><tt>"</tt></b><small><i>-or-</i></small><b><tt>\</tt></b><small><i>-or-control</i></small><br>
+      <tt><b>\"</b></tt><br>
+      <tt><b>{{\}}{{\}}</b></tt><br>
+      <tt><b>\/</b></tt><br>
+      <tt><b>\b</b></tt><br>
+      <tt><b>\f</b></tt><br>
+      <tt><b>\n</b></tt><br>
+      <tt><b>\r</b></tt><br>
+      <tt><b>\t</b></tt><br>
+    <tt><b>\u</b></tt> <i>four-hex-digits</i> </dd>
+    <dt><i>number</i></dt>
+    <dd><i>int</i><br>
+        <i>int frac</i><br>
+        <i>int exp</i><br>
+        <i>int frac exp</i>
+    </dd>
+    <dt><i>int</i></dt>
+    <dd><i>digit</i><br>
+      <i>digit1-9 digits</i>
+    <br><tt><b>-</b></tt> <i>digit</i><br>
+      <tt><b>-</b></tt> <i>digit1-9 digits</i>
+    </dd>
+    <dt><i>frac</i></dt>
+    <dd><b><tt>.</tt></b> <i>digits</i></dd>
+    <dt><i>exp</i></dt>
+    <dd><i>e</i> <i>digits</i></dd>
+    <dt><i>digits</i></dt>
+    <dd><i>digit</i><br>
+    <i>digits</i> <i>digit</i></dd>
+    <dt><i>e</i></dt>
+    <dd><b><tt>e</tt></b><br>
+<b><tt>e+</tt></b><br>
+<b><tt>e-</tt></b><br>
+<b><tt>E</tt></b><br>
+<b><tt>E+</tt></b><br>
+<b><tt>E-</tt></b></dd>
+  </dl>
+</div>
+<p align="left">JSON은 두개의 구조를 기본으로 두고 있다:</p>
+<ul>
+  <li>name/value 형태의 쌍으로 collection 타입(원문: A collection of name/value pairs).
+  다양한 언어들에서, 이는 <i>object</i>, record, struct(구조체), dictionary, hash table, 키가 있는 list(원문: keyed list), 또는 연상배열(원문:associative array)로서 실현 되었다.</li>
+  <li>값들의 순서화된 리스트. 대부분의 언어들에서, 이는 <i>array</i>, vector, list, 또는 sequence로서 실현 되었다.</li>
+</ul>
+<p align="left">이러한 것들은 보편적인 DATA 구조이다. 사실상 모든 현대의 프로그래밍 언어들은 어떠한 형태로든 이것들을 지원한다.
+프로그래밍 언어들을 이용하여 호환성 있는 DATA 형식이 이러한 구조들을 근간에 두고 있는 것은 당연하다.</p>
+<p align="left">JSON 에서, 이러한 형식들을 가져간다:</p>
+<ul>
+  <li><b></b><i>object</i>는 name/value 쌍들의 비순서화된 SET이다. object는 <tt>{</tt>&nbsp;<small>(좌 중괄호)</small>로 시작하고 <tt>}</tt>&nbsp;<small>(우 중괄호)</small>로 끝내어 표현한다. 각 name 뒤에 <tt>:</tt>&nbsp;<small>(colon)</small>을 붙이고 <tt>,</tt>&nbsp;<small>(comma)</small>로 name/value 쌍들 간을 구분한다.</li>
+<p align="center"><img src="http://www.json.org/object.gif" width="598" height="113"></p>
+  <li><b> </b><i>array</i>은 값들의 순서화된 collection 이다. array는 <tt>[[</tt>&nbsp;<small>(left bracket)</small>로 시작해서 <tt>]</tt>&nbsp;<small>(right bracket)</small>로 끝내어 표현한다. <tt>,</tt>&nbsp;<small>(comma)</small>로 array의 값들을 구분한다.</li>
+<p align="center"><img src="http://www.json.org/array.gif" width="598" height="113"></p>
+  <li><i>value</i>는 큰따옴표안에 <i>string</i>, <i>number</i> ,<tt>true</tt> ,<tt>false</tt> , <tt>null</tt>, <i>object</i> ,<i>array</i>이
+  올수 있다. 이러한 구조들을 포함한다.</li>
+<p align="center"><img src="http://www.json.org/value.gif" width="598" height="278"></p>
+  <li><i>string</i>은 큰따옴표안에 둘러 싸인 zero 이상 Unicode 문자들의 조합이며, 쌍다옴표안에 감싸지며,backslash escape가 적용된다. 하나의 문자(character)도 하나의 문자열(character string)로서 표현된다. <i>string</i>은 C 또는 Java 문자열 처럼 매우 많이 비슷하다.</li>
+<p align="center"><img src="http://www.json.org/string.gif" width="598" height="413"> </p>
+</ul>
+<p><i>number</i>는 8진수와 16진수 형식을 사용하지 않는것을 제외하면 C와 Java number 처럼 매우 많이 비슷하다.</p>
+<p align="center"><img src="http://www.json.org/number.gif" height="266" width="598"></p>
+<p align="left">토근들의 어떤 쌍 사이에 공백을 삽입할수 있다. 드물게 encode된 세부 항목을 제외하면, 이렇게 설명된 JSON의 형식은 완벽하게 그 언어를 설명한다.</p>
+<div style="float: left"> 
+  <ul>
+    <li><a href="http://www.theorganization.net/work/jos/JSON.as">JSON in ActionScript</a>. 
+      <ul>
+        <li><a href="http://weblogs.macromedia.com/as_libraries/docs/corelib/com/macromedia/serialization/json/package-detail.html">ActionScript3</a>.</li>
+      </ul>
+    </li>
+    <li><a href="http://oss.metaparadigm.com/json-c/">JSON in C</a>. 
+      <ul>
+        <li><a href="http://www.JSON.org/JSON_checker/">JSON_checker</a>.</li>
+      </ul>
+    </li>
+    <li><a href="http://cvs.sourceforge.net/viewcvs.py/zoolib/zoolib/src_other/misc/">JSON 
+      in C++</a>.</li>
+    <li><a href="http://www.JSON.org/cs.zip">JSON in C#</a>. 
+      <ul>
+        <li><a href="http://jayrock.berlios.de/">Jayrock</a>.</li>
+      </ul>
+    </li>
+    <li><a href="http://jehiah.com/projects/cfjson/">JSON in Cold Fusion</a>. 
+    </li>
+    <li><a href="https://sourceforge.net/projects/is-webstart/">JSON in Delphi</a>.</li>
+    <li>JSON in <a href="http://erights.org/data/terml/embeddings.html">E</a>.</li>
+    <li><a href="http://www.erlang-projects.org/Public/news/ejson/view">JSON in 
+      Erlang</a>.</li>
+    <li>JSON in Java: 
+      <ul>
+        <li><a href="http://www.JSON.org/java/index.html">org.json</a>.</li>
+        <li><a href="http://www.JSON.org/java/simple.txt">org.json.simple</a>.</li>
+      </ul>
+    </li>
+    <li><a href="http://www.JSON.org/js.html">JSON in JavaScript</a>.</li>
+    <li>JSON in Lisp: 
+      <ul>
+        <li><a href="http://common-lisp.net/project/cl-json/">Common Lisp</a>.</li>
+        <li><a href="http://edward.oconnor.cx/elisp/json.el">Emacs Lisp</a>.</li>
+        <li><a href="http://www.call-with-current-continuation.org/eggs/json.html">Chicken 
+          Scheme</a>.</li>
+        <li><a href="http://www.lshift.net/blog/2005/08/22/json-for-mzscheme-and-a-portable-packrat-parsing-combinator-library">MZScheme</a>.</li>
+      </ul>
+    </li>
+    <li><a href="http://json.luaforge.net/">JSON in Lua</a>.</li>
+    <li><a href="http://sourceforge.net/projects/json">JSON in ML and Ruby</a>.</li>
+    <li><a href="http://freshmeat.net/projects/ocaml-json/">JSON in Objective 
+      CAML</a>.</li>
+    <li><a href="http://osteele.com/sources/openlaszlo/json/">JSON in OpenLaszlo</a>.</li>
+    <li><a href="http://search.cpan.org/dist/JSON/">JSON in Perl</a>.</li>
+    <li>JSON in PHP: 
+      <ul>
+        <li><a href="http://mike.teczno.com/json.html">JSON-PHP</a>.</li>
+        <li><a href="http://www.aurore.net/projects/php-json/">PHP-JSON</a>.</li>
+        <li><a href="http://www.reallyshiny.com/scripts/php-json-class/">PHP JSON 
+          Class</a>.</li>
+      </ul>
+    </li>
+    <li><a href="http://undefined.org/python/#simple_json">JSON in Python</a>.</li>
+    <li><a href="http://www.JSON.org/json.r">JSON in Rebol</a>.</li>
+    <li><a href="http://rubyforge.org/snippet/detail.php?type=snippet&amp;id=29">JSON 
+      in Ruby</a>.</li>
+    <li><a href="http://map1.squeakfoundation.org/sm/package/d38bdc2d-e52a-4167-ae73-2cf438c65c2f">JSON 
+      in Squeak</a>.</li>
+  </ul>
+</div>
+<div style="float: left">
+  <ul>
+    <li><a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=IntroducingJSON">Korean</a></li>
+    <li><a href="http://json.patterns.cn/">Chinese</a></li>
+    <li><a href="http://www.JSON.org/">English</a></li>
+    <li><a href="jsonfr.html">French</a></li>
+    <li><a href="http://www.very-clever.com/json.php">German</a></li>
+    <li><a href="http://www.openajax.it/json/introduzione-a-json/">Italian</a></li>
+    <li><a href="http://d.hatena.ne.jp/brazil/20050915/1126709945">Japanese</a></li>
+  </ul>
+  <ul>
+    <li><a href="JSONRequest.html">JSONRequest</a>.</li>
+    <li><a href="http://www.ietf.org/internet-drafts/draft-crockford-jsonorg-json-04.txt">Internet 
+      Draft</a>.</li>
+    <li><a href="http://goessner.net/articles/jsont/">JSONT</a>.</li>
+    <li><a href="http://json-rpc.org/">JSON-RPC</a>.</li>
+    <li><a href="http://jrp.sourceforge.net/">JSON-RPC-Page</a>.</li>
+    <li> <a href="http://oss.metaparadigm.com/jsonrpc/">JSON-RPC-JAVA ORB</a>. 
+    </li>
+    <li><a href="http://www.JSON.org/xml.html">The Fat-free Alternative to XML</a>. 
+    </li>
+    <li><a href="http://www.JSON.org/example.html">An example of JSON-encoded 
+      messages</a>.</li>
+    <li><a href="http://www.JSON.org/license.html">The JSON License</a>.</li>
+    <li><a href="http://groups.yahoo.com/group/json/">The JSON Group on Yahoo!</a></li>
+    <li><a href="http://developer.yahoo.net/common/json.html">Yahoo! JSON</a></li>
+  </ul>
+</div>
+<p align="left"><a href="mailto:json@JSON.org">json@JSON.org</a></p>
+</body></html>
+

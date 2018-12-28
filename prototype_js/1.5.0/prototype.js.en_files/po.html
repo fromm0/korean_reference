@@ -1,0 +1,782 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//! ################################################################
+//! This file contains both original and merged/adapted code.
+//! Except where indicated, all code is 
+//! Copyright (c) 2004-2007 Amazon.com, Inc., and its Affiliates.
+//! All Rights Reserved.
+//! Not to be reused without permission
+//! ################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  goN2Consts =
+  {
+    chEOL: String.fromCharCode(0x0A),
+    chSQUOTE: String.fromCharCode(0x27),
+    chDQUOTE: String.fromCharCode(0x22),
+    chBACKSLASH: String.fromCharCode(0x5C),
+    chYEN: String.fromCharCode(0xA5)
+  };
+//! ======= JSF Bootstrap (1) =======
+// $Revision: 1.1 $
+var gbN2Loaded = N2Loaded = false;
+var n2LMStart = new Date();
+
+var gaN2JSLibs = [];
+var gaN2JSLibPaths = [];
+var gaN2JSLibIds = [];
+var gaN2CSSLibs = [];
+var gaN2CSSLibPaths = [];
+var n2sRTW1='onload';
+var n2sRTWTBS='simplepopoverloaded';
+
+
+var goN2Initializer = {
+      aHandlers: [],
+      aEventsRun: [],
+      bCoreLoaded: false,
+
+	runThisWhen: function (sWhen, fFn, sComment) {
+	  if ( (typeof fFn != 'function') || fFn == null) return false;
+	  sWhen = sWhen.toLowerCase();
+	
+	  this.aHandlers[this.aHandlers.length] = { sWhen: sWhen, fFn: fFn, sComment: sComment };
+	  return true
+	},
+	run: function() {},
+	isReady: function() {return false;}
+
+};
+goN2Initializer.initializeThis = goN2Initializer.runThisWhen;
+
+function n2RunThisWhen(sWhen, fFn, sComment) {
+  goN2Initializer.runThisWhen(sWhen, fFn, sComment);
+}
+function n2RunIfLoaded(sLibID, fFn, sComment) {
+	goN2Initializer.runThisWhen(sLibID+'loaded', fFn, 'sequenced init of '+ sComment);
+}
+
+var goN2LibMon = {
+	aLibs: {},
+	nMONITORLOAD: -1,
+
+	monitorLoad: function (sLibID) {
+		this.aLibs[sLibID] = { sID: sLibID, nDuration: this.nMONITORLOAD };
+	},
+
+	stats: function() {}
+};
+
+
+//! ======= JSF Bootstrap (2) =======
+
+gsN2ImageHost='http://g-images.amazon.com/images/G/01/';
+var goJSFStringTableProperties = new Object();
+var goJSFImageURLProperties = new Object();
+goJSFStringTableProperties['loading_13548'] = 'Loading...';
+goJSFStringTableProperties['no_addl_info_36017'] = 'No additional information is available at this time';
+goJSFStringTableProperties['alt_text_click_to_expand_36018'] = 'click to expand this section and see more';
+goJSFStringTableProperties['alt_text_click_to_collapse_36019'] = 'click to collapse this section and see less';
+goJSFStringTableProperties['you_will_go_to_new_page_36022'] = '(You will go to a new page)';
+goJSFStringTableProperties['you_will_stay_here_36023'] = '(You will stay right here)';
+goJSFStringTableProperties['unable_to_get_info_36020'] = 'Unable to obtain necessary information. Please try again later';
+goJSFStringTableProperties['more-info_8559'] = 'More Info';
+goJSFStringTableProperties['less_info_36021'] = 'Less Info';
+goJSFImageURLProperties['JSF-r-orange-arrow'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/arrow-r-orange-11x10._V46891478_.gif';
+goJSFImageURLProperties['JSF-loading-bar'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/loading-bar._V46911781_.gif';
+goJSFImageURLProperties['JSF-thumb-no-image'] = 'http://ec1.images-amazon.com/images/G/01/x-locale/detail/thumb-no-image._V47060337_.gif';
+goJSFImageURLProperties['JSF-next-tan-sm'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/next-tan-sm._V46865265_.gif';
+goJSFImageURLProperties['JSF-next-tan-sm-dis'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/next-tan-sm-dis._V46840264_.gif';
+goJSFImageURLProperties['JSF-close-tan-sm'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/close-tan-sm._V46903531_.gif';
+goJSFImageURLProperties['JSF-back-tan-sm-dis'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/back-tan-sm-dis._V46863825_.gif';
+goJSFImageURLProperties['JSF-close-tan-sm-dn'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/close-tan-sm-dn._V46881222_.gif';
+goJSFImageURLProperties['JSF-d-orange-arrow'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/arrow-d-orange-11x10._V46921829_.gif';
+goJSFImageURLProperties['JSF-next-tan-sm-dn'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/next-tan-sm-dn._V46686641_.gif';
+goJSFImageURLProperties['JSF-back-tan-sm-dn'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/back-tan-sm-dn._V46913462_.gif';
+goJSFImageURLProperties['JSF-back-tan-sm'] = 'http://ec1.images-amazon.com/images/G/01/nav2/images/back-tan-sm._V46922606_.gif';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+n2RunThisWhen('dynupdateloaded', 
+      function() {
+goN2DUManager.setBaseURL('http://www.amazon.com/gp/nav2/du/');
+goN2DUManager.setProxyURL(null);
+goN2DUManager.setSessionID('105-4735723-2769227');
+goN2DUManager.setMarketplace('1');
+goN2DUManager.setHTTPRID('16DY30GHNHPK3BMQMNM6');
+      }, 
+      'DUManagerSetup'
+);
+
+
+
+
+var goCust = new Object();
+
+goCust.isLoggedIn = function() { return false; }
+n2RunThisWhen(n2sRTW1, 
+  function() {
+
+n2RunThisWhen('explorerloaded', function() {
+	goN2Explorer = new N2ExplorerPopover();
+	
+	goN2Explorer.enableLAD(true);
+	goN2Explorer.initialize('goN2ExplorerDiv', 'goN2Explorer', 'gaTD', 'div');
+	goN2Explorer.setUpdateManager(goN2DUManager);
+	goN2Explorer.setDUHandler('explorer/pexj', 'xd'); 
+	goN2Explorer.getPane(0).configureLADSupport(true, null, 'pdok', 'ptd', 'pi');
+
+	goN2Events.registerFeature('paexp', 'goN2Explorer', 'n2MouseOverHotspotSemiStatic', 'n2MouseOutHotspot');
+	}, 'explorer Init');
+}, "n2CoreLibsExt Init ");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gaN2JSLibPaths.push(
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-utilities-58503.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-events-18500.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-simplePopover-50175.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-staticPopover-23288.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-popoverPane-35440.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-dynUpdate-15704.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-multiPanePopover-33448.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-panes-56548.js',
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-explorer-38421.js');
+gaN2JSLibIds.push(
+    'utilities',
+    'events',
+    'simplePopover',
+    'staticPopover',
+    'popoverPane',
+    'dynUpdate',
+    'multiPanePopover',
+    'panes',
+    'explorer');
+gaN2CSSLibPaths.push(
+    'http://g-images.amazon.com/images/G/01/nav2/gamma/n2CoreLibs/n2CoreLibs-n2v1-57871.css');
+
+
+
+(function()
+{
+  var i;
+  var sTags = "";
+  var bIsSafari = navigator.userAgent.match(/Safari/);
+  for (i in gaN2CSSLibPaths)
+  {
+    sTags += '<lin'+'k hr'+'ef="'+gaN2CSSLibPaths[i]+'" type="text/css" rel="stylesheet">' + goN2Consts.chEOL;
+  }
+  for (i in gaN2JSLibPaths)
+  {
+    goN2LibMon.monitorLoad(gaN2JSLibIds[i]);
+    var sScript = '<sc'+'ript s'+'rc="'+gaN2JSLibPaths[i]+'" type="text/javascript"></sc'+'ript>' + goN2Consts.chEOL;
+    if (bIsSafari) document.write(sScript);
+    else sTags += sScript;
+  }
+  document.write(sTags);
+}());
+n2LLStop = new Date();
+//! ======= JSF Bootstrap (End) =======
+
+
+
+
+window.sAssocLogoImg = '<img src="http://ec1.images-amazon.com/images/G/01/associates/network/amazon-logos/amazon-logo-72-b-efedd4._V20096163_.gif" width="86" align="left" style="border:none;" height="22" border="0" />';
+window.sAssocAddCartBtn = '<input type="image" src="http://ec1.images-amazon.com/images/G/01/associates/buttons/buy-button-assoc._V46787873_.gif"  width="82" name="submit.add" height="25" border="0" />';
+window.sAssocAddCartImg = '<img src="http://ec1.images-amazon.com/images/G/01/associates/buttons/buy-button-assoc._V46787873_.gif" width="82" height="25" border="0" />';
+window.sAssocDefault = '<img src="http://ec1.images-amazon.com/images/G/01/associates/2005/le/default3._V46786627_.gif" width="419" align="center" style="border:none;" height="63" border="0" />';
+window.sAssocPreorderBtn = '<input type="image" src="http://ec1.images-amazon.com/images/G/01/nav2/dp/btn-preorder._V46894612_.gif"  width="160" name="submit.add" height="27" border="0" />';
+
+goN2Initializer.runThisWhen("onload", function() {
+ 
+    goPop = new N2MultiPanePopover();
+    if (!window.gaTD) { gaTD = new Array(); }
+ 
+    goN2Events.registerFeature('evtst',
+                               'goPop',
+                               'n2MouseOverHotspotSemiStatic',
+                               'n2MouseOutHotspot');
+
+    goPop.setButtonImages('close', 15, 15, 'close-box-up', 'close-box-down');
+    goPop.initialize('goPopElem',
+                     'goPop',
+             'gaTD'
+                    );  
+
+    goPop.setDUHandler('/gp/associates/jsf/du/pexj', 'xd'); 
+
+    oPane0 = goPop.addPane(new N2PopoverPane(), 0);
+    oPane0.setDefaultWidth('467px');
+    oPane0.setDefaultHeight('134px');
+    oPane0.configureLADSupport(true, null, 'pdok', 'ptd', 'pi');
+    oPane0.nLADTimeoutMs = 5000;
+    oPane0.populate = ASPopoverPopulate;
+    oPane0.startImpressionTimer = ASStartImpressionTimer;
+
+    var pt = document.getElementById('goPopElem_titleBar');
+    if (pt)
+    {
+        pt.style.height = '22px';
+    }
+    var pm = document.getElementById('goPopElem_main');
+    if (pm)
+    {
+        pm.style.border = '5px solid rgb(239,237,212)';
+        pm.style.borderTopStyle = 'none';
+    }
+    var pl = document.getElementById('goPopElem_titleBarTitle');
+    if (pl)
+    {
+        pl.style.display = 'block';
+        pl.style.paddingLeft = '0px';
+        pl.style.paddingTop  = '0px';
+        pl.style.backgroundColor = 'rgb(239,237,212)';
+    }
+    var pc = document.getElementById('goPopElem_titleBarTd2');
+    if (pc)
+    {
+        pc.style.backgroundColor = 'rgb(239,237,212)';
+    }
+
+    var close = document.getElementById('goPopElem_closeX');
+    if(close)
+    {
+        pc.style.padding = '2px 3px';
+        pc.style.margin  = '0px';
+    }
+
+}, "Popover init");
+
+function ASSetImpressionImg (sPopID, sTag, sLinkCode, sASIN)
+{
+    var oImg = document.getElementById(sPopID + "_assocImpImg");
+    if (!oImg) return;
+    var sUrl = "http://www.assoc-amazon.com";
+    sUrl += "/s/pp?o=1";
+    sUrl += "&amp;t=" + sTag;
+    sUrl += "&amp;l=" + sLinkCode;
+    sUrl += "&amp;asin=" + sASIN
+    oImg.src = sUrl;
+}
+
+function ASStartImpressionTimer()
+{
+    var sPopObjID = this.oPopover.myID;
+    var oA = this.oPopover.assocData;
+    var sFunc = "ASSetImpressionImg('" + sPopObjID + "','" + oA.sTag + "','" + oA.sLinkCode + "','" + oA.sASIN + "');"
+
+    this.oAssocTimer = setTimeout(sFunc, 2000);
+}
+
+function ASFixLineHeight(spanId, enclosureId, height)
+{
+    var span = document.getElementById(spanId);
+    var enclosure = document.getElementById(enclosureId);
+    if (!span || !enclosure) setTimeout("ASFixLineHeight();",500)
+    var html = span.innerHTML;
+    var current_height = parseInt(enclosure.offsetHeight);
+    if (current_height > height) 
+    {
+        html = html.substring(0,html.length - 6) + "&#8230;";
+        span.innerHTML = html;
+        ASFixLineHeight(spanId, enclosureId, height);
+    } 
+    else 
+    {
+        span.style.visibility = "visible";
+    }
+}
+
+
+function ASPopoverPopulate (sAction, sID, sType, sParams, sLinkID, sHref, sLinkText, fLADMethod) {
+
+    if (!sType || !sID ) {
+        return;
+    }        
+
+    if (this.bLADSupported) {
+        if (!this.isDataAvailable(sAction, sID, sType, sParams, sLinkID, sHref, sLinkText, fLADMethod)) {
+            return false;
+        }
+    }
+        
+    var oSourceLink = document.getElementById(sLinkID);
+    var sTag, sTgt, sLinkCode, retailHost;
+    var oAssocData = {};
+        
+    if (oSourceLink) {
+         oAssocData.sTag = sTag = oSourceLink.href.match(/tag=([^&]+)/)[1];
+        sTgt = oSourceLink.target;
+        var aLinkCode = oSourceLink.href.match(/link(C|_c)ode=([^&]+)/);
+        sLinkCode = (aLinkCode) ?  aLinkCode[2] : '';
+    }
+
+    sLinkCode = (sLinkCode) ? sLinkCode : 'as3';
+    oAssocData.sLinkCode = sLinkCode;
+    oAssocData.sASIN = sID; 
+    this.oPopover.assocData = oAssocData;
+
+    var sKey = sType+sID;
+
+    this.sLADTimeoutMessage = '<div style="text-align:center;"><br />' + new ASExternalLink(
+                                '/?tag=' + sTag 
+                                    + '&amp;creativeASIN=' + sID +
+                                    + '&amp;camp=15041'
+                                    + '&amp;creative=373517'
+                                    + '&amp;link_code=' + sLinkCode,
+                                window.sAssocDefault,
+                                "",
+                                sTgt).genHTML() + '</div>';
+
+    this.setTimeoutMessage(this.sLADTimeoutMessage);
+
+
+    var nPrivLoc = (document.all) ? 128 : 138;
+
+    var sPrivacyLink = '<div style="position:absolute;top:' + nPrivLoc + 'px;right:10px;">' +  
+               '<a href="http://rcm.amazon.com/e/cm/privacy-policy.html?o=1' +
+               '" style="color:#aaa !important;font-size:8px;' + 
+               'text-decoration:underline; font-weight:bold;">' + 
+               'Privacy Information</a></div>';
+
+
+
+    var aData = this.oPopover.getDataArray();
+
+    if (aData[sKey]) {
+
+        var ss="";
+        for (var i in aData[sKey]) {
+            ss += i + " : " + aData[sKey][i] + "\n";
+        }
+
+        if (sType == 'a' || sType == 'as' || sType == 'am') {
+
+            var sh;
+            if (!aData[sKey].nm) {
+
+                sh = this.sLADTimeoutMessage;
+                sh += sPrivacyLink;
+
+            } else {
+
+
+                var ras = aData[sKey].ras;
+                var rc = aData[sKey].rc;
+                var ra = aData[sKey].ra;
+                var img_org = '1';
+                if(img_org.length < 2)
+                {
+                    img_org = '0' + img_org;
+                }
+
+                if (ras) {
+                    ras = '<img src="http://g-images.amazon.com/images/G/'
+                        + img_org + '/detail/stars-' + 
+                    ras + '.gif" width="64" height="12" align="middle">';
+                } else if (ra >=0 && ra <=5) {
+                    var raMaj=0;
+                    var raMin=0;
+                    var raMaj = Math.floor(ra);
+                    var rem = ra-raMaj;
+
+
+                    rem = rem.toFixed(2);
+                    if ( (rem >= 0.25) && (rem < 0.75) ){
+                      raMin=5;                        
+                    } else if (rem >= 0.75) {
+                      raMaj++;
+                    }
+                    ras = '<img src="http://g-images.amazon.com/images/G/'
+                        + img_org + '/detail/stars-' + 
+                    raMaj + '-' + raMin +'.gif" width="64" height="12" align="absmiddle">';
+                } else {
+                    ras =""; 
+                }
+
+                var av = (aData[sKey].av) ? aData[sKey].av : (aData[sKey].oc > 0 ) ?                    'See site for availibility' 
+                    : 'Currently unavailable';
+
+                var th;
+                th = aData[sKey].th;
+               
+                if ((th == '') || (th == null) || goN2U.isUndefined(th) ) {
+                    th = '<img src="http://ec1.images-amazon.com/images/G/01/nav2/dp/no-image-no-ciu._SL110_V46836203_.gif" width="110" height="110" border="0" />'; 
+                }
+                th = th.replace('/>', ' align="center" vspace="5" hspace="5" border="0"/>');
+
+
+                th = th.replace('SCTHUMB', 'THUMBZZ');
+                th = th.replace('height="60"', '');
+                th = th.replace('width="60"', '');
+
+                // number of offers
+                var oc = aData[sKey].oc || null;
+
+
+                var oPop = this.oPopover;            
+                sh = "";
+
+                sh += '<table width="100%" cellpadding="0" cellspacing="0" '; 
+                sh += 'border="0" class="n2ExpProdPane">';
+            
+
+                sh +='<tr>';
+                sh +='<td align="center" align="left" valign="top" ';
+                sh +='width="110" style="border:none !important; background-color:#ffffff !important;">';
+
+
+                var oLink = new ASExternalLink (
+                    '/dp/' + sID + '?tag=' + sTag  
+                        + '&amp;camp=15041'
+                        + '&amp;creative=373497'
+                        + '&amp;link_code=' + sLinkCode,
+                    th, 
+                    '',
+                                sTgt
+                );
+
+                sh += th ? oLink.genHTML() : '&nbsp;';
+                sh +='</td>';            
+
+
+                sh += '<td style="border:none !important; line-height:14px !important; background-color:#ffffff !important;" align="left" valign="top">';
+
+                sh += '<div style="padding: 4px 4px 0px 0px; color:#000 !important;';
+                sh += ' font-size:11px !important;';
+                sh += ' font-family:Verdana, sans-serif !important;';
+                sh += ' line-height:14px !important;">';
+
+                sh += '<div style="float:right;">';
+                var nonBuyButtonTarget;
+                if((aData[sKey].variations) && (aData[sKey].variations == 1))
+                {
+                    nonBuyButtonTarget = '/dp/';
+                }
+		else if ((aData[sKey].datc) && (aData[sKey].datc == 1))
+                {   
+                    nonBuyButtonTarget = (oc && oc > 0) ? 
+                            '/gp/offer-listing/' : '/dp/';
+                }
+
+                if(nonBuyButtonTarget)
+                {
+                    oLink = new ASExternalLink (
+                            nonBuyButtonTarget + sID + '?tag=' + sTag 
+                                + '&amp;camp=15041'
+                                + '&amp;creative=373501'
+                                + '&amp;link_code=' + sLinkCode,
+                            window.sAssocAddCartImg,
+                            '',
+                            sTgt,
+                            'buyNowButton');
+                    sh += oLink.genHTML();
+		} 
+                else 
+                {
+                    //use a different button if we need to preorder
+                    var addButton;
+                    if ((aData[sKey].preorder) && (aData[sKey].preorder == 1))
+                    {
+                        addButton =  window.sAssocPreorderBtn;
+                    }
+                    else
+                    {
+                        addButton =  window.sAssocAddCartBtn;
+                    }
+
+                    sh += '<form style="display:inline;" action="http://' 
+                            + "www.amazon.com" + '/gp/aws/cart/add.html"';
+                    sh += ' method="get" target="' + sTgt + '">';
+                    sh += '<input type="hidden" name="AssociateTag" value="' + sTag + '" />';
+                    sh += '<input type="hidden" name="ASIN.1" value="' + sID + '" />';
+                    sh += '<input type="hidden" name="Quantity.1" value="1" />';
+                    sh += '<input type="hidden" name="linkCode" value="' + sLinkCode + '" />';
+                    sh += '<input type="hidden" name="creative" value="373509" />';
+                    sh += '<input type="hidden" name="camp" value="15041" />';
+                    sh += '<input type="hidden" name="huc" value="1" />';
+                    sh += addButton;
+                    sh += '</form>'
+		} 
+		sh +='</div>';
+
+
+
+                var sName = aData[sKey].nm ? aData[sKey].nm : sLinkText;
+                oLink = new ASExternalLink (
+                                '/dp/' + 
+                                sID + '?tag=' + sTag 
+                                    + '&amp;camp=15041'
+                                    + '&amp;creative=373501'
+                                    + '&amp;link_code=' + sLinkCode,
+                                '<span style="font-weight:bold !important; visibility:hidden;" id="assocPopOver-titleSpan">' + sName + '</span>', 
+                                '',
+                                sTgt,
+                                'productTitleLink');
+
+                sh += oLink.genHTML();
+                
+                if (aData[sKey].au && aData[sKey].cat != "dvd") {
+                    sh += '<br /><span id="assocPopOver-outer-author-span"> ';
+                    sh += '<span id="assocPopOver-inner-author-span" style="visibility:hidden;">';
+                    sh += 'by ' 
+                            + aData[sKey].au;
+                    sh += '</span></span>'
+                } else if (aData[sKey].mf) {
+                    sh += '<br /><span id="assocPopOver-outer-author-span"> ';
+                    sh += '<span id="assocPopOver-inner-author-span" style="visibility:hidden;">';
+                    sh += 'from ' 
+                            + aData[sKey].mf;
+                    sh += '</span></span>'
+                }
+                var lp = aData[sKey].lp;
+                var op = aData[sKey].op;
+                var bmap = aData[sKey].bmap;
+                var bp = aData[sKey].bp;
+
+                var rgxNonZero = new RegExp("[1-9]");
+                if (lp && !lp.match(rgxNonZero)) lp = null;
+                if (op && !op.match(rgxNonZero)) op = null;
+                if (bp && !bp.match(rgxNonZero)) bp = null;
+
+                if (bmap || op || bp || lp) {
+                     sh += '<br /><nobr>';
+                }
+
+                if (bmap) {
+                    oLink = new ASExternalLink (
+                        '/dp/' + sID + '?tag=' + sTag 
+                            + '&amp;camp=15041'
+                            + '&amp;creative=373501' 
+                            + '&amp;link_code=' + sLinkCode,
+                        'Click for price',
+                        '',
+                        sTgt);
+
+                        sh += 'New: ' 
+                                + oLink.genHTML() + '&nbsp;';
+                
+                } else if (op) {
+
+                        sh += 'New: '
+                                + '<span class="price" style="font-weight:bold;">' 
+                                + op + '</span> ';
+
+                        if (oc && oc > 0) {
+                            oLink = new ASExternalLink (
+                                '/gp/offer-listing/'+
+                                sID + '?tag=' + sTag 
+                                    + '&amp;camp=15041'
+                                    + '&amp;creative=373505'
+                                    + '&amp;link_code=' + sLinkCode,
+                                oc + ' new &amp; used',
+                                '',
+                                sTgt);
+                            sh += oLink.genHTML();
+                            if (bp) {
+                                sh += ' from '
+                                        + '<span class="price">' + bp + '</span>';
+                            }
+                        }
+                } else if (bp) {
+                       if (oc && oc > 0) {
+                            oLink = new ASExternalLink (
+                                '/gp/offer-listing/' + sID + '?tag=' + sTag 
+                                    + '&amp;camp=15041'
+                                    + '&amp;creative=373505'
+                                    + '&amp;link_code=' + sLinkCode,
+                                oc + ' new &amp; used',
+                                '',
+                                sTgt);
+                            sh += oLink.genHTML();
+                            sh += ' from <span class="price">' + bp + '</span>';
+                        } else {
+                            sh += 'Best Price: '
+                                    + '<span class="price" style="font-weight:bold;">' 
+                                    + bp + '</span>';
+                        }
+                } else if (lp) {
+                     sh += 'List Price: '
+                            + '<span class="price" style="font-weight:bold;">' 
+                            + lp + '</span>';
+                }
+              
+                if (bmap || op || bp || lp) {
+                     sh += '</nobr>';
+                }
+
+            
+                sh += (av) ? '<br />' + av : '';
+                sh += ras ? 
+                    '<br>Average Customer Review: ' 
+                        + ras 
+                    : '';
+                sh +='</div></div></td></tr>';
+                sh += '</table>';
+                sh += sPrivacyLink;
+
+                }
+            sh += '<div>';
+
+
+
+            sh += '<img id="' + this.oPopover.myID;
+            sh += '_assocImpImg" src="#" style="width:1px;height:1px;" />';
+
+            var sTitleImg = (window.sAssocLogoImg) ? window.sAssocLogoImg : "";
+
+            var oTitleLink = new ASExternalLink(
+                                '/?link_code=' + sLinkCode + '&amp;tag=' + sTag 
+                                    + '&amp;creativeASIN=' + sID 
+                                    + '&amp;camp=15041'
+                                    + '&amp;creative=373513',
+                                sTitleImg,
+                                "",
+                                sTgt);
+
+            this.oPopover.setTitle(oTitleLink.genHTML());
+            this.setContent(sh);
+            if (aData[sKey].nm)
+            {
+                window.setTimeout(
+                    "ASFixLineHeight("
+                        + "'assocPopOver-titleSpan'," 
+                        + "'productTitleLink',"
+                        + "42)",
+                    50);
+            }
+            
+            if (aData[sKey].mf || aData[sKey].au)
+            {
+                window.setTimeout(
+                    "ASFixLineHeight("
+                        + "'assocPopOver-inner-author-span'," 
+                        + "'assocPopOver-outer-author-span',"
+                        + "14)",
+                    50);
+            }
+            this.startImpressionTimer();
+
+        } else {
+
+
+        }
+    } else {
+        this.setContent('');
+    }
+    
+}
+
+
+function ASExternalLink(sURL, sText, sTitle, sTarget, sID) {
+    this.sURL = sURL;
+    this.sText = sText;
+    this.sTitle = sTitle;
+    this.sTarget = sTarget;
+    this.sID = sID || '';
+    return this;
+}
+ASExternalLink.prototype.genHTML = function(){
+    var sURL = "http://" + 'www.amazon.com' + this.sURL;
+
+    return '<a id="' + this.sID + '" href="' + sURL + '" target="' + this.sTarget + '" title="' + this.sTitle + '" style="text-decoration:underline !important;">' + this.sText + '</a>';
+}
+
